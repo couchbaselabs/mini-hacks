@@ -57,6 +57,7 @@ Build your first Couchbase Mobile app in just a few minutes! Take an existing An
 ```
  5. Next, let's initialize the `DataAdapter` for our list view. Create the following method, which creates our custom adapter and listens for taps on each row:
  ```java
+ 
 	private void initItemListAdapter() {
 	        kitchenSyncArrayAdapter = new KitchenSyncListAdapter(
                 getApplicationContext(),
