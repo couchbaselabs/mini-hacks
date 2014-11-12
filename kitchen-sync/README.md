@@ -7,6 +7,8 @@ Build your first Couchbase Mobile app in just a few minutes! Take an existing An
 
 ### Setup
 
+ - Clone this repo, or download the [.zip](https://github.com/couchbaselabs/mini-hacks/archive/master.zip).
+ - Make sure you are on the latest Android Studio in the `Stable` channel.
  - Launch Android Studio, choose 'Open Project...' and select the `android` folder.
  - Verify your environment is working by debugging the app on your Android device.
 
