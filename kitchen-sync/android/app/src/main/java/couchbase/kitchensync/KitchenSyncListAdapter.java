@@ -46,17 +46,22 @@ public class KitchenSyncListAdapter extends ArrayAdapter<QueryRow> {
 
         try {
             TextView label = ((ViewHolder)itemView.getTag()).label;
-            QueryRow row = getItem(position);
+            QueryRow row;
+            try {
+                row = getItem(position);
+            } catch (ClassCastException e) {
+                // We haven't fully setup the Couchbase Lite code yet.
+                return itemView;
+            }
             SavedRevision currentRevision = row.getDocument().getCurrentRevision();
-            Object check = (Object) currentRevision.getProperty("check");
+            Object check = currentRevision.getProperty("check");
             boolean isItemChecked = false;
             if (check != null && check instanceof Boolean) {
                 isItemChecked = ((Boolean)check).booleanValue();
             }
-            String groceryItemText = (String) currentRevision.getProperty("text");
-            label.setText(groceryItemText);
+            String itemText = (String) currentRevision.getProperty("text");
+            label.setText(itemText);
             label.setTextColor(Color.BLACK);
-            //ImageView icon = ((ViewHolder)itemView.getTag()).icon;
             CheckBox checked = (CheckBox)itemView.findViewById(R.id.item_checked);
             checked.setChecked(isItemChecked);
         } catch (Exception e) {

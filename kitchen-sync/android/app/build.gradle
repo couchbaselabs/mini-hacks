@@ -46,8 +46,6 @@ task startSyncGateway {
     final sg_download_url_base = "http://packages.couchbase.com/releases/couchbase-sync-gateway/1.0.3/couchbase-sync-gateway-community_1.0.3_x86_64"
     final pathFormat = "${projectDir}/build/couchbase-sync-gateway/bin/sync_gateway"
 
-    println 'Preparing Sync Gateway...'
-
     String file_path = ""
     String sg_download_url = ""
 
@@ -81,6 +79,10 @@ task startSyncGateway {
     }
 
     doFirst {
+
+        if (platform != "mac") {
+            return
+        }
 
         // Download Sync Gateway, if it's missing.
         if (!executableFile.exists()) {
@@ -138,11 +140,9 @@ task startSyncGateway {
 }
 
 task stopSyncGateway {
-    println "Stopping sync gateway"
 
     doFirst {
 
-        println "\t -->Stopping sync gateway"
         def pid_path = startSyncGateway.sg_path + ".pid"
         File pid_file = file(new File(pid_path))
 
