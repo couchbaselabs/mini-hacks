@@ -1,4 +1,8 @@
-mini-hacks
+Couchbase Mini-Hacks
 ==========
 
-A fun and quick way to discover the beauty of Couchbase Mobile in real apps.
+Mini-hacks are fun and quick challenges to discover the beauty of using Couchbase Mobile in real apps.
+
+#### Available Hacks
+
+  **[Kitch Sync](couchbaselabs/mini-hacks/tree/master/kitchen-sync)** - Build a todo list that sync!
