@@ -9,7 +9,7 @@ Build your first Couchbase Mobile app in just a few minutes! Take an existing An
 
  - Clone this repo, or download the [.zip](https://github.com/couchbaselabs/mini-hacks/archive/master.zip).
  - Make sure you are on the latest Android Studio in the `Stable` channel.
- - Launch Android Studio, choose 'Open Project...' and select the `android` folder.
+ - Launch Android Studio, choose 'Import Project...' and select the `android` folder.
  - Verify your environment is working by debugging the app on your Android device.
 
  	Note: If you are running on a Mac, the Gradle build script will automatically download 
@@ -34,7 +34,7 @@ Build your first Couchbase Mobile app in just a few minutes! Take an existing An
  3. Next, we create an index to allow for fast queries. Couchbase Lite uses MapReduce queries, which let us create our queries using plain-old Java functions. We can also do powerful transformations of documents, compute aggregates, etc. In this project, however, we're going to keep things simple and just index our documents by date.  
  ```java
  
-	viewItemsByDate = database.getView(String.format("%s/%s", designDocName, byDateViewName));
+	viewItemsByDate = database.getView("viewItemsByDate"));
 	viewItemsByDate.setMap(new Mapper() {
 	    @Override
 	    public void map(Map<String, Object> document, Emitter emitter) {
@@ -140,11 +140,11 @@ Build your first Couchbase Mobile app in just a few minutes! Take an existing An
 
         initItemListAdapter();
 
-		startLiveQuery()        
+	startLiveQuery();        
 
         ...
 ```
- 10. Now we need to handle checkbox touches. Couchbase Lite documents are like versioned-maps. If we want to change a `Document` we do it by adding a new `Revision`. We can do this easily by just supplying a `HashMap` containing a snapshot of the new values our document should have. Here's the code for the `onItemClick` handler that we already stubbed out for you in `MainActivity`:
+ 10. Now we need to handle checkbox touches. Couchbase Lite documents are like versioned-maps. If we want to change a `Document` we do it by adding a new `Revision`. We can do this easily by just supplying a `HashMap` containing a snapshot of the new values our document should have. Add the code below for the `onItemClick` handler that we already stubbed out for you in `MainActivity`:
  ```java
  
         QueryRow row = (QueryRow) adapterView.getItemAtPosition(position);
