@@ -38,7 +38,7 @@ public class KitchenSyncListAdapter extends ArrayAdapter<QueryRow> {
 
         if (itemView == null) {
             LayoutInflater vi = (LayoutInflater)parent.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            itemView = vi.inflate(R.layout.kitchen_list_item, null);
+            itemView = vi.inflate(R.layout.list_item, null);
             ViewHolder vh = new ViewHolder();
             vh.label = (TextView) itemView.findViewById(R.id.label);
             itemView.setTag(vh);

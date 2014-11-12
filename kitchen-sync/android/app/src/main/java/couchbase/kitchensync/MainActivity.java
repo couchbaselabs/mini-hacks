@@ -2,7 +2,6 @@ package couchbase.kitchensync;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.KeyEvent;
@@ -61,7 +60,7 @@ public class MainActivity extends Activity implements Replication.ChangeListener
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_list);
+        setContentView(R.layout.main);
 
         itemListView = (ListView)findViewById(R.id.itemListView);
         itemListView.setOnItemClickListener(this);
@@ -167,7 +166,7 @@ public class MainActivity extends Activity implements Replication.ChangeListener
     private void initItemListAdapter() {
         kitchenSyncArrayAdapter = new KitchenSyncListAdapter(
                 getApplicationContext(),
-                R.layout.kitchen_list_item,
+                R.layout.list_item,
                 R.id.label,
                 new ArrayList<QueryRow>()
         );
