@@ -82,6 +82,7 @@ task startSyncGateway {
 
     doFirst {
 
+        // Download Sync Gateway, if it's missing.
         if (!executableFile.exists()) {
 
             File bundle_file = file(new File(bundlePathFormat), PathValidation.NONE)
@@ -136,16 +137,12 @@ task startSyncGateway {
     }
 }
 
-//if (platform == "mac") {
-//
-//    preBuild.dependsOn startSyncGateway
-//
-//}
-
 task stopSyncGateway {
+    println "Stopping sync gateway"
 
     doFirst {
 
+        println "\t -->Stopping sync gateway"
         def pid_path = startSyncGateway.sg_path + ".pid"
         File pid_file = file(new File(pid_path))
 
@@ -168,4 +165,11 @@ task stopSyncGateway {
             println "\r\nSync Gateway was already stopped."
         }
     }
+}
+
+if (platform == "mac") {
+
+    startSyncGateway.dependsOn stopSyncGateway
+    assembleDebug.dependsOn startSyncGateway
+
 }

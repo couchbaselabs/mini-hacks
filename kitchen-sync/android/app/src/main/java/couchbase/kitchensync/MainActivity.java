@@ -43,8 +43,9 @@ import java.util.UUID;
 public class MainActivity extends Activity implements Replication.ChangeListener,
         OnItemClickListener, OnItemLongClickListener, OnKeyListener {
 
+    private static final String SYNC_URL = "http://<YOUR_WORKSTATION_IP>:4984/kitchen-sync"; // Genymotion: 192.168.56.1, Xamarin Android Player: 10.71.34.1
+
     private static final String TAG = "MainActivity";
-    private static final String SYNC_URL = "http://localhost:4894/kitchensync";
     private static final String designDocName = "kitchen-local";
     private static final String byDateViewName = "byDate";
 
@@ -58,6 +59,7 @@ public class MainActivity extends Activity implements Replication.ChangeListener
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list);
 
@@ -68,12 +70,21 @@ public class MainActivity extends Activity implements Replication.ChangeListener
         addItemEditText = (EditText)findViewById(R.id.newItemText);
         addItemEditText.setOnKeyListener(this);
 
+
         try {
             startCBLite();
         } catch (Exception e) {
             Toast.makeText(getApplicationContext(), "Error Initializing CBLIte, see logs for details", Toast.LENGTH_LONG).show();
             Log.e(TAG, "Error initializing CBLite", e);
         }
+
+        if (SYNC_URL == "http://<YOUR_WORKSTATION_IP>:4984/kitchen-sync") {
+            Toast.makeText (getApplicationContext(), "Please update MainActivity.SYNC_URL with your workstation's correct IP address.", Toast.LENGTH_LONG).show();
+            Log.e(TAG, "Please update MainActivity.SYNC_URL with your workstation's correct IP address.");
+        } else {
+            addItemEditText.requestFocus();
+        }
+
     }
 
     protected void startCBLite() throws Exception {
@@ -97,11 +108,11 @@ public class MainActivity extends Activity implements Replication.ChangeListener
 
         startLiveQuery(viewItemsByDate);
 
-        //startSync();
+        startSync();
 
     }
 
-    private void startSync() {
+    private void startSync() throws Exception {
 
         URL syncUrl;
         try {
@@ -297,9 +308,9 @@ public class MainActivity extends Activity implements Replication.ChangeListener
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            return true;
-        }
+//        if (id == R.id.action_settings) {
+//            return true;
+//        }
         return super.onOptionsItemSelected(item);
     }
 }
