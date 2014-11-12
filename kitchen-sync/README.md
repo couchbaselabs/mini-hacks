@@ -192,7 +192,7 @@ Build your first Couchbase Mobile app in just a few minutes! Take an existing An
         alert.show();
 ``` 
  13. Now is a great time to build and run on device. You should see all of your new list items saved.
- 14. Let's add sync! First, we need to provide a URL for our Couchbase Sync Gateway. If you are doing this tutorial on a Mac, then enter the IP address of your Wifi interface (i.e. don't use localhost). Add the following declaration near the other instance variable declarations in `MainActivity`:
+ 14. Let's add sync! First, we need to provide a URL for our Couchbase Sync Gateway. If you are doing this tutorial on a Mac and deploying to a real device, then enter the IP address of your Wifi interface (i.e. don't use localhost).  If you are deploying to an emulator, you will need to use `10.0.2.2` for the IP. Add the following declaration near the other instance variable declarations in `MainActivity`:
  ```java
  
  	    private static final String SYNC_URL = "http://<YOUR_WIFI_OR_ETHERNET_IP>:4984/kitchen-sync";
