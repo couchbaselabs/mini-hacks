@@ -5,4 +5,4 @@ Mini-hacks are fun and quick challenges to discover the beauty of using Couchbas
 
 #### Available Hacks
 
-  **[Kitch Sync](https://github.com/couchbaselabs/mini-hacks/tree/master/kitchen-sync)** - Build a todo list that syncs!
+  **[Kitchen Sync](https://github.com/couchbaselabs/mini-hacks/tree/master/kitchen-sync)** - Build a todo list that syncs!
