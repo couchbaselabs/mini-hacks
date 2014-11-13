@@ -20,10 +20,10 @@ Build your first Couchbase Mobile app in just a few minutes! Take an existing An
 
  ### Tutorial
 
- 1. Let's begin by starting up Couchbase Lite. Create a new `startCBLite` method:
+ 1. Let's begin by starting up Couchbase Lite. Create a new `startCBLite` method on `MainActivity`:
  ```java
  
-	protected void openCBLite() throws Exception {
+	protected void startCBLite() throws Exception {
 ```
  2. Now we need to get a reference to our database object. To do that, add:
  ```java
