@@ -19,11 +19,16 @@ Build your first Couchbase Mobile app in just a few minutes! Take an existing An
  - Mac users: while your app is running on device, open the [Sync Gateway admin console](http://localhost:4985/_admin/). Feel free to look around, but we'll come back to this later.
 
  - In addtion to what is already in the MainActivity.java file, import..
+    
     import com.couchbase.lite.android.AndroidContext;
+    
     import com.couchbase.lite.Mapper;
+    
     import com.couchbase.lite.Emitter;
 
+    
     import java.util.ArrayList;
+
     import java.net.URL;
 
  ### Tutorial
