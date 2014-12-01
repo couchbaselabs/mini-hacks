@@ -27,7 +27,6 @@ Build your first Couchbase Mobile app in just a few minutes! Take an existing An
     
     import java.util.ArrayList;
     import java.net.URL;
-
  ### Tutorial
 
 
