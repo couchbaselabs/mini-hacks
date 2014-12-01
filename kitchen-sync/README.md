@@ -21,14 +21,11 @@ Build your first Couchbase Mobile app in just a few minutes! Take an existing An
  - In addtion to what is already in the MainActivity.java file, import..
     
     import com.couchbase.lite.android.AndroidContext;
-    
     import com.couchbase.lite.Mapper;
-    
     import com.couchbase.lite.Emitter;
 
     
     import java.util.ArrayList;
-
     import java.net.URL;
 
  ### Tutorial
