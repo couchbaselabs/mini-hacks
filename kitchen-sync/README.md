@@ -18,7 +18,17 @@ Build your first Couchbase Mobile app in just a few minutes! Take an existing An
 
  - Mac users: while your app is running on device, open the [Sync Gateway admin console](http://localhost:4985/_admin/). Feel free to look around, but we'll come back to this later.
 
+ - In addtion to what is already in the MainActivity.java file, import..
+    
+    import com.couchbase.lite.android.AndroidContext;
+    import com.couchbase.lite.Mapper;
+    import com.couchbase.lite.Emitter;
+
+    
+    import java.util.ArrayList;
+    import java.net.URL;
  ### Tutorial
+
 
  1. Let's begin by starting up Couchbase Lite. Create a new `startCBLite` method on `MainActivity`:
  ```java
@@ -53,7 +63,7 @@ Build your first Couchbase Mobile app in just a few minutes! Take an existing An
     	...
         addItemEditText.setOnKeyListener(this);
 
-        openCBLite();
+        startCBLite();
 
         ...
 ```
@@ -86,7 +96,7 @@ Build your first Couchbase Mobile app in just a few minutes! Take an existing An
 
         ...
     ```
- 7. We need the ability to create a new Couchbase Lite document from the text edit box's value. In `MainActivity` you will find the `createListItem` method. Replace the last line with the following:
+ 7. We need the ability to create a new Couchbase Lite document from the text edit box's value. In `MainActivity` you will find the `createListItem` method. Replace the last line, "return null;" with the following:
  ```java
  	    Document document = database.createDocument();
 
@@ -241,5 +251,5 @@ Build your first Couchbase Mobile app in just a few minutes! Take an existing An
         ...
 ```
  17. Build and run time! Shortly after launching, you should see lots of sync activity scrolling by in ADB's logcat window for your device. Make sure that you have some list items for Couchbase Lite to sync.
- 18. Finally, let's go see the results of sync in the Sync Gateway Admin Console. Open your browser to [http://localhost:4895/_admin/](http://localhost:4895/_admin/), and click on the [kitchen-sync](http://localhost:4985/_admin/db/kitchen-sync) link. You will land on the **Documents** page, which will list all documents found. Clicking on a document id will reveal the contents of the document.
+ 18. Finally, let's go see the results of sync in the Sync Gateway Admin Console. Open your browser to [http://localhost:4985/_admin/](http://localhost:4985/_admin/), and click on the [kitchen-sync](http://localhost:4985/_admin/db/kitchen-sync) link. You will land on the **Documents** page, which will list all documents found. Clicking on a document id will reveal the contents of the document.
  19. Show off your new Couchbase Mobile app! If you're at an event, come see a Couchbase Mobile team member to claim some free stuff. :)
