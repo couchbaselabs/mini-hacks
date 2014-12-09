@@ -90,7 +90,7 @@ Build your first Couchbase Mobile app in just a few minutes! Take an existing An
     	...
         addItemEditText.setOnKeyListener(this);
 
-        openCBLite();
+        startCBLite();
 
         initItemListAdapter();
 
@@ -146,7 +146,7 @@ Build your first Couchbase Mobile app in just a few minutes! Take an existing An
     	...
         addItemEditText.setOnKeyListener(this);
 
-        openCBLite();
+        startCBLite();
 
         initItemListAdapter();
 
@@ -240,7 +240,7 @@ Build your first Couchbase Mobile app in just a few minutes! Take an existing An
     	...
         addItemEditText.setOnKeyListener(this);
 
-        openCBLite();
+        startCBLite();
 
         initItemListAdapter();
 
