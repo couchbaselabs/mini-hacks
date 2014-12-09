@@ -23,13 +23,20 @@ import com.couchbase.lite.Manager;
 import com.couchbase.lite.QueryRow;
 import com.couchbase.lite.replicator.Replication;
 import com.couchbase.lite.util.Log;
+//.
+//..
+//...
 
+import java.net.MalformedURLException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.UUID;
+import java.util.ArrayList;
+import java.net.URL;
 
 
 public class MainActivity extends Activity implements Replication.ChangeListener,
@@ -46,6 +53,9 @@ public class MainActivity extends Activity implements Replication.ChangeListener
     private ListView itemListView;
     private EditText addItemEditText;
 
+    //Deploy on device or Deploy on emulator
+    //..
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -58,12 +68,31 @@ public class MainActivity extends Activity implements Replication.ChangeListener
 
         addItemEditText = (EditText)findViewById(R.id.newItemText);
         addItemEditText.setOnKeyListener(this);
-
-        // Couchbase initialization code goes here
-        // See steps 4, 6, 9, and 16.
-
         addItemEditText.requestFocus();
+        //Couchbase initialization code goes here - See steps 4, 6, 9, and 16.
+        //Step 4 - Start Couchbase Lite
+
+
+        //Step 6 - Call the 'initItemListAdapter' method
+
+
+        //Step 9 - Call the 'startLiveQuery' method within the 'onCreate' method
+
+
+        //Step 15 - Call the 'startSync' method within the 'onCreate' method
+
+
+
     }
+
+    //Step 1 - created 'startCBLite' method
+    ...{
+        //Step 2 - Get reference to database object
+
+        //Step 3 - Create Index to allow for Fast Queries
+
+    }
+
 
     @Override
     public void changed(Replication.ChangeEvent event) {
@@ -116,10 +145,17 @@ public class MainActivity extends Activity implements Replication.ChangeListener
 
         String id = currentTime + "-" + uuid.toString();
 
-        // Step 7 code replaces this
+        // Step 7 - Create document from text box's field entry.  code replaces this
         return null;
         //
     }
+
+    //Step 5 - Initialize 'DataAdapter' for our list view
+
+    //Step 8 - Create 'startLiveQuery' method to do 'LiveQuery'
+
+    //Step 14 - Create startSync() method
+
 
     /**
      * Handle click on item in list
@@ -127,6 +163,8 @@ public class MainActivity extends Activity implements Replication.ChangeListener
     public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
 
         // Step 10 code goes here
+        // This code handles checkbox touches.  Couchbase Lite documents are like versioned-maps.
+        // To change a Document, add a new Revision.
 
     }
 
@@ -135,7 +173,7 @@ public class MainActivity extends Activity implements Replication.ChangeListener
      */
     public boolean onItemLongClick(AdapterView<?> adapterView, View view, int position, long id) {
 
-        // Step 11 code goes here
+        // Step 11 code goes here - Deleting Items
 
         return true;
     }
