@@ -10,3 +10,6 @@ Mini-hacks are fun and quick challenges to discover the beauty of using Couchbas
 #### Development Resources
 * [Developer Portal](http://developer.couchbase.com/mobile/)
 * [Developer Forum](http://forums.couchbase.com/c/mobile)
+
+#### Feedback
+[Tell us what you think!](https://docs.google.com/forms/d/1Qs9svNccKCC5iji6NXC35uCvdmtFzB0dopz57iApSnY/viewform)
