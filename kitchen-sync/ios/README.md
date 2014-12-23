@@ -12,6 +12,10 @@ Build your first Couchbase Mobile app in just a few minutes! Take an existing iO
 
 2. Clone this [repo](https://github.com/couchbaselabs/mini-hacks) or download the [zip](https://github.com/couchbaselabs/mini-hacks/archive/master.zip).
 
+ ```
+ $ git clone https://github.com/couchbaselabs/mini-hacks
+ ```
+
 3. Go to the workspace folder<br>
  ```
  $ cd mini-hacks/kitchen-sync/ios
@@ -28,7 +32,8 @@ Build your first Couchbase Mobile app in just a few minutes! Take an existing iO
 
 1. Open KitchenSync.xcodeproj with your XCode.
 
-2. Open the AppDelegate.h and add the following import statement:<br>
+2. Open the AppDelegate.h and add the following import statement:
+
  ```objective-c
  #import <CouchbaseLite/CouchbaseLite.h>
  ```
@@ -172,7 +177,8 @@ Build your first Couchbase Mobile app in just a few minutes! Take an existing iO
 
  ```objective-c
 	- (bool)couchTableSource:(CBLUITableSource *)source deleteRow:(CBLQueryRow *)row {
-	    return [source deleteDocuments:@[row.document] error:nil];
+		NSError *error;
+		return [row.document deleteDocument:&error];
 	}
  ```
 
