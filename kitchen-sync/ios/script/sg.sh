@@ -24,13 +24,13 @@ function startSyncGateway
 		cleanSyncGateway
 		mkdir ${SG_DIR}
 		curl -s -o ${SG_PKG} ${SG_URL}
-		tar xvf ${SG_PKG} -C ${SG_DIR}
+		tar xf ${SG_PKG} -C ${SG_DIR}
 		rm -f ${SG_PKG}
 	fi
 
 	stopSyncGateway
 
-	${SG_BIN} ${SG_CFG} &
+	${SG_BIN} ${SG_CFG}
 	echo $! > ${SG_PID}
 }
 
@@ -39,7 +39,7 @@ function stopSyncGateway
 	if  [[ -e ${SG_PID} ]]
 		then
 		PID="$(cat ${SG_PID})"
-		kill -9 $(cat ${SG_PID})
+		kill -9 $(cat ${SG_PID}) 2>/dev/null
 		rm -f ${SG_PID}
 	fi
 }
