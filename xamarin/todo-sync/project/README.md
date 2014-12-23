@@ -1,11 +1,15 @@
-#Xamarin CouchbaseLite Workshop
+#Xamarin CouchbaseLite Hack
 
-NOTE: The **src** folder contains a **workshop_start** folder containing a solution to serve as a starting point for the workshop. There is also a **complete** folder containing the finished solution.
+NOTE: 
+Complete the Couchbase Mobile Tutorial first prior to the Xamarin Hack
+
+The **src** folder contains a **workshop_start** folder containing a solution to serve as a starting point for the workshop. There is also a **complete** folder containing the finished solution.
 
 ##Xamarin.iOS
 ###Running the Sample Application
 
-First, let's open the Tasky sample application. Tasky is a simple To-Do application that you can use to track tasks. It's a cross-platform sample that shares its core code between iOS and Android.
+First, let's open the Tasky sample application. Tasky is a simple To-Do application that you can use to track tasks. 
+It's a cross-platform sample that shares its core code between iOS and Android.
 
 The solution and project structure in the Solution Pad shows all the files in the solution and should look familiar to any modern IDE user.
 
