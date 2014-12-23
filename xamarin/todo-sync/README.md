@@ -14,6 +14,10 @@ Build your first Couchbase Mobile app in just a few minutes! Take an existing Xa
 
 ### Tutorial
 
+Complete the 15 Couchbase Mobile Tutorial steps here.  Open the 'project' folder and then open the 'src' folder.  Within the 'workshop_start' folder, launch TaskyCouchbase.sln and then open the 'TaskyShared' project folder.
+
+Double click 'TaskManager.cs' where you will..
+
 **1. Add the Couchbase Lite using statement** 
 
 This way you will have the available classes and methods that we will need to use.
