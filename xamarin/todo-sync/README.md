@@ -218,3 +218,11 @@ To delete a document, you will first obtain the document you wish to delete from
 \*\*Your Code should look like
 
     doc.Delete ();
+
+**Ready to Build & Run**
+
+Now you are ready to build your Xamarin project and run the application.  
+
+**Congrats!**
+
+You made it! Challenge complete but there is more.  Open the 'project' folder and follow the Xamarin CouchbaseLite Hack instructions.
