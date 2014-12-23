@@ -1,7 +1,7 @@
 #Xamarin CouchbaseLite Hack
 
 NOTE: 
-Complete the Couchbase Mobile Tutorial first prior to the Xamarin Hack
+Complete the Couchbase Mobile Tutorial first prior to the Xamarin CouchbaseLite Hack
 
 The **src** folder contains a **workshop_start** folder containing a solution to serve as a starting point for the workshop. There is also a **complete** folder containing the finished solution.
 
