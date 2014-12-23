@@ -32,7 +32,7 @@ Build your first Couchbase Mobile app in just a few minutes! Take an existing iO
  ```objective-c
  #import <CouchbaseLite/CouchbaseLite.h>
  ```
-3. Next, we setup a Couchbase Lite database called `kitchen-sync`. Create a new `setupDatabase` method on the AppDelegate.m as follows.
+3. Next, setup a Couchbase Lite database called `kitchen-sync`. Create a new `setupDatabase` method on the AppDelegate.m as follows.
 
  ```objective-c
 	- (void)setupDatabase {
@@ -45,7 +45,7 @@ Build your first Couchbase Mobile app in just a few minutes! Take an existing iO
 	}
  ```
 
-4. We create a view named `viewItemsByDate` and setup a map block to index documents by date. Couchbase Lite uses MapReduce queries, which let us create our queries using functions. We can also do powerful transformations of documents, compute aggregates, etc. Add the following code to the end of the `setupDatabase` method.
+4. Create a view named `viewItemsByDate` and setup a map block to index documents by date. Couchbase Lite uses MapReduce queries, which let us create our queries using functions. We can also do powerful transformations of documents, compute aggregates, etc. Add the following code to the end of the `setupDatabase` method.
 
  ```objective-c
  	[[_database viewNamed: @"viewItemsByDate"] setMapBlock: MAPBLOCK({
@@ -243,3 +243,5 @@ Build your first Couchbase Mobile app in just a few minutes! Take an existing iO
 21. Finally, let's go see the results of sync in the Sync Gateway Admin Console. Open your browser to [http://localhost:4985/_admin/](http://localhost:4985/_admin/), and click on the [kitchen-sync](http://localhost:4985/_admin/db/kitchen-sync) link. You will land on the **Documents** page, which will list all documents found. Clicking on a document id will reveal the contents of the document.
 
 22. Show off your new Couchbase Mobile app! If you're at an event, come see a Couchbase Mobile team member to claim some free stuff. :)
+
+23. Tell us what you think [here](https://docs.google.com/forms/d/1Qs9svNccKCC5iji6NXC35uCvdmtFzB0dopz57iApSnY/viewform)!
