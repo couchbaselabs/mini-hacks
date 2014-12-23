@@ -19,7 +19,7 @@ Build your first Couchbase Mobile app in just a few minutes! Take an existing iO
 
 4. Download the framework from [here](http://packages.couchbase.com/releases/couchbase-lite/ios/1.0.3.1/couchbase-lite-ios-community_1.0.3.1.zip), upzip, and copy CouchbaseLite.framework to the Frameworks folder.
 
-5. Start sync-gateway by running the following command (Later on you could stop the sycn-gateway by running sg.sh script with either `stop` or `clean` option).
+5. Start sync-gateway by running the following command (Later on you could stop the sync-gateway by running sg.sh script with either `stop` or `clean` option).
  ```
  $ ./script/sg.sh start 
  ```
@@ -178,7 +178,7 @@ Build your first Couchbase Mobile app in just a few minutes! Take an existing iO
 
 15. Now is a great time to build and run the application.
 
-16. Let's add sycn! Go back to `AppDelegate.m` and Define your sync url location above the implementation of the `AppDelegate` class.
+16. Let's add sync! Go back to `AppDelegate.m` and Define your sync url location above the implementation of the `AppDelegate` class.
 
  ```objective-c
  	#define kSyncUrl @"http://<YOUR_WIFI_OR_ETHERNET_IP>:4984/kitchen-sync"
