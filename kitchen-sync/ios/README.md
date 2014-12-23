@@ -21,7 +21,7 @@ Build your first Couchbase Mobile app in just a few minutes! Take an existing iO
  $ cd mini-hacks/kitchen-sync/ios
  ```
 
-4. Download the framework from [here](http://packages.couchbase.com/releases/couchbase-lite/ios/1.0.3.1/couchbase-lite-ios-community_1.0.3.1.zip), unzip, and copy CouchbaseLite.framework to the Frameworks folder.
+4. Download the framework from [here](http://packages.couchbase.com/releases/couchbase-lite/ios/1.0.3.1/couchbase-lite-ios-community_1.0.3.1.zip), unzip, and copy `CouchbaseLite.framework` to the `Frameworks` folder.
  ```
  $ unzip ~/Downloads/couchbase-lite-ios-community_1.0.3.1.zip -d /tmp/cblite
  $ cp -r /tmp/cblite/CouchbaseLite.framework Frameworks
