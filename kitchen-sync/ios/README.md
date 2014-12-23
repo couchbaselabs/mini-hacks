@@ -101,7 +101,7 @@ Build your first Couchbase Mobile app in just a few minutes! Take an existing iO
 
 10. Call the `setupDataSource` method from the `viewDidLoad` method.
 
-11. To display item documents on the tableview, we implement `couchTableSource:willUseCell:forRow:` method. Basically the `couchTableSource:willUseCell:forRow:` method is called from the `tableView:cellForRowAtIndexPath:` method just before it returns, giving the delegate a chance to customize the new cell. Here we handle displaing text and a checked mark.
+11. To display item documents on the tableview, we implement `couchTableSource:willUseCell:forRow:` method. Basically the `couchTableSource:willUseCell:forRow:` method is called from the `tableView:cellForRowAtIndexPath:` method just before it returns, giving the delegate a chance to customize the new cell. Here we handle displaing text and a check mark.
 
  ```objective-c
 	- (void)couchTableSource:(CBLUITableSource *)source willUseCell:(UITableViewCell *)cell forRow:(CBLQueryRow *)row {
