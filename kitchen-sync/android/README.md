@@ -250,11 +250,10 @@ Build your first Couchbase Mobile app in just a few minutes! Take an existing An
 
         ...
 ```
+ 17. Build and run time! Shortly after launching, you should see lots of sync activity scrolling by in ADB's logcat window for your device. Make sure that you have some list items for Couchbase Lite to sync.
 
-17. Build and run time! Shortly after launching, you should see lots of sync activity scrolling by in ADB's logcat window for your device. Make sure that you have some list items for Couchbase Lite to sync.
+ 18. Finally, let's go see the results of sync in the Sync Gateway Admin Console. Open your browser to [http://localhost:4985/_admin/](http://localhost:4985/_admin/), and click on the [kitchen-sync](http://localhost:4985/_admin/db/kitchen-sync) link. You will land on the **Documents** page, which will list all documents found. Clicking on a document id will reveal the contents of the document.
 
-18. Finally, let's go see the results of sync in the Sync Gateway Admin Console. Open your browser to [http://localhost:4985/_admin/](http://localhost:4985/_admin/), and click on the [kitchen-sync](http://localhost:4985/_admin/db/kitchen-sync) link. You will land on the **Documents** page, which will list all documents found. Clicking on a document id will reveal the contents of the document.
-
-19. Show off your new Couchbase Mobile app! If you're at an event, come see a Couchbase Mobile team member to claim some free stuff. :)
-
-20. Don't forget to [tell us what you think](https://docs.google.com/forms/d/1Qs9svNccKCC5iji6NXC35uCvdmtFzB0dopz57iApSnY/viewform)!
+ 19. Show off your new Couchbase Mobile app! If you're at an event, come see a Couchbase Mobile team member to claim some free stuff. :)
+ 
+ 20. Don't forget to [tell us what you think](https://docs.google.com/forms/d/1Qs9svNccKCC5iji6NXC35uCvdmtFzB0dopz57iApSnY/viewform)!
