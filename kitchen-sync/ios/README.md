@@ -244,4 +244,4 @@ Build your first Couchbase Mobile app in just a few minutes! Take an existing iO
 
 22. Show off your new Couchbase Mobile app! If you're at an event, come see a Couchbase Mobile team member to claim some free stuff. :)
 
-23. Tell us what you think [here](https://docs.google.com/forms/d/1Qs9svNccKCC5iji6NXC35uCvdmtFzB0dopz57iApSnY/viewform)!
+23. Don't forget to [tell us what you think](https://docs.google.com/forms/d/1Qs9svNccKCC5iji6NXC35uCvdmtFzB0dopz57iApSnY/viewform)!
