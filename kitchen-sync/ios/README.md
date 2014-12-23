@@ -12,14 +12,22 @@ Build your first Couchbase Mobile app in just a few minutes! Take an existing iO
 
 2. Clone this [repo](https://github.com/couchbaselabs/mini-hacks) or download the [zip](https://github.com/couchbaselabs/mini-hacks/archive/master.zip).
 
+ ```
+ $ git clone https://github.com/couchbaselabs/mini-hacks
+ ```
+
 3. Go to the workspace folder<br>
  ```
  $ cd mini-hacks/kitchen-sync/ios
  ```
 
-4. Download the framework from [here](http://packages.couchbase.com/releases/couchbase-lite/ios/1.0.3.1/couchbase-lite-ios-community_1.0.3.1.zip), upzip, and copy CouchbaseLite.framework to the Frameworks folder.
+4. Download the framework from [here](http://packages.couchbase.com/releases/couchbase-lite/ios/1.0.3.1/couchbase-lite-ios-community_1.0.3.1.zip), unzip, and copy `CouchbaseLite.framework` to the `Frameworks` folder.
+ ```
+ $ unzip ~/Downloads/couchbase-lite-ios-community_1.0.3.1.zip -d /tmp/cblite
+ $ cp -r /tmp/cblite/CouchbaseLite.framework Frameworks
+ ```
 
-5. Start sync-gateway by running the following command (Later on you could stop the sycn-gateway by running sg.sh script with either `stop` or `clean' option).
+5. Start sync-gateway by running the following command.
  ```
  $ ./script/sg.sh start 
  ```
@@ -28,11 +36,12 @@ Build your first Couchbase Mobile app in just a few minutes! Take an existing iO
 
 1. Open KitchenSync.xcodeproj with your XCode.
 
-2. Open the AppDelegate.h and the follwing import statement:<br>
+2. Open the AppDelegate.h and add the following import statement:
+
  ```objective-c
  #import <CouchbaseLite/CouchbaseLite.h>
  ```
-3. Next, we setup a Couchbase Lite database called `kitchen-sync`. Create a new `setupDatabase` method on the AppDelegate.m as follows.
+3. Next, setup a Couchbase Lite database called `kitchen-sync`. Create a new `setupDatabase` method on the AppDelegate.m as follows.
 
  ```objective-c
 	- (void)setupDatabase {
@@ -45,7 +54,7 @@ Build your first Couchbase Mobile app in just a few minutes! Take an existing iO
 	}
  ```
 
-4. We create a view named `viewItemsByDate` and setup a map block to index documents by date. Couchbase Lite uses MapReduce queries, which let us create our queries using functions. We can also do powerful transformations of documents, compute aggregates, etc. Add the following code to the end of the `setupDatabase` method.
+4. Create a view named `viewItemsByDate` and setup a map block to index documents by date. Couchbase Lite uses MapReduce queries, which let us create our queries using functions. We can also do powerful transformations of documents, compute aggregates, etc. Add the following code to the end of the `setupDatabase` method.
 
  ```objective-c
  	[[_database viewNamed: @"viewItemsByDate"] setMapBlock: MAPBLOCK({
@@ -101,7 +110,7 @@ Build your first Couchbase Mobile app in just a few minutes! Take an existing iO
 
 10. Call the `setupDataSource` method from the `viewDidLoad` method.
 
-11. To display item documents on the tableview, we implement `couchTableSource:willUseCell:forRow:` method. Basically the `couchTableSource:willUseCell:forRow:` method is called from the `tableView:cellForRowAtIndexPath:` method just before it returns, giving the delegate a chance to customize the new cell. Here we handle displaing text and a checked mark.
+11. To display item documents on the tableview, we implement `couchTableSource:willUseCell:forRow:` method. Basically the `couchTableSource:willUseCell:forRow:` method is called from the `tableView:cellForRowAtIndexPath:` method just before it returns, giving the delegate a chance to customize the new cell. Here we handle displaing text and a check mark.
 
  ```objective-c
 	- (void)couchTableSource:(CBLUITableSource *)source willUseCell:(UITableViewCell *)cell forRow:(CBLQueryRow *)row {
@@ -172,13 +181,14 @@ Build your first Couchbase Mobile app in just a few minutes! Take an existing iO
 
  ```objective-c
 	- (bool)couchTableSource:(CBLUITableSource *)source deleteRow:(CBLQueryRow *)row {
-	    return [source deleteDocuments:@[row.document] error:nil];
+		NSError *error;
+		return [row.document deleteDocument:&error];
 	}
  ```
 
 15. Now is a great time to build and run the application.
 
-16. Let's add sycn! Go back to `AppDelegate.m` and Define your sync url location above the implementation of the `AppDelegate` class.
+16. Let's add sync! Go back to `AppDelegate.m` and Define your sync url location above the implementation of the `AppDelegate` class.
 
  ```objective-c
  	#define kSyncUrl @"http://<YOUR_WIFI_OR_ETHERNET_IP>:4984/kitchen-sync"
@@ -240,6 +250,6 @@ Build your first Couchbase Mobile app in just a few minutes! Take an existing iO
 
 20. Build and run time! When you add a new item or check/uncheck the item, you should see some sync-gateway activities on the console having the sync-gateway running.
 
-21. Finally, let's go see the results of sync in the Sync Gateway Admin Console. Open your browser to [http://localhost:4985/_admin/](http://localhost:4985/_admin/), and click on the [kitchen-sync](http://localhost:4985/_admin/db/kitchen-sync) link. You will land on the **Documents** page, which will list all documents found. Clicking on a document id will reveal the contents of the document.
+21. Let's go see the results of sync in the Sync Gateway Admin Console. Open your browser to [http://localhost:4985/_admin/](http://localhost:4985/_admin/), and click on the [kitchen-sync](http://localhost:4985/_admin/db/kitchen-sync) link. You will land on the **Documents** page, which will list all documents found. Clicking on a document id will reveal the contents of the document.
 
-22. Show off your new Couchbase Mobile app! If you're at an event, come see a Couchbase Mobile team member to claim some free stuff. :)
+22. Finally, we'd love to hear from you. [Tell us what you think](https://docs.google.com/forms/d/1Qs9svNccKCC5iji6NXC35uCvdmtFzB0dopz57iApSnY/viewform)!
