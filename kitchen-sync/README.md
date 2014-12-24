@@ -1,7 +1,7 @@
 Couchbase Kitchen Sync Mini-Hack
 ==========
 
-The Kitchen Sync Mini-Hack is fast and easy challenge to build a todo list that works online and offline todo list using Couchbase Mobile.
+The Kitchen Sync Mini-Hack is fast and easy challenge to build a todo list that works online and offline using Couchbase Mobile.
 
 #### Available Platforms
 
