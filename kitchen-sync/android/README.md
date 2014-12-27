@@ -44,7 +44,7 @@ Build your first Couchbase Mobile app in just a few minutes! Take an existing An
  3. Next, we create an index to allow for fast queries. Couchbase Lite uses MapReduce queries, which let us create our queries using plain-old Java functions. We can also do powerful transformations of documents, compute aggregates, etc. In this project, however, we're going to keep things simple and just index our documents by date.  
  ```java
  
-	viewItemsByDate = database.getView("viewItemsByDate"));
+	viewItemsByDate = database.getView("viewItemsByDate");
 	viewItemsByDate.setMap(new Mapper() {
 	    @Override
 	    public void map(Map<String, Object> document, Emitter emitter) {
