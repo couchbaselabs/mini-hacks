@@ -5,7 +5,8 @@ The Kitchen Sync Mini-Hack is fast and easy challenge to build a todo list that 
 
 #### Available Platforms
 
-* [iOS](https://github.com/couchbaselabs/mini-hacks/tree/master/kitchen-sync/ios)
+* [iOS (Objective-C)](https://github.com/couchbaselabs/mini-hacks/tree/master/kitchen-sync/ios)
+* [iOS (Swift)](https://github.com/couchbaselabs/mini-hacks/tree/master/kitchen-sync/swift)
 * [Android](https://github.com/couchbaselabs/mini-hacks/tree/master/kitchen-sync/android)
 
 #### Development Resources
