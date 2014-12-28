@@ -116,7 +116,7 @@ Build your first Couchbase Mobile app in just a few minutes! Take an existing iO
 
 10. Call the `setupDataSource` function from the `viewDidLoad` function.
 
-```swift
+ ```swift
     setupDataSource()
  ```
 
