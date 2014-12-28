@@ -1,0 +1,13 @@
+{
+     "log":["REST", "REST+", "HTTP", "HTTP+", "Access", "Cache", "Shadow", "Shadow+", "CRUD", "CRUD+", "Changes", "Changes+", "JSON", "JSON+"],
+     "verbose": true,
+     "databases": {
+          "kitchen-sync": {
+             "server":"walrus:",
+             "users": {"GUEST": {"disabled": false, "all_channels": ["*"], "admin_channels": ["*"]}},
+             "bucket":"kitchensync",
+             "sync":`function(doc) {channel(doc.channels);}`
+          }
+     },
+     "facebook" : { "register" : true }
+}
