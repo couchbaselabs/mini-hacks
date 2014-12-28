@@ -110,7 +110,7 @@ Build your first Couchbase Mobile app in just a few minutes! Take an existing iO
 
 10. Call the `setupDataSource` method from the `viewDidLoad` method.
 
-```objective-c
+ ```objective-c
 	[self setupDataSource];
  ```
 
