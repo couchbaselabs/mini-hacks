@@ -38,26 +38,23 @@
 - (void)setupDataSource {
 // Step 8: Create a LiveQuery from the view named "viewItemsByDate".
 
-// Step 9: Create a CBLUITableSource and link it with the created LiveQuery
+// Step 9: Create a CBLUITableSource and link it with the created LiveQuery.
 
 }
 */
 
 #pragma mark CBLUITableSource
 
-// Step 11: Setup tableview display
-// - (void)couchTableSource:(CBLUITableSource *)source willUseCell:(UITableViewCell *)cell forRow:(CBLQueryRow *)row { }
+// Step 11: Setup tableview display.
 
-// Step 14: Delete a document
-// - (bool)couchTableSource:(CBLUITableSource *)source deleteRow:(CBLQueryRow *)row { }
+// Step 14: Delete a document.
 
 #pragma mark UITableViewDelegate
 
-// Step 12: Setup tableview row selection
-// - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath { }
+// Step 12: Setup tableview row selection.
 
 #pragma mark UITextFieldDelegate
 
-// Step 13: Create a new document after entering data
+// Step 13: Create a new document after entering data.
 
 @end

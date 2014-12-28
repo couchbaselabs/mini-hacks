@@ -23,9 +23,9 @@
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Step 5: Call setupDatabase method
+    // Step 5: Call setupDatabase method.
 
-    // Step 19: Call startSync method
+    // Step 19: Call startSync method.
 
     return YES;
 }
@@ -39,11 +39,9 @@
 }
 */
 
-// Step 17: Create startSync method
-// - (void)startSync { }
+// Step 17: Create startSync method.
 
-// Step 18: Observe replication change notificatioj
-//- (void)replicationProgress:(NSNotification *)notification { }
+// Step 18: Observe replication change notification.
 
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
