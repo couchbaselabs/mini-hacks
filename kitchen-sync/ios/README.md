@@ -68,10 +68,10 @@ Build your first Couchbase Mobile app in just a few minutes! Take an existing iO
 
  ```objective-c
 	- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-		// Step 6: Call setupDatabase method
-    	[self setupDatabase];
-    	...
-    	return YES;
+		// Step 5: Call setupDatabase method
+		[self setupDatabase];
+		...
+		return YES;
 	}
  ```
 
@@ -90,14 +90,14 @@ Build your first Couchbase Mobile app in just a few minutes! Take an existing iO
 	}
  ```
 
-8. Create a LiveQuery from the `viewItemsByDate` view that we setup in the Step 5.
+8. Inside the `setupDataSource` method, create a LiveQuery from the `viewItemsByDate` view that we setup in the Step 4.
 
  ```objective-c
 	CBLLiveQuery *query = [[[_database viewNamed:@"viewItemsByDate"] createQuery] asLiveQuery];
 	query.descending = YES;
  ```
 
-9. Create a `CBLUITableSource` dataSource object, which basically implements the `UITableViewDataSource` protocol. We configure the `CBLUITableSource` dataSource object with the LiveQuery created from the Step 9. Then, we setup the tableView's dataSource and deletegate object.
+9. Create a `CBLUITableSource` dataSource object, which basically implements the `UITableViewDataSource` protocol. We configure the `CBLUITableSource` dataSource object with the LiveQuery created from the Step 8. Then, we setup the tableView's dataSource and deletegate object.
 
  ```objective-c
 	_dataSource = [[CBLUITableSource alloc] init];
@@ -110,18 +110,22 @@ Build your first Couchbase Mobile app in just a few minutes! Take an existing iO
 
 10. Call the `setupDataSource` method from the `viewDidLoad` method.
 
+```objective-c
+	[self setupDataSource];
+ ```
+
 11. To display item documents on the tableview, we implement `couchTableSource:willUseCell:forRow:` method. Basically the `couchTableSource:willUseCell:forRow:` method is called from the `tableView:cellForRowAtIndexPath:` method just before it returns, giving the delegate a chance to customize the new cell. Here we handle displaing text and a check mark.
 
  ```objective-c
 	- (void)couchTableSource:(CBLUITableSource *)source willUseCell:(UITableViewCell *)cell forRow:(CBLQueryRow *)row {
-		NSDictionary* rowValue = row.value;
+		NSDictionary *rowValue = row.value;
 		cell.textLabel.text = rowValue[@"text"];
 		BOOL checked = [rowValue[@"check"] boolValue];
 		if (checked) {
 			cell.textLabel.textColor = [UIColor grayColor];
 			cell.accessoryType = UITableViewCellAccessoryCheckmark;
-    	} else {
-    		cell.textLabel.textColor = [UIColor blackColor];
+		} else {
+			cell.textLabel.textColor = [UIColor blackColor];
     		cell.accessoryType = UITableViewCellAccessoryNone;
     	}
 	}
@@ -131,21 +135,21 @@ Build your first Couchbase Mobile app in just a few minutes! Take an existing iO
 
  ```objective-c
 	- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    	CBLQueryRow *row = [_dataSource rowAtIndex:indexPath.row];
-    	CBLDocument *doc = row.document;
-
-    	NSError *error;
-    	CBLSavedRevision *newRev = [doc update:^BOOL(CBLUnsavedRevision *rev) {
-    		// Toggle the "check" property of the new revision to be saved:
-    		BOOL wasChecked = [rev[@"check"] boolValue];
-    		rev[@"check"] = @(!wasChecked);
-    		return YES;
-    	} error:&error];
-    	
-    	if (!newRev) {
-    		AppDelegate *app = [[UIApplication sharedApplication] delegate];
-    		[app showMessage:@"Failed to update item" withTitle:@"Error"];
-    	}
+	    	CBLQueryRow *row = [_dataSource rowAtIndex:indexPath.row];
+	    	CBLDocument *doc = row.document;
+	
+	    	NSError *error;
+	    	CBLSavedRevision *newRev = [doc update:^BOOL(CBLUnsavedRevision *rev) {
+	    		// Toggle the "check" property of the new revision to be saved:
+	    		BOOL wasChecked = [rev[@"check"] boolValue];
+	    		rev[@"check"] = @(!wasChecked);
+	    		return YES;
+	    	} error:&error];
+	    	
+	    	if (!newRev) {
+	    		AppDelegate *app = [[UIApplication sharedApplication] delegate];
+	    		[app showMessage:@"Failed to update item" withTitle:@"Error"];
+	    	}
 	}
  ```
 
@@ -167,7 +171,7 @@ Build your first Couchbase Mobile app in just a few minutes! Take an existing iO
 	
 	    // Save the document:
 	    CBLDocument *doc = [_database createDocument];
-	    NSError* error;
+	    NSError *error;
 	    if ([doc putProperties: document error: &error]) {
 	        textField.text = nil;
 	    } else {
@@ -177,7 +181,7 @@ Build your first Couchbase Mobile app in just a few minutes! Take an existing iO
 	}
  ``` 
 
-14. What about deleting items? Add the following `couchTableSource:deleteRow:` method and use the `CBLUITableSource`'s `deleteDocments:error:` method to delete the document as follows. This will allow us to delete a document when sliding a row in the tableview.
+14. What about deleting items? Add the following `couchTableSource:deleteRow:` method to delete a document when sliding a row in the tableview.
 
  ```objective-c
 	- (bool)couchTableSource:(CBLUITableSource *)source deleteRow:(CBLQueryRow *)row {
@@ -248,7 +252,7 @@ Build your first Couchbase Mobile app in just a few minutes! Take an existing iO
 	}
  ```
 
-20. Build and run time! When you add a new item or check/uncheck the item, you should see some sync-gateway activities on the console having the sync-gateway running.
+20. Build and run time! When you add a new item or check/uncheck the item, you should see some sync-gateway activities on the terminal having the sync-gateway running.
 
 21. Let's go see the results of sync in the Sync Gateway Admin Console. Open your browser to [http://localhost:4985/_admin/](http://localhost:4985/_admin/), and click on the [kitchen-sync](http://localhost:4985/_admin/db/kitchen-sync) link. You will land on the **Documents** page, which will list all documents found. Clicking on a document id will reveal the contents of the document.
 
