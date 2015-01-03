@@ -114,7 +114,7 @@ Build your first Couchbase Mobile app in just a few minutes! Take an existing iO
 	[self setupDataSource];
  ```
 
-11. To display item documents on the tableview, we implement `couchTableSource:willUseCell:forRow:` method. Basically the `couchTableSource:willUseCell:forRow:` method is called from the `tableView:cellForRowAtIndexPath:` method just before it returns, giving the delegate a chance to customize the new cell. Here we handle displaing text and a check mark.
+11. To display item documents on the tableview, we implement `couchTableSource:willUseCell:forRow:` method. Basically the `couchTableSource:willUseCell:forRow:` method is called from the `tableView:cellForRowAtIndexPath:` method just before it returns, giving the delegate a chance to customize the new cell. Here we handle displaying text and a check mark.
 
  ```objective-c
 	- (void)couchTableSource:(CBLUITableSource *)source willUseCell:(UITableViewCell *)cell forRow:(CBLQueryRow *)row {
@@ -192,13 +192,13 @@ Build your first Couchbase Mobile app in just a few minutes! Take an existing iO
 
 15. Now is a great time to build and run the application.
 
-16. Let's add sync! Go back to `AppDelegate.m` and Define your sync url location above the implementation of the `AppDelegate` class.
+16. Let's add sync! Go back to `AppDelegate.m` and Define your sync url location above the implementation of the `AppDelegate` class.  If you are doing this tutorial on a Mac and deploying to a real device, then enter the IP address of your Wifi interface (i.e. don't use localhost). If you are deploying to an emulator, you will need to use 10.0.2.2 for the IP.
 
  ```objective-c
  	#define kSyncUrl @"http://<YOUR_WIFI_OR_ETHERNET_IP>:4984/kitchen-sync"
  ```
 
-17. That's the hardest part! Create a new `startSync` method which, in this case, will continuously sync all local and remote changes.
+17. That's the hardest part! Within your AppDelegate.m , create a new `startSync` method which, in this case, will continuously sync all local and remote changes.
 
  ```objective-c
 	- (void)startSync {
@@ -221,7 +221,7 @@ Build your first Couchbase Mobile app in just a few minutes! Take an existing iO
 	}
  ```
 
-18. Observe replication change notification and display network activity indicator when the replicators are active.
+18. Add a `replicationProgress:notification` method to observe replication changes and provide notification.  Also display the network activity indicator when the replicators are active.
 
  ```objective-c
 	- (void)replicationProgress:(NSNotification *)notification {
