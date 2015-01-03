@@ -1,3 +1,4 @@
+
 #!/bin/bash
 
 function usage 
@@ -22,32 +23,34 @@ function startSyncGateway
 	if  [[ ! -e ${SG_BIN} ]] 
 		then
 		cleanSyncGateway
-		mkdir ${SG_DIR}
-		curl -s -o ${SG_PKG} ${SG_URL}
-		tar xf ${SG_PKG} -C ${SG_DIR}
-		rm -f ${SG_PKG}
+		mkdir "${SG_DIR}"
+		echo "Downloading SyncGateway ..."
+		curl -s -o "${SG_PKG}" ${SG_URL}
+		tar xf "${SG_PKG}" -C "${SG_DIR}"
+		rm -f "${SG_PKG}"
 	fi
 
 	stopSyncGateway
 
-	${SG_BIN} ${SG_CFG}
-	echo $! > ${SG_PID}
+	"${SG_BIN}" "${SG_CFG}"
+	echo $! > "${SG_PID}"
 }
 
 function stopSyncGateway
 {
-	if  [[ -e ${SG_PID} ]]
+	if  [[ -e "${SG_PID}" ]]
 		then
-		PID="$(cat ${SG_PID})"
-		kill -9 $(cat ${SG_PID}) 2>/dev/null
-		rm -f ${SG_PID}
+		PID=$(cat "${SG_PID}")
+		echo $PID
+		kill -9 $(cat "${SG_PID}") 2>/dev/null
+		rm -f "${SG_PID}"
 	fi
 }
 
 function cleanSyncGateway
 {
 	stopSyncGateway
-	rm -rf ${SG_DIR}
+	rm -rf "${SG_DIR}"
 }
 
 MODE=${1}
