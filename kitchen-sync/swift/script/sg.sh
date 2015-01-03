@@ -29,10 +29,9 @@ function startSyncGateway
 
 	stopSyncGateway
 
-	"${SG_BIN}" "${SG_CFG}" &
+	"${SG_BIN}" "${SG_CFG}"
 	PID=$!
 	echo ${PID} > "${SG_PID}"
-	wait ${PID}
 }
 
 function stopSyncGateway
