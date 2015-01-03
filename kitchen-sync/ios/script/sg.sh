@@ -3,11 +3,8 @@
 
 function usage 
 {
-	echo -e "\nuse:  ${0} start|stop|clean \n\n"
+	echo -e "\nUse: ${0} start|stop|clean\n"
 }
-
-if [[ ! ${1} ]] ; then usage ; exit 99 ; fi
-MODE=${1}
 
 PROJECT_DIR="$(pwd)"
 SG_DIR="${PROJECT_DIR}/tmp"
@@ -16,7 +13,7 @@ SG_PKG="${SG_DIR}/sync_gateway.tar.gz"
 SG_TAR="${SG_DIR}/couchbase-sync-gateway"
 SG_BIN="${SG_TAR}/bin/sync_gateway"
 SG_PID="${SG_DIR}/pid"
-SG_CFG="${PROJECT_DIR}/Script/sync-gateway-config.json"
+SG_CFG="${PROJECT_DIR}/script/sync-gateway-config.json"
 
 function startSyncGateway
 {
@@ -32,17 +29,17 @@ function startSyncGateway
 
 	stopSyncGateway
 
-	"${SG_BIN}" "${SG_CFG}"
-	echo $! > "${SG_PID}"
+	"${SG_BIN}" "${SG_CFG}" &
+	PID=$!
+	echo ${PID} > "${SG_PID}"
+	wait ${PID}
 }
 
 function stopSyncGateway
 {
 	if  [[ -e "${SG_PID}" ]]
 		then
-		PID=$(cat "${SG_PID}")
-		echo $PID
-		kill -9 $(cat "${SG_PID}") 2>/dev/null
+		kill $(cat "${SG_PID}") 2>/dev/null
 		rm -f "${SG_PID}"
 	fi
 }
@@ -54,20 +51,18 @@ function cleanSyncGateway
 }
 
 MODE=${1}
-if [[ ${MODE} =~ 'start' ]]
+if [[ ${MODE} = "start" ]]
 	then 
 	echo "Start SyncGateway ..."
 	startSyncGateway
-fi
-
-if [[ ${MODE} =~ 'stop' ]]
+elif [[ ${MODE} = "stop" ]]
 	then 
 	echo "Stop SyncGateway ..."
 	stopSyncGateway
-fi
-
-if [[ ${MODE} =~ 'clean' ]]
+elif [[ ${MODE} = "clean" ]]
 	then 
 	echo "Clean SyncGateway ..."
 	cleanSyncGateway
+else
+	usage
 fi
