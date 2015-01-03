@@ -10,18 +10,18 @@ Build your first Couchbase Mobile app in just a few minutes! Take an existing iO
 
 1. Make sure that you have the lastet XCode installed on your Mac.
 
-2. Clone this [repo](https://github.com/couchbaselabs/mini-hacks) or download the [zip](https://github.com/couchbaselabs/mini-hacks/archive/master.zip).
+2. Create a directory called 'couchbase_mobile' without any spaces and clone this [repo](https://github.com/couchbaselabs/mini-hacks) or download the [zip](https://github.com/couchbaselabs/mini-hacks/archive/master.zip)
 
  ```
  $ git clone https://github.com/couchbaselabs/mini-hacks
  ```
 
-3. Go to the workspace folder<br>
+3. Go to the mini-hacks workspace folder<br>
  ```
  $ cd mini-hacks/kitchen-sync/ios
  ```
 
-4. Download the framework from [here](http://packages.couchbase.com/releases/couchbase-lite/ios/1.0.3.1/couchbase-lite-ios-community_1.0.3.1.zip), unzip, and copy `CouchbaseLite.framework` to the `Frameworks` folder.
+4. Download the framework from [here](http://packages.couchbase.com/releases/couchbase-lite/ios/1.0.3.1/couchbase-lite-ios-community_1.0.3.1.zip), unzip, and copy `CouchbaseLite.framework` to the `Frameworks` folder in mini-hacks.
  ```
  $ unzip ~/Downloads/couchbase-lite-ios-community_1.0.3.1.zip -d /tmp/cblite
  $ cp -r /tmp/cblite/CouchbaseLite.framework Frameworks
@@ -192,7 +192,7 @@ Build your first Couchbase Mobile app in just a few minutes! Take an existing iO
 
 15. Now is a great time to build and run the application.
 
-16. Let's add sync! Go back to `AppDelegate.m` and Define your sync url location above the implementation of the `AppDelegate` class.  If you are doing this tutorial on a Mac and deploying to a real device, then enter the IP address of your Wifi interface (i.e. don't use localhost). If you are deploying to an emulator, you will need to use 10.0.2.2 for the IP.
+16. Let's add sync! Go back to `AppDelegate.m` and Define your sync url location above the implementation of the `AppDelegate` class.  If you are doing this tutorial on a Mac and deploying to a real device, then enter the IP address of your Wifi interface (i.e. don't use localhost). If you are deploying to an emulator, you will need to use 'localhost' for the IP.
 
  ```objective-c
  	#define kSyncUrl @"http://<YOUR_WIFI_OR_ETHERNET_IP>:4984/kitchen-sync"
@@ -242,7 +242,7 @@ Build your first Couchbase Mobile app in just a few minutes! Take an existing iO
 	}
  ```
 
-19. Call the `startSync` method from the `application:didFinishLaunchingWithOptions` method.
+19. Call the `startSync` method from within the `application:didFinishLaunchingWithOptions` method.
 
  ```objective-c
 	- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
