@@ -10,18 +10,18 @@ Build your first Couchbase Mobile app in just a few minutes! Take an existing iO
 
 1. Make sure that you have the lastet XCode installed on your Mac.
 
-2. Clone this [repo](https://github.com/couchbaselabs/mini-hacks) or download the [zip](https://github.com/couchbaselabs/mini-hacks/archive/master.zip).
+2. Create a directory called 'couchbase_mobile' without any spaces and clone this [repo](https://github.com/couchbaselabs/mini-hacks) or download the [zip](https://github.com/couchbaselabs/mini-hacks/archive/master.zip)
 
  ```
  $ git clone https://github.com/couchbaselabs/mini-hacks
  ```
 
-3. Go to the workspace folder<br>
+3. Go to the mini-hacks workspace folder<br>
  ```
  $ cd mini-hacks/kitchen-sync/ios
  ```
 
-4. Download the framework from [here](http://packages.couchbase.com/releases/couchbase-lite/ios/1.0.3.1/couchbase-lite-ios-community_1.0.3.1.zip), unzip, and copy `CouchbaseLite.framework` to the `Frameworks` folder.
+4. Download the framework from [here](http://packages.couchbase.com/releases/couchbase-lite/ios/1.0.3.1/couchbase-lite-ios-community_1.0.3.1.zip), unzip, and copy `CouchbaseLite.framework` to the `Frameworks` folder in mini-hacks.
  ```
  $ unzip ~/Downloads/couchbase-lite-ios-community_1.0.3.1.zip -d /tmp/cblite
  $ cp -r /tmp/cblite/CouchbaseLite.framework Frameworks
@@ -114,7 +114,7 @@ Build your first Couchbase Mobile app in just a few minutes! Take an existing iO
 	[self setupDataSource];
  ```
 
-11. To display item documents on the tableview, we implement `couchTableSource:willUseCell:forRow:` method. Basically the `couchTableSource:willUseCell:forRow:` method is called from the `tableView:cellForRowAtIndexPath:` method just before it returns, giving the delegate a chance to customize the new cell. Here we handle displaing text and a check mark.
+11. To display item documents on the tableview, we implement `couchTableSource:willUseCell:forRow:` method. Basically the `couchTableSource:willUseCell:forRow:` method is called from the `tableView:cellForRowAtIndexPath:` method just before it returns, giving the delegate a chance to customize the new cell. Here we handle displaying text and a check mark.
 
  ```objective-c
 	- (void)couchTableSource:(CBLUITableSource *)source willUseCell:(UITableViewCell *)cell forRow:(CBLQueryRow *)row {
@@ -192,13 +192,13 @@ Build your first Couchbase Mobile app in just a few minutes! Take an existing iO
 
 15. Now is a great time to build and run the application.
 
-16. Let's add sync! Go back to `AppDelegate.m` and Define your sync url location above the implementation of the `AppDelegate` class.
+16. Let's add sync! Go back to `AppDelegate.m` and Define your sync url location above the implementation of the `AppDelegate` class.  If you are doing this tutorial on a Mac and deploying to a real device, then enter the IP address of your Wifi interface (i.e. don't use localhost). If you are deploying to an emulator, you will need to use 'localhost' for the IP.
 
  ```objective-c
  	#define kSyncUrl @"http://<YOUR_WIFI_OR_ETHERNET_IP>:4984/kitchen-sync"
  ```
 
-17. That's the hardest part! Create a new `startSync` method which, in this case, will continuously sync all local and remote changes.
+17. That's the hardest part! Within your AppDelegate.m , create a new `startSync` method which, in this case, will continuously sync all local and remote changes.
 
  ```objective-c
 	- (void)startSync {
@@ -221,7 +221,7 @@ Build your first Couchbase Mobile app in just a few minutes! Take an existing iO
 	}
  ```
 
-18. Observe replication change notification and display network activity indicator when the replicators are active.
+18. Add a `replicationProgress:notification` method to observe replication changes and provide notification.  Also display the network activity indicator when the replicators are active.
 
  ```objective-c
 	- (void)replicationProgress:(NSNotification *)notification {
@@ -242,7 +242,7 @@ Build your first Couchbase Mobile app in just a few minutes! Take an existing iO
 	}
  ```
 
-19. Call the `startSync` method from the `application:didFinishLaunchingWithOptions` method.
+19. Call the `startSync` method from within the `application:didFinishLaunchingWithOptions` method.
 
  ```objective-c
 	- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
