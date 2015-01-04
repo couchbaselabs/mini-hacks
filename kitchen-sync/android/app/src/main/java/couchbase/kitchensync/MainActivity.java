@@ -86,7 +86,8 @@ public class MainActivity extends Activity implements Replication.ChangeListener
     }
 
     //Step 1 - created 'startCBLite' method
-    ...{
+    {
+        
         //Step 2 - Get reference to database object
 
         //Step 3 - Create Index to allow for Fast Queries
