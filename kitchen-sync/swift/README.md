@@ -5,6 +5,7 @@ Kitchen Sync
 
 Build your first Couchbase Mobile app in just a few minutes! Take an existing iOS application and add data persistence along with offline support!
 
+![Application Architecture](https://raw.githubusercontent.com/couchbaselabs/mini-hacks/master/kitchen-sync/topology.png "Typical Couchbase Mobile Architecture")
 
 ## Setup
 
