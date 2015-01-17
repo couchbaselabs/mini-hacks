@@ -5,6 +5,8 @@ TO-DO Task
 
 Build your first Couchbase Mobile app in just a few minutes! Take an existing Xamarin application and add data persistence!
 
+![Application Architecture](https://raw.githubusercontent.com/couchbaselabs/mini-hacks/master/kitchen-sync/topology.png "Typical Couchbase Mobile Architecture")
+
 ### Setup
 
  - Clone this repo, or download the [.zip](https://github.com/couchbaselabs/mini-hacks/archive/master.zip).
