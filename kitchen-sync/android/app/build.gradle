@@ -32,10 +32,7 @@ dependencies {
     compile 'com.couchbase.lite:couchbase-lite-android:1.0.3'
 }
 
-def platform = "mac"
-//def platform = "windows"
-//def platform = "redhat"
-//def platform = "ubuntu"
+def platform = System.properties['os.name'].toLowerCase()
 
 task startSyncGateway {
 
@@ -52,24 +49,29 @@ task startSyncGateway {
 
     String bundlePathFormat = "${projectDir}/build/sync_gateway"
 
-    switch (platform) {
+    if (platform.contains('windows')) {
+        sg_download_url = sg_download_url_base + EXE
+        bundlePathFormat += TGZ
+    } else if (platform.contains('mac')) {
+        sg_download_url = sg_download_url_base + TGZ
+        bundlePathFormat += TGZ
+    } else if (platform.contains('linux')) {
+        Runtime.getRuntime().exec(["lsb_release", "-si"])
+        InputStreamReader input = new InputStreamReader(process.getInputStream());
 
-        case "mac":
-            sg_download_url = sg_download_url_base + TGZ
-            bundlePathFormat += TGZ
-            break
-        case "ubuntu":
+        StringBuilder dist = new StringBuilder();
+        int ch;
+
+        while ((ch = input.read()) != -1)
+            dist.append(((char) ch).toLowerCase());
+
+        if (dist.toString().contains("ubuntu")) {
             sg_download_url = sg_download_url_base + DEB
             bundlePathFormat += TGZ
-            break
-        case "redhat":
+        } else if (dist.toString().contains("redhat")) {
             sg_download_url = sg_download_url_base + RPM
             bundlePathFormat += TGZ
-            break
-        case "windows":
-            sg_download_url = sg_download_url_base + EXE
-            bundlePathFormat += TGZ
-            break
+        }
     }
 
     File executableFile = file(new File(pathFormat), PathValidation.NONE)
@@ -81,7 +83,7 @@ task startSyncGateway {
 
     doFirst {
 
-        if (platform != "mac") {
+        if (!platform.contains("mac")) {
             return
         }
 
