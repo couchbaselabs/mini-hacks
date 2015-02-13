@@ -1,4 +1,4 @@
-Kitchen Sync
+    Kitchen Sync
 ============
 
 ## Goal
@@ -63,7 +63,7 @@ Build your first Couchbase Mobile app in just a few minutes! Take an existing iO
  		(doc, emit) -> Void in
  		if let dateObj: AnyObject = doc["created_at"] {
  			if let date = dateObj as? String {
- 				emit(date, doc)
+ 				emit(date, nil)
  			}
  		}
 	}, version: "1.0")

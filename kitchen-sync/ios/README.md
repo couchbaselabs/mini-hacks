@@ -61,7 +61,7 @@ Build your first Couchbase Mobile app in just a few minutes! Take an existing iO
  	[[_database viewNamed: @"viewItemsByDate"] setMapBlock: MAPBLOCK({
 		id date = doc[@"created_at"];
         if (date)
-            emit(date, doc);
+            emit(date, nil);
  	}) reduceBlock: nil version: @"1.0"];
  ```
 
