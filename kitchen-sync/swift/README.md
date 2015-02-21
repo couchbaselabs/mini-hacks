@@ -9,7 +9,7 @@ Build your first Couchbase Mobile app in just a few minutes! Take an existing iO
 
 ## Setup
 
-1. Make sure that you have the lastet XCode installed on your Mac.
+1. Make sure that you have the lastet Xcode installed on your Mac.
 
 2. Clone this [repo](https://github.com/couchbaselabs/mini-hacks) or download the [zip](https://github.com/couchbaselabs/mini-hacks/archive/master.zip).
 
@@ -35,7 +35,7 @@ Build your first Couchbase Mobile app in just a few minutes! Take an existing iO
 
 ## Tutorial
 
-1. Open KitchenSync.xcodeproj with your XCode.
+1. Open KitchenSync.xcodeproj with your Xcode.
 
 2. Open the KitchenSync-Bridging-Header.h and add the following import statement:
 
