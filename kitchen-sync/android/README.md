@@ -282,7 +282,7 @@ and add data persistence along with offline support!
 
         initItemListAdapter();
 
-		startLiveQuery()        
+		startLiveQuery();
 
         startSync();
 
