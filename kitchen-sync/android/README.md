@@ -3,7 +3,8 @@ Kitchen Sync
 
 ### Goal
 
-Build your first Couchbase Mobile app in just a few minutes! Take an existing Android application and add data persistence along with offline support!
+Build your first Couchbase Mobile app in just a few minutes! Take an existing Android application
+and add data persistence along with offline support!
 
 ![Application Architecture](https://raw.githubusercontent.com/couchbaselabs/mini-hacks/master/kitchen-sync/topology.png "Typical Couchbase Mobile Architecture")
 
@@ -18,9 +19,11 @@ Build your first Couchbase Mobile app in just a few minutes! Take an existing An
  	Sync Gateway into your `build` folder. It will even start and stop it for you every time 
  	you debug your app!
 
- - Mac users: while your app is running on device, open the [Sync Gateway admin console](http://localhost:4985/_admin/). Feel free to look around, but we'll come back to this later.
+ - Mac users: while your app is running on device, open the
+   [Sync Gateway admin console](http://localhost:4985/_admin/). Feel free to look around, but we'll
+   come back to this later.
 
- - In addtion to what is already in the MainActivity.java file, import..
+ - In addition to what is already in the MainActivity.java file, import..
     
     import com.couchbase.lite.android.AndroidContext;
     import com.couchbase.lite.Mapper;
@@ -37,13 +40,18 @@ Build your first Couchbase Mobile app in just a few minutes! Take an existing An
  
 	protected void startCBLite() throws Exception {
 ```
+
  2. Now we need to get a reference to our database object. To do that, add:
  ```java
  
     manager = new Manager(new AndroidContext(this), Manager.DEFAULT_OPTIONS);
     database = manager.getDatabase("kitchen-sync");
 ```
- 3. Next, we create an index to allow for fast queries. Couchbase Lite uses MapReduce queries, which let us create our queries using plain-old Java functions. We can also do powerful transformations of documents, compute aggregates, etc. In this project, however, we're going to keep things simple and just index our documents by date.  
+
+ 3. Next, we create an index to allow for fast queries. Couchbase Lite uses MapReduce queries, which
+    let us create our queries using plain-old Java functions. We can also do powerful
+    transformations of documents, compute aggregates, etc. In this project, however, we're going to
+    keep things simple and just index our documents by date.
  ```java
  
 	viewItemsByDate = database.getView("viewItemsByDate"));
@@ -57,7 +65,9 @@ Build your first Couchbase Mobile app in just a few minutes! Take an existing An
 	    }
 	}, "1.0");
  ```
- 4. Now that we've opened the database and created our index, lets call this new method from our `onCreate` function: 
+
+ 4. Now that we've opened the database and created our index, lets call this new method from our
+    `onCreate` function:
  ```java
  
     @Override
@@ -69,7 +79,9 @@ Build your first Couchbase Mobile app in just a few minutes! Take an existing An
 
         ...
 ```
- 5. Next, let's initialize the `DataAdapter` for our list view. Create the following method, which creates our custom adapter and listens for taps on each row:
+
+ 5. Next, let's initialize the `DataAdapter` for our list view. Create the following method, which
+    creates our custom adapter and listens for taps on each row:
  ```java
  
 	private void initItemListAdapter() {
@@ -84,6 +96,7 @@ Build your first Couchbase Mobile app in just a few minutes! Take an existing An
         itemListView.setOnItemLongClickListener(this);
     }
 ```
+
  6. Now let's add this method to `onCreate`:
  ```java
  
@@ -98,7 +111,10 @@ Build your first Couchbase Mobile app in just a few minutes! Take an existing An
 
         ...
     ```
- 7. We need the ability to create a new Couchbase Lite document from the text edit box's value. In `MainActivity` you will find the `createListItem` method. Replace the last line, "return null;" with the following:
+
+ 7. We need the ability to create a new Couchbase Lite document from the text edit box's value. In
+    `MainActivity` you will find the `createListItem` method. Replace the last line, "return null;"
+    with the following:
  ```java
  	    Document document = database.createDocument();
 
@@ -109,9 +125,13 @@ Build your first Couchbase Mobile app in just a few minutes! Take an existing An
         properties.put("created_at", currentTimeString);
         document.putProperties(properties);
 
-        return document;
-```
- 8. Next, we start our `LiveQuery`. Like a regular `Query`, it gives us the ability to filter and order the index we created in step 3. However, it also can send us results that appear later--even after we've already iterated through the results! Let's create our new method like this:
+         return document;
+ ```
+
+ 8. Next, we start our `LiveQuery`. Like a regular `Query`, it gives us the ability to filter and
+    order the index we created in step 3. However, it also can send us results that appear
+    later--even after we've already iterated through the results! Let's create our new method like
+    this:
  ```java
  
     private void startLiveQuery() throws Exception {
@@ -140,6 +160,7 @@ Build your first Couchbase Mobile app in just a few minutes! Take an existing An
 
     }
  ```
+
  9. Add this method to `onCreate` as well:
  ```java
  
@@ -156,7 +177,11 @@ Build your first Couchbase Mobile app in just a few minutes! Take an existing An
 
         ...
 ```
- 10. Now we need to handle checkbox touches. Couchbase Lite documents are like versioned-maps. If we want to change a `Document` we do it by adding a new `Revision`. We can do this easily by just supplying a `HashMap` containing a snapshot of the new values our document should have. Add the code below for the `onItemClick` handler that we already stubbed out for you in `MainActivity`:
+
+ 10. Now we need to handle checkbox touches. Couchbase Lite documents are like versioned-maps. If we
+     want to change a `Document` we do it by adding a new `Revision`. We can do this easily by just
+     supplying a `HashMap` containing a snapshot of the new values our document should have. Add the
+     code below for the `onItemClick` handler that we already stubbed out for you in `MainActivity`:
  ```java
  
         QueryRow row = (QueryRow) adapterView.getItemAtPosition(position);
@@ -174,7 +199,9 @@ Build your first Couchbase Mobile app in just a few minutes! Take an existing An
             Log.e(TAG, "Error updating database", e);
         }
 ```
- 11. What about deleting items? Let's add the following code to our `onItemLongClick` handler so that long-presses let us prompt the user to delete that row:
+
+ 11. What about deleting items? Let's add the following code to our `onItemLongClick` handler so
+     that long-presses let us prompt the user to delete that row:
  ```java
  
         QueryRow row = (QueryRow) adapterView.getItemAtPosition(position);
@@ -203,13 +230,21 @@ Build your first Couchbase Mobile app in just a few minutes! Take an existing An
 
         alert.show();
 ``` 
+
  13. Now is a great time to build and run on device. You should see all of your new list items saved.
- 14. Let's add sync! First, we need to provide a URL for our Couchbase Sync Gateway. If you are doing this tutorial on a Mac and deploying to a real device, then enter the IP address of your Wifi interface (i.e. don't use localhost).  If you are deploying to an emulator, you will need to use `10.0.2.2` for the IP. Add the following declaration near the other instance variable declarations in `MainActivity`:
+
+ 14. Let's add sync! First, we need to provide a URL for our Couchbase Sync Gateway. If you are
+     doing this tutorial on a Mac and deploying to a real device, then enter the IP address of your
+     Wifi interface (i.e. don't use localhost).  If you are deploying to an emulator, you will need
+     to use `10.0.2.2` for the IP. Add the following declaration near the other instance variable
+     declarations in `MainActivity`:
  ```java
  
  	    private static final String SYNC_URL = "http://<YOUR_WIFI_OR_ETHERNET_IP>:4984/kitchen-sync";
 ```
- 15. That's the hardest part! Now we need to add our `startSync` method which, in this case, will continuously sync all local and remote changes.
+
+ 15. That's the hardest part! Now we need to add our `startSync` method which, in this case, will
+     continuously sync all local and remote changes.
  ```java
  
  	    private void startSync() throws Exception {
@@ -235,6 +270,7 @@ Build your first Couchbase Mobile app in just a few minutes! Take an existing An
 
     }
 ```
+
  16. Now let's add a call to `startSync` in our `onCreate` override:
  ```java
     @Override
@@ -252,8 +288,14 @@ Build your first Couchbase Mobile app in just a few minutes! Take an existing An
 
         ...
 ```
- 17. Build and run time! Shortly after launching, you should see lots of sync activity scrolling by in ADB's logcat window for your device. Make sure that you have some list items for Couchbase Lite to sync.
+ 17. Build and run time! Shortly after launching, you should see lots of sync activity scrolling by
+     in ADB's logcat window for your device. Make sure that you have some list items for
+     Couchbase Lite to sync.
 
- 18. Let's go see the results of sync in the Sync Gateway Admin Console. Open your browser to [http://localhost:4985/_admin/](http://localhost:4985/_admin/), and click on the [kitchen-sync](http://localhost:4985/_admin/db/kitchen-sync) link. You will land on the **Documents** page, which will list all documents found. Clicking on a document id will reveal the contents of the document.
+ 18. Let's go see the results of sync in the Sync Gateway Admin Console. Open your browser to
+     [http://localhost:4985/_admin/](http://localhost:4985/_admin/), and click on the
+     [kitchen-sync](http://localhost:4985/_admin/db/kitchen-sync) link. You will land on the
+     **Documents** page, which will list all documents found. Clicking on a document id will reveal
+     the contents of the document.
 
  19. Finally, we'd love to hear from you. [Tell us what you think](https://docs.google.com/forms/d/1Qs9svNccKCC5iji6NXC35uCvdmtFzB0dopz57iApSnY/viewform)!
