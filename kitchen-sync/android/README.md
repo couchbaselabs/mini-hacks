@@ -54,7 +54,7 @@ and add data persistence along with offline support!
     keep things simple and just index our documents by date.
  ```java
  
-	viewItemsByDate = database.getView("viewItemsByDate"));
+	viewItemsByDate = database.getView("viewItemsByDate");
 	viewItemsByDate.setMap(new Mapper() {
 	    @Override
 	    public void map(Map<String, Object> document, Emitter emitter) {
