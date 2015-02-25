@@ -116,7 +116,7 @@ and add data persistence along with offline support!
     `MainActivity` you will find the `createListItem` method. Replace the last line, "return null;"
     with the following:
  ```java
- 	    Document document = database.createDocument();
+        Document document = database.getDocument(id); // creates a document with the given id
 
         Map<String, Object> properties = new HashMap<String, Object>();
         properties.put("_id", id);
@@ -127,6 +127,8 @@ and add data persistence along with offline support!
 
          return document;
  ```
+
+    That `putProperties()` method is the one that actually creates the document in Couchbase Lite.
 
  8. Next, we start our `LiveQuery`. Like a regular `Query`, it gives us the ability to filter and
     order the index we created in step 3. However, it also can send us results that appear
@@ -173,7 +175,7 @@ and add data persistence along with offline support!
 
         initItemListAdapter();
 
-	startLiveQuery();        
+        startLiveQuery();
 
         ...
 ```
