@@ -29,7 +29,7 @@ android {
 
 dependencies {
     compile 'com.android.support:support-v4:19.0.+'
-    compile 'com.couchbase.lite:couchbase-lite-android:1.0.3'
+    compile 'com.couchbase.lite:couchbase-lite-android:1.0.4'
 }
 
 def platform = "mac"
