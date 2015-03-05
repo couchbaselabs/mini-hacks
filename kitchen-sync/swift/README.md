@@ -1,4 +1,4 @@
-    Kitchen Sync
+Kitchen Sync
 ============
 
 ## Goal
@@ -125,10 +125,10 @@ Build your first Couchbase Mobile app in just a few minutes! Take an existing iO
 
  ```swift
 	func couchTableSource(source: CBLUITableSource!, willUseCell cell: UITableViewCell!, forRow row: CBLQueryRow!) {
-        let rowValue = row.value as NSDictionary
-        cell.textLabel!.text = rowValue["text"] as? String
+        let properties = row.document.properties
+        cell.textLabel!.text = properties["text"] as? String
 
-        let checked = (rowValue["check"] as? Bool) ?? false
+        let checked = (properties["check"] as? Bool) ?? false
         if checked {
             cell.textLabel!.textColor = UIColor.grayColor()
             cell.accessoryType = UITableViewCellAccessoryType.Checkmark
