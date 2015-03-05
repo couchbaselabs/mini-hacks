@@ -119,9 +119,9 @@ Build your first Couchbase Mobile app in just a few minutes! Take an existing iO
 
  ```objective-c
 	- (void)couchTableSource:(CBLUITableSource *)source willUseCell:(UITableViewCell *)cell forRow:(CBLQueryRow *)row {
-		NSDictionary *rowValue = row.value;
-		cell.textLabel.text = rowValue[@"text"];
-		BOOL checked = [rowValue[@"check"] boolValue];
+		NSDictionary *properties = row.document.properties;
+		cell.textLabel.text = properties[@"text"];
+		BOOL checked = [properties[@"check"] boolValue];
 		if (checked) {
 			cell.textLabel.textColor = [UIColor grayColor];
 			cell.accessoryType = UITableViewCellAccessoryCheckmark;
