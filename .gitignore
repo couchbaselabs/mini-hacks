@@ -1,0 +1,7 @@
+kitchen-sync/ios/Frameworks/CouchbaseLite.framework
+*.userprefs
+xamarin/todo-sync/project/src/complete/Components
+bin/
+obj/
+Components/
+packages/
