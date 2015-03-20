@@ -38,7 +38,7 @@ Kitchen Sync
 
 1. XcodeでKitchenSync.xcodeprojを開きます。
 
-2. AppDelegate.hにこの業を追加しましょう
+2. AppDelegate.hにこの行を追加しましょう
 
  ```objective-c
  #import <CouchbaseLite/CouchbaseLite.h>
