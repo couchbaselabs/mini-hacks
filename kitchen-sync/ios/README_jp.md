@@ -12,7 +12,7 @@ Kitchen Sync
 
 1. 最新のXcodeがインストールされていることを確認しましょう。
 
-2. 'couchbase_mobile'（空白なし）というフォルダーを作成し、この[リポシトリ](https://github.com/couchbass/mini-hacks)をクローンするかこの[ZIP]をダウンロードしましょう。
+2. 'couchbase_mobile'（空白なし）というフォルダーを作成し、この[リポジトリ](https://github.com/couchbass/mini-hacks)をクローンするかこの[ZIP](https://github.com/couchbaselabs/mini-hacks/archive/master.zip)をダウンロードしましょう。
 
  ```
  $ git clone https://github.com/couchbaselabs/mini-hacks
@@ -92,14 +92,14 @@ Kitchen Sync
 	}
  ```
 
-8. `setupDataSource`関数の中に４番に作った`viewItemsByDate`ビューによってLiveQueryを作成しましょう。
+8. `setupDataSource`関数の中に４番で作った`viewItemsByDate`ビューによってLiveQueryを作成しましょう。
 
  ```objective-c
 	CBLLiveQuery *query = [[[_database viewNamed:@"viewItemsByDate"] createQuery] asLiveQuery];
 	query.descending = YES;
  ```
 
-9. `UITableViewDataSource`を基本的に実装する`CBLUITableSource`を作りましょう。８番に作ったLiveQueryによって設定します。そして、テーブルビューのdataSourceとdelegateを定義します。
+9. `UITableViewDataSource`を基本的に実装する`CBLUITableSource`を作りましょう。８番で作ったLiveQueryによって設定します。そして、テーブルビューのdataSourceとdelegateを定義します。
 
  ```objective-c
 	_dataSource = [[CBLUITableSource alloc] init];
@@ -116,7 +116,7 @@ Kitchen Sync
 	[self setupDataSource];
  ```
 
-11. ドキュメントをテブルビューに表示するために`couchTableSource:willUseCell:forRow:`を実装します。新規行をカスタマイズするために`couchTableSource:willUseCell:forRow:`は`tableView:cellForRowAtIndexPath:`がリターンする直前に呼び出されます。こちらの場合はテキストの表示とチェックマークの処理を行います。
+11. ドキュメントをテーブルビューに表示するために`couchTableSource:willUseCell:forRow:`を実装します。新規行をカスタマイズするために`couchTableSource:willUseCell:forRow:`は`tableView:cellForRowAtIndexPath:`がリターンする直前に呼び出されます。kitchen-syncではテキストの表示とチェックマークの処理を行います。
 
  ```objective-c
 	- (void)couchTableSource:(CBLUITableSource *)source willUseCell:(UITableViewCell *)cell forRow:(CBLQueryRow *)row {
@@ -133,7 +133,7 @@ Kitchen Sync
 	}
  ```
 
-12. 続きましてテーブルビューの行のタッチを処理します。行がタッチされる際にチェック状態をトグルします。
+12. 続いて、テーブルビューの行のタッチを処理します。行がタッチされる際にチェック状態をトグルします。
 
  ```objective-c
 	- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -155,7 +155,7 @@ Kitchen Sync
 	}
  ```
 
-13. ドキュメントの表示が整いましたがテキストフィールドによって新規ドキュメントを作る機能を入れましょう。`ViewController.m`に`UITextFieldDelegate`関数を追加します。
+13. ドキュメントの表示が整いましたが、テキストフィールドによって新規ドキュメントを作る機能も必要ですね。`ViewController.m`に`UITextFieldDelegate`関数を追加します。
 
  ```objective-c
 	-(BOOL)textFieldShouldReturn:(UITextField *)textField {
@@ -223,7 +223,7 @@ Kitchen Sync
 	}
  ```
 
-18. 同期の変更を監視するために`replicationProgress:notification`関数を入れましょう。それに、同期が通信する際に通信中アイコンを出しましょう。
+18. 同期の変更を監視するために`replicationProgress:notification`関数を入れましょう。また、同期が通信する際に通信中アイコンを出しましょう。
 
  ```objective-c
 	- (void)replicationProgress:(NSNotification *)notification {
@@ -254,7 +254,7 @@ Kitchen Sync
 	}
  ```
 
-20. 実行しましょう！アイテムを追加するか、チェックボックスを変更する際にsync-gatewayターミナルにログが見れるはずです。
+20. 実行しましょう！アイテムを追加するか、チェックボックスを変更するたびにsync-gatewayターミナルにログが出力されるはずです。
 
 21. Sync Gateway管理者コンソールで結果を見てみましょう。ブラウザーで[http://localhost:4985/_admin/](http://localhost:4985/_admin/)を開いて[kitchen-sync](http://localhost:4985/_admin/db/kitchen-sync)リンクを押します。**Documents**ページが出てきて、全てのドキュメントをリストアップします。ドキュメントのIDを押すとそのドキュメントの詳細を見ることができます。
 
