@@ -9,10 +9,10 @@ Kitchen Sync
 
 ### 準備
 
- - このリポシトリをクルー音するか[ZIP](https://github.com/couchbaselabs/mini-hacks/archive/master.zip)をダウンロードしましょう。
+ - このリポシトリをクローンしましょう。
  - `Stable`チャンネルの最新Android Studioがインストールされているか確認しましょう。
  - Android Studioを実行して'Import Project...'を選択し、`android`フォルダーを選びましょう。
- - 端末で実行してみて環境がきちんとなっていることを確認しましょう。
+ - 端末で実行してみて環境ができていることを確認しましょう。
 
  	付記: Macの場合はgradleビルドスクリプトが自動的に`build`フォルダーにSync Gatewayをダウンロードします。しかも、デバッグする際に自動的に開始・終了します！
 
