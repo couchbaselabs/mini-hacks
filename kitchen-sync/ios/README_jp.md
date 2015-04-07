@@ -183,7 +183,7 @@ Kitchen Sync
 	}
  ``` 
 
-14. ドキュメントの作成はいかがでしょうか？テーブルビューのスワイプと削除ボタンによってドキュメントを削除するために`couchTableSource:deleteRow:`を入れましょう。
+14. アイテムの削除はどうすればいいのでしょう？テーブルビューの行をスライドした時に削除できるよう、`couchTableSource:deleteRow:`を追加しましょう
 
  ```objective-c
 	- (bool)couchTableSource:(CBLUITableSource *)source deleteRow:(CBLQueryRow *)row {
