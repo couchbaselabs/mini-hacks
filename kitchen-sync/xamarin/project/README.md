@@ -25,7 +25,9 @@ The architecture and project structure of the KitchenSync application is shown i
 
 ### Tutorial
 
-The tutorial will create the shared logic, as well as the iOS and Android specific portions.  Each step has a corresponding comment in the workshop_start project (For per-platform items they are labeled as [step-number]A (for Android) and [step-number]B (for iOS).
+The tutorial will create the shared logic, as well as the iOS and Android specific portions.  Each step has a corresponding comment in the workshop_start project (For per-platform items they are labeled as [step-number]A (for Android) and [step-number]B (for iOS).  To begin, git clone the repository and load the 'KitchenSync.sln' file found from 'mini_hack_projects ▸ mini-hacks ▸ kitchen-sync ▸ xamarin ▸ project ▸ src ▸ workshop_start' path.
+
+From within Xamarin Studio:
 
 - (1) We need to get a reference to our database object. To do that, add this in the `TaskManager` constructor:
 ```c#
