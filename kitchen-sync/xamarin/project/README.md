@@ -15,7 +15,7 @@ Please refer to the __Installation Setup Checklists__ for OS X and Windows in th
 
 The architecture and project structure of the KitchenSync application is shown in the following diagram:
 
-![architecture](/images/architecture.png)
+![architecture](https://raw.githubusercontent.com/couchbaselabs/mini-hacks/master/kitchen-sync/xamarin/project/images/architecture.png)
 
 - User Interface - The screens, controls and data presentation code. In Xamarin.iOS these classes are wrappers around the iOS CocoaTouch frameworks. The user interface that you build looks, feels and performs like a native Objective-C application.
 - App Layer - Custom classes to bind the business layer to the user interface, typically requiring platform specific features.
