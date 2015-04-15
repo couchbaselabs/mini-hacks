@@ -29,7 +29,7 @@ The tutorial will create the shared logic, as well as the iOS and Android specif
 
 From within Xamarin Studio:
 
-- (1) We need to get a reference to our database object. To do that, add this in the `TaskManager` constructor:
+- (1) We need to get a reference to our database object. To do that, add the below to the `TaskManager` constructor in the 'TaskManager.cs' file:
 ```c#
 _db = Manager.SharedInstance.GetDatabase("kitchen-sync");
 ```
@@ -42,7 +42,7 @@ view.SetMap((doc, emit) => {
     }
 }, "1");
 ```
-- (3) Next, we start our `LiveQuery`. Like a regular `Query`, it gives us the ability to filter and order the index we created in step 2. However, it also can send us results that appear later--even after we've already iterated through the results! We also need to make sure that the UI layer is informed of this, and gets a callback with already instantiated Task objects.  Let's add the following:
+- (3) Next, we start our `LiveQuery`. Like a regular `Query`, LiveQuery gives us the ability to filter and order the index we created in step 2. However, 'LiveQuery' also can send us results that appear later--even after we have already iterated through the results! We also need to make sure that the UI layer is informed of this, and gets a callback with already instantiated Task objects.  Let's add the following:
 ```c#
  _query = view.CreateQuery().ToLiveQuery();
  _query.Descending = true;
@@ -56,7 +56,7 @@ view.SetMap((doc, emit) => {
 
  _query.Start();
 ```
-- (4) We need a way to save Tasks as they are added or updated from the UI layer.  The logic is similar, but for new documents the `PutProperties` method needs to be called, while for updated the `Update` method needs to be called.  New `Task` objects will not have their `ID` property set yet, so we can distinguish between the two cases by using that.  Add the following as the body of the `SaveTask` method.
+- (4) We need a way to save Tasks as they are added or updated from the UI layer.  While the logic is similar in both, for new documents the `PutProperties` method needs to be called and for updating the Tasks, the `Update` method needs to be called.  New `Task` objects will not have their `ID` property set initially, so we can distinguish between the two cases by using that fact.  Add the following as the body of the `SaveTask` method.
 ```c#
  if (item.ID == null) {
      Document doc = _db.CreateDocument ();
