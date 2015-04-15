@@ -121,7 +121,7 @@ view.SetMap((doc, emit) => {
      taskMgr.DeleteTask (_rows[indexPath.Row]);
  }
 ```
-- Now is a great time to build and run on device. You should see all of your new list items saved.
+- Your app now has a database and local persistence!  It is a great time to build and run the application on device or emulator. You should see all of your new list items saved locally.
 - (9A) Let's add sync! First, we need to provide a URL for our Couchbase Sync Gateway. If you are doing this tutorial on a Mac and deploying to a real device, then enter the IP address of your Wifi interface (i.e. don't use localhost).  If you are deploying to an emulator, you will need to use `10.0.2.2` if you want to use localhost.  Add the following member to `MainActivity`:
 ```c#
 private const string SYNC_URL = "http://<YOUR_WIFI_OR_ETHERNET_IP>:4984/kitchen-sync";
