@@ -162,4 +162,5 @@ Uri uri;
  _taskMgr.StartSync(SYNC_URL);
 ```
 - Build and run time! Shortly after launching, you should see lots of sync activity scrolling by in the console for your device. Make sure that you have some list items for Couchbase Lite to sync.
+
 - Let's go see the results of sync in the Sync Gateway Admin Console. Open your browser to [http://localhost:4985/_admin/](http://localhost:4985/_admin/), and click on the [kitchen-sync](http://localhost:4985/_admin/db/kitchen-sync) link. You will land on the **Documents** page, which will list all documents found. Clicking on a document id will reveal the contents of the document.
