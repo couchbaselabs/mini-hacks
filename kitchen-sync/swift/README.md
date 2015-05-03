@@ -148,7 +148,7 @@ Build your first Couchbase Mobile app in just a few minutes! Take an existing iO
         var error: NSError?
         let newRev = row.document.update({ (rev: CBLUnsavedRevision!) -> Bool in
             let wasChecked = (rev["check"] as? Bool) ?? false
-            rev["check"] = !wasChecked
+            rev.properties["check"] = !wasChecked
             return true
         }, error: &error)
 
@@ -173,7 +173,7 @@ Build your first Couchbase Mobile app in just a few minutes! Take an existing iO
         }
 
         // Create the new document's properties:
-        let properties = ["text": textField.text,
+        let properties: Dictionary<NSObject,AnyObject> = ["text": textField.text,
             "check": false,
             "created_at": CBLJSON.JSONObjectWithDate(NSDate())]
 
