@@ -3,8 +3,8 @@
      "verbose": true,
      "databases": {
           "kitchen-sync": {
-             "server":"walrus:",
-             "users": {"GUEST": {"disabled": false, "all_channels": ["*"], "admin_channels": ["*"]}},
+             "server":"walrus:.",
+             "users": {"GUEST": {"disabled": false, "admin_channels": ["*"]}},
              "bucket":"kitchensync",
              "sync":`function(doc) {channel(doc.channels);}`
           }
