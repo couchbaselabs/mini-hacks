@@ -1,0 +1,12 @@
+{
+     "log":["REST", "REST+", "HTTP", "HTTP+", "Access", "Cache", "Shadow", "Shadow+", "CRUD", "CRUD+", "Changes", "Changes+", "JSON", "JSON+"],
+     "verbose": true,
+     "databases": {
+          "spaceshooter": {
+             "server":"walrus:.",
+             "users": {"GUEST": {"disabled": false, "admin_channels": ["*"]}},
+             "bucket":"ss-sync",
+             "sync":`function(doc) {channel(doc.channels);}`
+          }
+     }
+}
