@@ -4,7 +4,7 @@ Kitchen Sync
 ### Goal
 
 Build your first Couchbase Mobile app in just a few minutes! Take an existing Android application
-and add data persistence along with offline support!
+and add data persistence along with offline support with Sync-ing abilities!
 
 ![Application Architecture](https://raw.githubusercontent.com/couchbaselabs/mini-hacks/master/kitchen-sync/topology.png "Typical Couchbase Mobile Architecture")
 
@@ -235,7 +235,7 @@ and add data persistence along with offline support!
 
  13. Now is a great time to build and run on device. You should see all of your new list items saved.
 
- 14. Let's add sync! First, we need to provide a URL for our Couchbase Sync Gateway. If you are
+ 14. Let's add Sync! First, we need to provide a URL for our Couchbase Sync Gateway. If you are
      doing this tutorial on a Mac and deploying to a real device, then enter the IP address of your
      Wifi interface (i.e. don't use localhost).  If you are deploying to an emulator, you will need
      to use `10.0.2.2` for the IP. Add the following declaration near the other instance variable
