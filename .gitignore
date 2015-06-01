@@ -5,3 +5,18 @@ bin/
 obj/
 Components/
 packages/
+
+space-shooter/*.csproj
+space-shooter/*.sln
+
+# ============ #
+# Sync Gateway #
+# ===========  #
+*.walrus
+tmp/
+
+# =============== #
+# Unity generated #
+# =============== #
+Temp/
+Library/
