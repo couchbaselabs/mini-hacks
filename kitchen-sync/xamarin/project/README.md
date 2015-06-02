@@ -21,7 +21,7 @@ The architecture and project structure of the KitchenSync application is shown i
 - App Layer - Custom classes to bind the business layer to the user interface, typically requiring platform specific features.
 - Business Layer - Business object classes and business logic.
 - Data Access Layer - Abstraction layer between the business logic and the data layer.
-- Data Layer - Low-level data persistence and retrieval; the KitchenSync sample uses Couchbase Lite. 
+- Data Layer - Low-level data persistence and retrieval; the KitchenSync sample uses Couchbase Lite.
 
 ### Tutorial
 
@@ -121,7 +121,7 @@ view.SetMap((doc, emit) => {
      taskMgr.DeleteTask (_rows[indexPath.Row]);
  }
 ```
-- Your app now has a database and local persistence!  It is a great time to build and run the application on device or emulator. You should see all of your new list items saved locally.
+- Your app now has a database and local persistence!  It is a great time to build and run the application on device or emulator. You should see all of your new list items saved locally.  At this point you will want to start up an instance of sync gateway if you haven't already.  There is a script provided for you to do so.  You will need to change to the kitchen-sync/ios/ directory and run `script/sg.sh start` (or on Windows you will have to install Sync Gateway and run it on the command line, passing it the argument of the config file found in the kitchen-sync/ios/script folder)
 
 - (9A) Let's add sync! First, we need to provide a URL for our Couchbase Sync Gateway. If you are doing this tutorial on a Mac and deploying to a real device, then enter the IP address of your Wifi interface (i.e. don't use localhost).  If you are deploying to an emulator, you will need to use `10.0.2.2` if you want to use localhost.  Add the following member to `MainActivity`:
 ```c#
