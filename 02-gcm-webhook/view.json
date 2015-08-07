@@ -1,0 +1,7 @@
+{
+  "views": {
+    "user_topics": {
+      "map": "function(doc, meta) { if (doc.type == 'profile') { doc.topics.forEach(function(topic) { emit(topic, doc.registration_ids) }) } }"
+    }
+  }
+}

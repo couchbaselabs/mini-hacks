@@ -1,0 +1,16 @@
+{
+  "name": "04-ios-sync-progress-indicator",
+  "version": "0.0.0",
+  "description": "",
+  "main": "requestRx.js",
+  "dependencies": {
+    "rx": "~2.5.3",
+    "request": "~2.58.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}

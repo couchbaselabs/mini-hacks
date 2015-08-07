@@ -1,0 +1,45 @@
+{
+  "log": ["CRUD", "HTTP+"],
+  "adminInterface": "localhost:4985",
+  "databases": {
+	"db": {
+	  "server": "walrus:",
+	  "users": {
+		"zack": {
+		  "password": "letmein"
+		},
+		"ali": {
+		  "password": "letmein"
+		},
+		"adam": {
+		  "password": "letmein"
+		},
+		"GUEST": {"disabled": true}
+	  },
+	  "event_handlers": {
+		"document_changed": [
+		  {
+			"handler": "webhook",
+			"url": "http://localhost:8000/invitecode",
+			"filter": `function(doc) {
+				if (doc.type == "profile" && doc.invite_code) {
+					return true;
+				}
+				return false;
+			}`
+		  },
+		  {
+			"handler": "webhook",
+			"url": "http://localhost:8000/new_article",
+			"filter": `function(doc) {
+				if (doc.type == "article") {
+					return true;
+		  		}
+		  		return false;
+		  	}`
+		  }
+		]
+	  }
+	}
+  }
+}
