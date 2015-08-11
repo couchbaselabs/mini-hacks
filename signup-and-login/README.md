@@ -1,4 +1,4 @@
-# Couchbase by Example: Sign up and Login
+# Couchbase by Example: Adding user sign up to your Android app with Node.js and Couchbase Mobile.
 
 With the Sync Gateway API, you can authenticate on the client side as a specific user to replicate the data this user has access to. In the case of basic authentication, the user must already exist in the Sync Gateway database. There are two ways to create users:
 
@@ -8,7 +8,7 @@ With the Sync Gateway API, you can authenticate on the client side as a specific
 To provide a login and sign up screen, you must setup an app server that handles the user creation accordingly as the admin port (4985) is not publicly accessible. In this tutorial, you'll learn how to:
 
 - Use the Admin REST API to create a user.
-- Setup an App Server with NodeJS to manage the users.
+- Setup an App Server with Node.js to manage the users.
 - Design a Login and Sign up screen in a sample Android app to test your App Server.
 
 ## Getting started
@@ -68,65 +68,70 @@ All of the Couchbase Mobile SDKs have a method to specify a user's name and pass
 
 ## App Server
 
-In this section, you'll use the necessary Admin REST API endpoint publicly to allow users to sign up through the app.
+In this section, you'll use the `/_user` Admin REST API endpoint publicly to allow users to sign up through the app.
 
-You'll use the `http-proxy` NodeJS module to proxy request to the Sync Gateway.
+You'll use the popular [Express](http://expressjs.com/) module to handle the request to create a user and the [request](https://github.com/request/request) module to proxy all other traffic to Sync Gateway.
 
 ![](http://cl.ly/image/0O203c1S3B0L/Custom%20Auth%20Signup%20(4).png)
 
-Open a new file `server.js` with the following:
+Install the following Node.js modules:
+
+```bash
+npm install express body-parser request http-proxy --save
+```
+
+Open a new file `server.js` and add the following:
 
 ```javascript
-var http = require('http')
-  , httpProxy = require('http-proxy')
-  , request = require('request').defaults({json: true});
+var express = require('express')
+  , bodyParser = require('body-parser')
+  , request = require('request').defaults({json: true})
+  , httpProxy = require('http-proxy');
 
 // 1
-var proxy = httpProxy.createProxyServer();
+var app = express();
+app.use('/signup', bodyParser.json());
+
 // 2
-var server = http.createServer(function (req, res) {
+app.post('/signup', function (req, res) {
+  console.log('its signup time');
 
-  // 3
-  if (/signup.*/.test(req.url)) {
-    console.log('its signup time');
+  var json = req.body;
+  var options = {
+    url: 'http://0.0.0.0:4985/smarthome/_user/',
+    method: 'POST',
+    body: json
+  };
 
-    req.on('data', function (chunk) {
-      var json = JSON.parse(chunk);
-      var options = {
-        url: 'http://0.0.0.0:4985/smarthome/_user/',
-        method: 'POST',
-        body: json
-      };
-      
-      request(options, function(error, response) {
-        res.writeHead(response.statusCode);
-        res.end();
-      });
-
-    });
-
-    req.on('end', function () {
-
-    });
-
-  // 4
-  } else {
-    proxy.web(req, res, {target: 'http://0.0.0.0:4984'});
-  }
-
+  request(options, function(error, response) {
+    res.writeHead(response.statusCode);
+    res.end();
+  });
 });
 
-server.listen(8000);
+// 3
+app.all('*', function(req, res) {
+  var url = 'http://0.0.0.0:4984' + req.url;
+  req.pipe(request(url)).pipe(res);
+});
+
+// 4
+var server = app.listen(8000, function () {
+  var host = server.address().address;
+  var port = server.address().port;
+
+  console.log('App listening at http://%s:%s', host, port);
+});
 ```
 
 Here's what is happening step by step:
 
-1. Instantiate a new instance of the proxy server.
-2. Instantiate a new instance of the http server.
-3. Check if the url path is `/signup` and proxy the request on the admin port 4985.
-4. Proxy all other requests on the user port 4984.
+1. Instantiate a new instance of express and use the `bodyParser` middleware only if the path matches `signup`. Indeed, for all other requests proxied to Sync Gateway you need the raw request body.
+2. Handle the `/signup` requests and use the request module to create the user on the admin port.
+3. Proxy all other requests to Sync Gateway.
+4. Start the Node.js web server on port 8000.
 
-From now on, you can use one url to create users and perform all other operations available on the user port.
+From now on, you will use the url below to create users through the app and kick off push/pull replications:
 
 > http://localhost:8000
 

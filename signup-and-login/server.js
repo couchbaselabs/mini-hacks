@@ -1,36 +1,39 @@
-var http = require('http')
-  , httpProxy = require('http-proxy')
-  , request = require('request').defaults({json: true});
+var express = require('express')
+  , bodyParser = require('body-parser')
+  , request = require('request').defaults({json: true})
+  , httpProxy = require('http-proxy');
 
-var proxy = httpProxy.createProxyServer();
-var server = http.createServer(function (req, res) {
+// 1
+var app = express();
+app.use('/signup', bodyParser.json());
 
-  if (/signup.*/.test(req.url)) {
-    console.log('its signup time');
+// 2
+app.post('/signup', function (req, res) {
+  console.log('its signup time');
 
-    req.on('data', function (chunk) {
-      var json = JSON.parse(chunk);
-      var options = {
-        url: 'http://0.0.0.0:4985/smarthome/_user/',
-        method: 'POST',
-        body: json
-      };
+  var json = req.body;
+  var options = {
+    url: 'http://0.0.0.0:4985/smarthome/_user/',
+    method: 'POST',
+    body: json
+  };
 
-      request(options, function(error, response) {
-        res.writeHead(response.statusCode);
-        res.end();
-      });
-
-    });
-
-    req.on('end', function () {
-
-    });
-
-  } else {
-    proxy.web(req, res, {target: 'http://0.0.0.0:4984'});
-  }
-
+  request(options, function(error, response) {
+    res.writeHead(response.statusCode);
+    res.end();
+  });
 });
 
-server.listen(8000);
+// 3
+app.all('*', function(req, res) {
+  var url = 'http://0.0.0.0:4984' + req.url;
+  req.pipe(request(url)).pipe(res);
+});
+
+// 4
+var server = app.listen(8000, function () {
+  var host = server.address().address;
+  var port = server.address().port;
+
+  console.log('App listening at http://%s:%s', host, port);
+});
