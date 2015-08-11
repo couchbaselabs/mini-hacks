@@ -68,7 +68,7 @@ To build the app server that will import the data from the Places API to Sync Ga
 
 	$ npm install request rx --save
 
-Copy **requestRx.js** from the [GitHub repo](https://github.com/couchbaselabs/Couchbase-by-Example/blob/master/04-ios-sync-progress-indicator/requestRx.js) to your project folder. We’re simply wrapping the Request api in RxJS constructs (flatMap, filter, subscribe...). For example, instead of using `request.get`, you will use `requestRx.get`.
+Copy **requestRx.js** from the [GitHub repo](https://github.com/couchbaselabs/Couchbase-by-Example/blob/master/ios-sync-progress-indicator/requestRx.js) to your project folder. We’re simply wrapping the Request api in RxJS constructs (flatMap, filter, subscribe...). For example, instead of using `request.get`, you will use `requestRx.get`.
 
 Create a new file called **sync.js**, require the `requestRx` and `Rx` modules. Define a couple constants:
 

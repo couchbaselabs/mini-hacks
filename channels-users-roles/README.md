@@ -1,6 +1,6 @@
 # Couchbase by Example: Channel, Users, Roles
 
-In `04-ios-sync-progress-indicator`, you learnt how to use RxJS and the request module to import documents into a Sync Gateway database from the Google Places API. To keep it simple, you enabled the GUEST user with access to all channels. In this tutorial, you will configure the Sync Function to allow authenticated users to post reviews.
+In `ios-sync-progress-indicator`, you learnt how to use RxJS and the request module to import documents into a Sync Gateway database from the Google Places API. To keep it simple, you enabled the GUEST user with access to all channels. In this tutorial, you will configure the Sync Function to allow authenticated users to post reviews.
 
 The Sync Function validates document contents, and authorizes write access to documents by channel, user, and role.
 

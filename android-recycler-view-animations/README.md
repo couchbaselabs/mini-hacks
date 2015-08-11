@@ -28,15 +28,15 @@ Run the app and you should see the default activity and toolbar:
 
 ## Setting up Sync Gateway
 
-First you need to have a Sync Gateway instance running with documents (including attachments) to replicate. You will use the NodeJS app from `04-ios-sync-progress-indicator` to do that.
+First you need to have a Sync Gateway instance running with documents (including attachments) to replicate. You will use the NodeJS app from `ios-sync-progress-indicator` to do that.
 
 Download Sync Gateway and unzip the file:
 
 > http://www.couchbase.com/nosql-databases/downloads#Couchbase\_Mobile
 
-Start Sync Gateway with the config file from `04-ios-sync-progress-indicator`:
+Start Sync Gateway with the config file from `ios-sync-progress-indicator`:
 
-	$ ~/Downloads/couchbase-sync-gateway/bin/sync_gateway ~/couchbase-by-example/04-ios-sync-progress-indicator/04-ios-sync-progress-indicator.json
+	$ ~/Downloads/couchbase-sync-gateway/bin/sync_gateway ~/couchbase-by-example/ios-sync-progress-indicator/ios-sync-progress-indicator.json
 
 Open the Admin Dashboard to monitor the documents that were saved to Sync Gateway.
 

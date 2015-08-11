@@ -4,7 +4,7 @@ So far, you have been running Sync Gateway and perhaps Couchbase Server locally 
 
 You will use the Docker images for Sync Gateway and [Couchbase Server](https://registry.hub.docker.com/u/couchbase/server/) available in the Docker registry.
 
-Then, you will create a `Dockerfile` for a NodeJS app that imports data from the Google Places API to Sync Gateway. The NodeJS app is taken from the `04-ios-sync-progress-indicator` tutorial.
+Then, you will create a `Dockerfile` for a NodeJS app that imports data from the Google Places API to Sync Gateway. The NodeJS app is taken from the `ios-sync-progress-indicator` tutorial.
 
 ## Why Docker?
 
@@ -44,14 +44,14 @@ Copy the necessary files from the `04-ios-sync-progress` tutorial to this projec
 
 ```
 git clone git@github.com:couchbaselabs/Couchbase-by-Example.git
-cd couchbase-by-example/04-ios-sync-progress-indicator
-cp requestRx.js sync-gateway-config.json sync.js package.json ./../07-deploy-digital-ocean/
+cd couchbase-by-example/ios-sync-progress-indicator
+cp requestRx.js sync-gateway-config.json sync.js package.json ./../deploy-digital-ocean/
 ```
 
 Create a new copy of the config file to set it up with Couchbase Server:
 
 ```
-cd 07-deploy-digital-ocean/
+cd deploy-digital-ocean/
 cp sync-gateway-config.json production-sync-gateway-config.json
 ```
 
