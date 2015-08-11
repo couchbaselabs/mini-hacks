@@ -1,0 +1,22 @@
+{
+  "docs": [
+    {
+      "type": "profile",
+      "registration_ids": ["AP91SZs2"],
+      "name": "zack"
+    },
+    {
+      "type": "profile",
+      "name": "ali",
+      "registration_ids": ["AP91IEsF"],
+      "invite_code": true,
+      "topics": ["hacking"]
+    },
+    {
+      "type": "profile",
+      "name": "adam",
+      "registration_ids": ["AP91DKsR", "AP91CNs8"],
+      "topics": ["design", "science"]
+    }
+  ]
+}

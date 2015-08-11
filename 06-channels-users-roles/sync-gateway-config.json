@@ -1,0 +1,63 @@
+{
+  "log": ["*"],
+  "databases": {
+    "db": {
+      "server": "walrus:",
+      "users": {
+        "jens": {
+          "admin_roles": ["level-1"],
+          "password": "letmein"
+        },
+        "andy": {
+          "admin_roles": ["level-2"],
+          "password": "letmein"
+        },
+        "william": {
+          "admin_roles": [],
+          "password": "letmein"
+        },
+        "traun": {
+          "admin_roles": ["level-3"],
+          "password": "letmein"
+        }
+      },
+      "roles": {
+        "level-1": {},
+        "level-2": {},
+        "level-3": {}
+      },
+      "sync": `
+        function(doc, oldDoc) {
+          if (doc.type == "restaurant"){
+            channel(doc.restaurant_id);
+          } else if (doc.type == "review") {
+            switch(doc.role) {
+              case "level-1": // Step 1
+                requireRole(doc.role);
+                var channelname = doc.owner + "-in-review";
+                channel(channelname);
+
+                access(doc.owner, channelname);
+                access("role:level-3", channelname);
+
+                break;
+            case "level-2": // Step 2
+              requireRole(doc.role);
+              channel(doc.restaurant_id);
+
+              break;
+            case "level-3": // Step 3
+              requireRole(doc.role);
+              channel(doc.restaurant_id);
+
+              break;
+            }
+          } else if (doc.type == "profile") {
+            requireRole("level-3");
+            role(doc.name, "role:" + doc.role);
+          }
+        }
+      `
+    }
+  }
+}
