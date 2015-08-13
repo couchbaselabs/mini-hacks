@@ -1,0 +1,19 @@
+{
+  "name": "android-fast-iterations",
+  "version": "0.0.0",
+  "description": "",
+  "main": "server.js",
+  "dependencies": {
+    "express": "~4.13.3",
+    "rx": "^3.0.0",
+    "request": "^2.60.0",
+    "body-parser": "^1.13.3"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": "",
+  "license": "ISC"
+}
