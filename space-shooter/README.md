@@ -26,8 +26,9 @@ git clone https://github.com/couchbaselabs/mini-hacks.git
 - If the scene is blank, be sure to open the `Main.unity` scene in the `\_Scenes` folder.
 - There is an item in the scene that is not from the original space shooter game:  `AssetListener`  
 This item contains two scripts:  
--[1]`UnityMainThreadScheduler`: is a utility provided by Couchbase Lite.  It provides a `TaskFactory` and `TaskScheduler` object for queuing jobs onto Unity's main thread (The implementations of Couchbase Lite for .NET 3.5 and Unity provide a backport of the Task Parallel Library, so go ahead and use `Task.Factory.StartNew()`!)
--[2]`AssetChangeListener`: will be created as part of this tutorial.
+	-[1]`UnityMainThreadScheduler`: is a utility provided by Couchbase Lite.  It provides a `TaskFactory` and `TaskScheduler` object for queuing jobs onto Unity's main thread (The implementations of Couchbase Lite for .NET 3.5 and Unity provide a backport of the Task Parallel Library, so go ahead and use `Task.Factory.StartNew()`!)
+
+	-[2]`AssetChangeListener`: will be created as part of this tutorial.
 - In the build settings of this project, the API compatibility is set to .NET 2.0 and not .NET 2.0 subset.  Couchbase Lite is not usable under the subset compatibility level (sometimes I find that this setting does not persist between machines, so if you get `TypeLoadException` when building the project in Unity, this is the likely culprit)
 - For similar reasons, Couchbase Lite is not usuable when targeting the Unity Web Player (too many API restrictions).
 - Couchbase Lite is only supported in Standalone, iOS, and Android builds.
