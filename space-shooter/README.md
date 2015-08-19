@@ -37,7 +37,7 @@ This item contains two scripts:
 
 Alright, with that out of the way let's go ahead and open up the MonoDevelop-Unity project (Assets > Sync MonoDevelop Project) and start in `GameController.cs` found under the Assembly-CSharp > Scripts folder. (this is part of the original space shooter project, but we are going to edit it)
 
-1. Lets start with something simple.  Add the following using statements to the top of the file: 
+1. Lets start with something simple.  Add the following using statements to the top of the `GameController.cs` file: 
 	```c#
 	using Couchbase.Lite;
 	using Couchbase.Lite.Unity;
@@ -80,7 +80,7 @@ Alright, with that out of the way let's go ahead and open up the MonoDevelop-Uni
 	}
 	```
 
-5. If everything went well in the above two steps, then no one should ever doubt your high score again (unless, of course, you cheated).  It is now persisted not only locally but in the remote endpoint that everyone can see.  Let's make sure that this is reflected in the game UI.  Be careful though!  Unity updates to UI objects must be performed on the main thread, but we are not there.  So let's make use of the `UnityMainThreadScheduler`.  Add this below the code you wrote above:
+5. If everything went well in the above two steps, then no one should ever doubt your high score again (unless, of course, you cheated).  It is now persisted not only locally but in the remote endpoint that everyone can see.  Let's make sure that this is reflected in the game UI.  Be careful though!  Unity updates to UI objects must be performed on the main thread, but we are not there.  So let's make use of the `UnityMainThreadScheduler`.  Add this below the code you wrote above in Step 4:
 	```c#
 	UnityMainThreadScheduler.TaskFactory.StartNew(() => {
 		//Needs to be called on the main thread
@@ -109,7 +109,7 @@ Alright, with that out of the way let's go ahead and open up the MonoDevelop-Uni
 	}
 	```
 
-8. Alright, now let's get a little more complex.  The high score system is finished, and now it's time to get into something more interesting.  We are going to replace the mesh of the player ship while the game is running (that's right, not only do you not need to reinstall, you don't even need to pause).  This is the entire purpose of the `AssetChangeListener` class, so we are going to move over to the `AssetChangeListener.cs` file.  First let's add a couple variables that we need.  Add the following into the `#region Member Variables` area
+8. Alright, now let's get a little more complex.  The high score system is finished, and now it's time to get into something more interesting.  We are going to replace the mesh of the player ship while the game is running (that's right, not only do you not need to reinstall, you don't even need to pause).  This is the entire purpose of the `AssetChangeListener` class, so we are going to move over to the `AssetChangeListener.cs` file in the Scipts folder.  First let's add a couple variables that we need.  Add the following into the `#region Member Variables` area
 	```c#
 	private Replication _pull, _push;	//The sync objects
 	private Database _db;				//The database object
