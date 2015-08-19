@@ -246,8 +246,10 @@ Great!  Everything is finished now.  I've included some scripts to help visualiz
 
 1. Start playing the game now!  Close the MonoDevelop-Unity project file and within your Unity application, click on the PLAY button on the top of the project to run the Couchbase Mobile Unity game.
 
-2. Dynamically change the ship model without interrupting gameplay.  The script is on a three second timer so that you have a chance to get back to the game before the change happens. 
+2. With Sync Gateway downloaded and running, you can see the High Score, `player_data` by opening your browser and typing in: `http://localhost:4985/_admin/db/spaceshooter/documents/player_data`
+
+3. Can also dynamically change the ship model without interrupting gameplay.  The script is on a three second timer so that you have a chance to get back to the game before the change happens. 
     `python set_ship.py "alternateship"`
 
-3. (optional) Change back to the default ship<br>
+4. (optional) Change back to the default ship<br>
     `python set_ship.py "" #the empty string is required`
