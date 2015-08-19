@@ -229,21 +229,23 @@ Alright, with that out of the way let's go ahead and open up the MonoDevelop-Uni
 
 Great!  Everything is finished now.  I've included some scripts to help visualize the power of this process.  You can utilize them as follows:
 
-1. Start up Couchbase Sync Gateway<br>
+1. Within your Terminal application, navigate to the `space-shooter` folder and start up Couchbase Sync Gateway by running the `sg.sh` file <br>
     ```
     ./sg.sh start #OS X
     sg.bat #Windows
     ```
 
-2. Upload a Unity Asset Bundle to the gateway<br>
+2. Upload a Unity Asset Bundle to the Sync Gateway.  Within your Terminal application, navigate to the `scripts` folder and execute the `initialize_data` file <br>
     ```
     cd scripts
     ./initialize_data.sh #OS X
     initialize_data.bat #Windows
     ```
-3. Start playing the game
-4. Dynamically change the ship model without interrupting gameplay.  The script is on a three second timer so that you have a chance to get back to the game before the change happens. 
+###Shoot em' Up!
+
+1. Start playing the game
+2. Dynamically change the ship model without interrupting gameplay.  The script is on a three second timer so that you have a chance to get back to the game before the change happens. 
     `python set_ship.py "alternateship"`
 
-5. (optional) Change back to the default ship<br>
+3. (optional) Change back to the default ship<br>
     `python set_ship.py "" #the empty string is required`
