@@ -241,6 +241,7 @@ Great!  Everything is finished now.  I've included some scripts to help visualiz
     ./initialize_data.sh #OS X
     initialize_data.bat #Windows
     ```
+
 ###Shoot em' Up!
 
 1. Start playing the game now!  Close the MonoDevelop-Unity project file and within your Unity application, click on the PLAY button on the top of the project to run the Couchbase Mobile Unity game.
