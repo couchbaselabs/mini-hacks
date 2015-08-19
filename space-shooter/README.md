@@ -35,7 +35,7 @@ This item contains two scripts:
 
 ###Tutorial Steps
 
-Alright, with that out of the way let's go ahead and open up the MonoDevelop-Unity project (Assets > Sync MonoDevelop Project) and start in GameController.cs (this is part of the original space shooter project, but we are going to edit it)
+Alright, with that out of the way let's go ahead and open up the MonoDevelop-Unity project (Assets > Sync MonoDevelop Project) and start in `GameController.cs` found under the Assembly-CSharp > Scripts folder. (this is part of the original space shooter project, but we are going to edit it)
 
 1. Lets start with something simple.  Add the following using statements to the top of the file: 
 	```c#
