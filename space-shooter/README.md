@@ -3,7 +3,10 @@ Space Shooter
 
 ### Goal
 
-Edit the ubiquitous space shooter Unity demo in just a few minutes to incorporate Couchabse Lite! Quickly enable game data sync, real time asset replacement, and offline save handling.
+Edit the ubiquitous space shooter Unity demo in just a few minutes to incorporate Couchabse Lite! You will learn how to quickly:
+[1] enable game data sync
+[2] real time asset replacement
+[3] and offline save handling
 
 ### Tutorial
 
