@@ -243,7 +243,8 @@ Great!  Everything is finished now.  I've included some scripts to help visualiz
     ```
 ###Shoot em' Up!
 
-1. Start playing the game
+1. Start playing the game now!  Close the MonoDevelop-Unity project file and within your Unity application, click on the PLAY button on the top of the project to run the Couchbase Mobile Unity game.
+
 2. Dynamically change the ship model without interrupting gameplay.  The script is on a three second timer so that you have a chance to get back to the game before the change happens. 
     `python set_ship.py "alternateship"`
 
