@@ -112,7 +112,7 @@ Alright, with that out of the way let's go ahead and open up the MonoDevelop-Uni
 8. Alright, now let's get a little more complex.  The high score system is finished, and now it's time to get into something more interesting.  We are going to replace the mesh of the player ship while the game is running (that's right, not only do you not need to reinstall, you don't even need to pause).  This is the entire purpose of the `AssetChangeListener` class, so we are going to move over to the `AssetChangeListener.cs` file in the Scipts folder.  First let's add a couple variables that we need.  Add the following into the `#region Member Variables` area
 	```c#
 	private Replication _pull, _push;	//The sync objects
-	private Database _db;				//The database object
+	private Database _db;			//The database object
 	```
 
 9. In almost the exact same way as `GameController` we are going to once again pull new data and wait.  The difference is that this time we are going to set `Continuous` to `true` so that any changes to the remote endpoint are immediately synced.  Add the following into `Start()`:
@@ -168,7 +168,7 @@ Alright, with that out of the way let's go ahead and open up the MonoDevelop-Uni
 	});
 	```
 
-13. Finally, it is time for the really interesting part.  Let's move to `LoadAsset()`.  In the following code, we check that we have gotten a valid piece of data in three ways.  First we ensure that the document specified in the player data object actually exists.  Then we check that it is the correct type and that it has an attachment.   Add the following fairly long chunk into the `LoadAsset()` function below the existing code.
+13. Finally, it is time for the really interesting part.  Let's move to `LoadAsset()`.  In the following code, we check that we have gotten a valid piece of data in three ways.  First we ensure that the document specified in the player data object actually exists.  Then we check that it is the correct type and that it has an attachment.   Add chuck of code snippet to the `LoadAsset()` function below the existing code.
 	```c#
 	//Sanity check:  does document exist?
 	var doc = _db.GetExistingDocument (assetName);
@@ -191,7 +191,7 @@ Alright, with that out of the way let's go ahead and open up the MonoDevelop-Uni
 	}
 	```
 
-14. As an extension of the checks in 13, we perform one more check. We check that the attachment is actually a valid object for use as an asset in Unity (anecdote:  This was failing for me when I accidentally uploaded the attachment in ASCII mode instead of binary mode because the data would be truncated).  If all of the checks in 13 and 14 pass, then we load the asset into the game.  Add the following code below the code you added in 13:
+14. As an extension of the checks in Step 13, we perform one more check. We check that the attachment is actually a valid object for use as an asset in Unity (anecdote:  This was failing for me when I accidentally uploaded the attachment in ASCII mode instead of binary mode because the data would be truncated).  If all of the checks in Step 13 and Step 14 pass, then we load the asset into the game.  Add the following snippet below the code you added in Step 13:
 	```c#
 	//Does the attachment asset bundle have an object of the correct type?
 	var token = AssetBundle.CreateFromMemory (attachment.Content.ToArray ());
@@ -207,12 +207,12 @@ Alright, with that out of the way let's go ahead and open up the MonoDevelop-Uni
 	assetBundle.Unload (false);
 	```
 
-15. All of these things are going on constantly during gameplay, so we want to stop them once the game has finished.  The game is already set up to send a GameOver message to `GameController` when the game is over.  Let's have `GameController` also inform `AssetChangeListener` of this.  Add the following to the bottom of the `GameOver()` method in `GameController`:
+15. All of these things are going on constantly during gameplay, so we want to stop them once the game has finished.  The game is already set up to send a GameOver message to `GameController` when the game is over.  Let's have `GameController` also inform `AssetChangeListener` of this now.  Add the following to the bottom of the `GameOver()` method in `GameController.cs` file:
 	```c#
 	GameObject.FindObjectOfType<AssetChangeListener> ().GameOver ();
 	```
 
-16. Now let's do some housekeeping back in the `AssetChangeListener`.  In particular, we need to stop the pull replication and unregister the change listener.  Add the following as the body of `GameOver()` in `AssetChangeListener`:
+16. Now let's do some housekeeping back in the `AssetChangeListener`.  In particular, we need to stop the pull replication and unregister the change listener.  Add the following as the body of the `GameOver()` method within the `AssetChangeListener.cs` file:
 	```c#
 	var doc = _db.GetExistingDocument ("player_data");
 	if (doc != null) {
@@ -224,6 +224,8 @@ Alright, with that out of the way let's go ahead and open up the MonoDevelop-Uni
 		_pull = null;
 	}
 	```
+
+###Couchbase Sync Gateway
 
 Great!  Everything is finished now.  I've included some scripts to help visualize the power of this process.  You can utilize them as follows:
 
