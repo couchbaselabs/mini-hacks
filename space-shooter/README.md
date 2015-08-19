@@ -10,15 +10,29 @@ Edit the ubiquitous space shooter Unity demo in just a few minutes to incorporat
 
 ### Tutorial
 
-This tutorial will add the logic needed to implement the above mentioned points.  Each step has a corresponding comment in the source code.
+This tutorial will add the logic needed to implement the above mentioned points.  Each step has a corresponding comment in the source code.  You will need [Unity](https://unity3d.com/get-unity) and this tutorial is compatible with Unity version: `5.1.2f1 Personal`  
 
-First open the project in Unity because there are some things to note for future reference:
+### Setup
 
-- If the scene is blank, be sure to open the Main.unity scene in the \_Scenes folder.
-- There is an item in the scene that is not from the original space shooter game:  AssetListener.  This item contains two scripts:  UnityMainThreadScheduler and AssetChangeListener.  The former is a utility provided by Couchbase Lite.  It provides a `TaskFactory` and `TaskScheduler` object for queuing jobs onto Unity's main thread (The implementations of Couchbase Lite for .NET 3.5 and Unity provide a backport of the Task Parallel Library, so go ahead and use `Task.Factory.StartNew()`!).  AssetChangeListener will be created as part of this tutorial.
+ - Download the [.zip](https://github.com/couchbaselabs/mini-hacks/archive/master.zip) or Clone this repo:
+ ```
+git clone https://github.com/couchbaselabs/mini-hacks.git
+ ```
+ - Open Unity application and click on `Open Other`
+ - Navigate to the `space-shooter` folder and click `Open` 
+
+### Note
+
+- If the scene is blank, be sure to open the `Main.unity` scene in the `\_Scenes` folder.
+- There is an item in the scene that is not from the original space shooter game:  `AssetListener`  
+This item contains two scripts:  
+-[1]`UnityMainThreadScheduler`: is a utility provided by Couchbase Lite.  It provides a `TaskFactory` and `TaskScheduler` object for queuing jobs onto Unity's main thread (The implementations of Couchbase Lite for .NET 3.5 and Unity provide a backport of the Task Parallel Library, so go ahead and use `Task.Factory.StartNew()`!)
+-[2]`AssetChangeListener`: will be created as part of this tutorial.
 - In the build settings of this project, the API compatibility is set to .NET 2.0 and not .NET 2.0 subset.  Couchbase Lite is not usable under the subset compatibility level (sometimes I find that this setting does not persist between machines, so if you get `TypeLoadException` when building the project in Unity, this is the likely culprit)
 - For similar reasons, Couchbase Lite is not usuable when targeting the Unity Web Player (too many API restrictions).
 - Couchbase Lite is only supported in Standalone, iOS, and Android builds.
+
+###Tutorial Steps
 
 Alright, with that out of the way let's go ahead and open up the MonoDevelop-Unity project (Assets > Sync MonoDevelop Project) and start in GameController.cs (this is part of the original space shooter project, but we are going to edit it)
 
