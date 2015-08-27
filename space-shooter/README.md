@@ -10,7 +10,7 @@ Edit the ubiquitous space shooter Unity demo in just a few minutes to incorporat
 
 ### Tutorial
 
-This tutorial will add the logic needed to implement the above mentioned points.  Each step has a corresponding comment in the source code.  You will need [Unity](https://unity3d.com/get-unity) and this tutorial is compatible with Unity version: `5.1.2f1 Personal`  
+This tutorial will add the logic needed to implement the above mentioned points.  Each step has a corresponding comment in the source code.  You will need [Unity](https://unity3d.com/get-unity) and this tutorial is compatible with Unity version: `5.1.2f1 Personal` or `5.1.2p1 Professional`  
 
 ### Setup
 
@@ -143,7 +143,7 @@ Alright, with that out of the way let's go ahead and open up the MonoDevelop-Uni
 	}
 	```
 
-11. The database is set up to get remote updates as they happen, but we still need to register to listen and react to them.  We do this through the `Changed` event.  It is available on various objects in Couchbase Lite, but for this one we will watch the `Changed` event on the player data document.  Also, since we may have created a new document in the code above we'll fire off a one-shot push.  Add this below the code in step 10:
+11. The database is set up to get remote updates as they happen, but we still need to register to listen and react to them.  We do this through the `Changed` event.  It is available on various objects in Couchbase Lite, but for this one we will watch the `Changed` event on the `player_data` document.  Also, since we may have created a new document in the code above we'll fire off a one-shot push.  Add this below the code in step 10:
 	```c#
 	doc.Change += DocumentChanged;
 	_push = _db.CreatePushReplication (GameController.SYNC_URL);
@@ -168,7 +168,7 @@ Alright, with that out of the way let's go ahead and open up the MonoDevelop-Uni
 	});
 	```
 
-13. Finally, it is time for the really interesting part.  Let's move to `LoadAsset()`.  In the following code, we check that we have gotten a valid piece of data in three ways.  First we ensure that the document specified in the player data object actually exists.  Then we check that it is the correct type and that it has an attachment.   Add chuck of code snippet to the `LoadAsset()` function below the existing code.
+13. Finally, it is time for the really interesting part.  Let's move to `LoadAsset()`.  In the following code, we check that we have gotten a valid piece of data in three ways.  First we ensure that the document specified in the player data object actually exists.  Then we check that it is the correct type and that it has an attachment.   Add the chunck of code snippet to the `LoadAsset()` function below the existing code.
 	```c#
 	//Sanity check:  does document exist?
 	var doc = _db.GetExistingDocument (assetName);
@@ -235,9 +235,9 @@ Great!  Everything is finished now.  I've included some scripts to help visualiz
     sg.bat #Windows
     ```
 
-2. Upload a Unity Asset Bundle to the Sync Gateway.  Within your Terminal application, navigate to the `scripts` folder and execute the `initialize_data` file <br>
+2. Upload a Unity Asset Bundle to the Sync Gateway.  Within your Terminal application, navigate to the `script` folder and execute the `initialize_data` file <br>
     ```
-    cd scripts
+    cd script
     ./initialize_data.sh #OS X
     initialize_data.bat #Windows
     ```
