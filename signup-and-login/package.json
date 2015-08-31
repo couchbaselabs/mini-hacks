@@ -1,0 +1,17 @@
+{
+  "name": "signup-and-login",
+  "version": "0.0.1",
+  "description": "Sample project to set up a Signup and Login screen with Couchbase Mobile",
+  "main": "server.js",
+  "dependencies": {
+    "request": "~2.60.0",
+    "express": "~4.13.3",
+    "http-proxy": "~1.11.1",
+    "body-parser": "~1.13.3"
+  },
+  "scripts": {
+    "start": "node server.js"
+  },
+  "author": "James Nocentini - james.nocentini@gmail.com",
+  "license": "ISC"
+}
