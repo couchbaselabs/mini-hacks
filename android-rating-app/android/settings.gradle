@@ -1,0 +1,1 @@
+include ':app', ':libraries:couchbase-lite-java-core', ':libraries:couchbase-lite-android', ':libraries:couchbase-lite-java-listener', ':libraries:couchbase-lite-java-forestdb'

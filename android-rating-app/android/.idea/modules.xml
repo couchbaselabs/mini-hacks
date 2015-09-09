@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/android.iml" filepath="$PROJECT_DIR$/android.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/libraries/couchbase-lite-android/couchbase-lite-android.iml" filepath="$PROJECT_DIR$/libraries/couchbase-lite-android/couchbase-lite-android.iml" />
+      <module fileurl="file://$PROJECT_DIR$/libraries/couchbase-lite-java-core/couchbase-lite-java-core.iml" filepath="$PROJECT_DIR$/libraries/couchbase-lite-java-core/couchbase-lite-java-core.iml" />
+      <module fileurl="file://$PROJECT_DIR$/libraries/couchbase-lite-java-forestdb/couchbase-lite-java-forestdb.iml" filepath="$PROJECT_DIR$/libraries/couchbase-lite-java-forestdb/couchbase-lite-java-forestdb.iml" />
+      <module fileurl="file://$PROJECT_DIR$/libraries/couchbase-lite-java-listener/couchbase-lite-java-listener.iml" filepath="$PROJECT_DIR$/libraries/couchbase-lite-java-listener/couchbase-lite-java-listener.iml" />
+      <module fileurl="file://$PROJECT_DIR$/libraries/libraries.iml" filepath="$PROJECT_DIR$/libraries/libraries.iml" />
+    </modules>
+  </component>
+</project>
