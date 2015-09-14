@@ -17,8 +17,10 @@ The architecture and project structure of the KitchenSync application is shown i
 
 ![architecture](https://raw.githubusercontent.com/couchbaselabs/mini-hacks/master/kitchen-sync/xamarin/project/images/architecture.png)
 
+Platform:
 - User Interface - The screens, controls and data presentation code. In Xamarin.iOS these classes are wrappers around the iOS CocoaTouch frameworks. The user interface that you build looks, feels and performs like a native Objective-C application.
 - App Layer - Custom classes to bind the business layer to the user interface, typically requiring platform specific features.
+Core Library:
 - Business Layer - Business object classes and business logic.
 - Data Access Layer - Abstraction layer between the business logic and the data layer.
 - Data Layer - Low-level data persistence and retrieval; the KitchenSync sample uses Couchbase Lite.
