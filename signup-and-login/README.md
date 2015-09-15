@@ -72,7 +72,7 @@ In this section, you'll use the `/_user` Admin REST API endpoint publicly to all
 
 You'll use the popular [Express](http://expressjs.com/) module to handle the request to create a user and the [request](https://github.com/request/request) module to proxy all other traffic to Sync Gateway.
 
-![](http://cl.ly/image/0O203c1S3B0L/Custom%20Auth%20Signup%20(4).png)
+![](assets/custom_auth_flow.png)
 
 Install the following Node.js modules:
 
@@ -159,15 +159,15 @@ Open Android Studio and select **Start a new Android Studio project** from the *
 
 Name the app **SmartHome**, set an appropriate company domain and project location, and then click **Next**:
 
-![](http://cl.ly/image/2h3R3r1K041F/Screen%20Shot%202015-07-29%20at%2015.23.20.png)
+![](assets/new_project.png)
 
 On the Target Android Devices dialog, make sure you check **Phone and Tablet**, set the Minimum SDK to **API 22: Android 5.1 (Lollipop)** for both, and click **Next**:
 
-![](http://cl.ly/image/241n02472f13/Screen%20Shot%202015-07-29%20at%2015.24.15.png)
+![](assets/target_platform.png)
 
 On the subsequent **Add an activity to Mobile** dialog, select Add **Blank Activity** and name the activity **Welcome Activity**:
 
-![](http://cl.ly/image/1d2F2D372K1m/Screen%20Shot%202015-07-29%20at%2015.27.18.png)
+![](assets/blank_activity.png)
 
 To build the signup and login functionalities you will use two dependencies:
 
@@ -208,13 +208,13 @@ In `activity_welcome.xml`, add the following **LinearLayout** inside of the exis
 
 Notice that both buttons have an `onClick` attribute. Move the mouse cursor on one of the methods and use the `alt + enter` > `Create openLoginActivity(view)` shortcut to create that method in `WelcomeActivity`:
 
-![](http://i.gyazo.com/7dc646192986cac8e1823b4088028f32.gif)
+![](assets/onclick_method.gif)
 
 Do the same for the **Sign Up** button.
 
 Next, create two new classes and XML layouts using the **Blank Activity** template. One should be called `Login` and the other `SignUp`:
 
-![](http://cl.ly/image/3S3K01013I2v/Screen%20Shot%202015-07-31%20at%2009.29.55.png)
+![](assets/new_activity.png)
 
 Back in the `openLoginActivity` and `openSignUpActivity` methods, add the following explicit intents:
 
@@ -370,7 +370,7 @@ public void signup(View view) {
 
 Run the app and enter a name and password. If the user account was successfully created you will get back a `201 Created` status code and should see the newly created user on the Admin Dashboard:
 
-![](http://cl.ly/image/03102s0u181x/Screen%20Shot%202015-07-31%20at%2009.50.42.png)
+![](assets/admin_ui.png)
 
 Finally, let's finish off with the Login screen. In `activity_login.xml`, add the following in **RelativeLayout**:
 
@@ -457,7 +457,7 @@ public void login(View view) {
 
 Run the app and login with the user name and password that you previously chose. If the authentication was successfull, you will get back a 200 OK status code:
 
-![](http://cl.ly/image/05350m1U0l09/Screen_Shot_2015-07-31_at_09_49_36.png)
+![](assets/alert_dialog.png)
 
 **NOTE:** All of the Couchbase Lite SDKs have a method on the `Replication` object that takes a name and password and performs the authentication for you so you will likely not have to make that POST request to `/smarthome/_session`.
 
