@@ -1,4 +1,4 @@
-# Couchbase by Example: Adding user sign up to your Android app with Node.js and Couchbase Mobile.
+# Adding user Sign Up to your Android app with Node.js and Couchbase Mobile
 
 With the Sync Gateway API, you can authenticate on the client side as a specific user to replicate the data this user has access to. In the case of basic authentication, the user must already exist in the Sync Gateway database. There are two ways to create users:
 
