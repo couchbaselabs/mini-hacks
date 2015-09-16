@@ -1,0 +1,32 @@
+{
+  "log": ["*"],
+  "databases": {
+    "db": {
+      "bucket": "default",
+      "server": "http://localhost:8091",
+      "users": { "GUEST": { "disabled": false, "admin_channels": ["*"] } },
+      "sync": `function(doc, oldDoc) {
+if (doc.type == "profile") {
+channel(doc.city);
+access(doc._id, doc.city);
+} else if (doc.type == "city") {
+channel(doc.city);
+}
+}`,
+      "event_handlers": {
+        "document_changed": [
+          {
+            "handler": "webhook",
+            "url": "http://localhost:8000/sync_request",
+            "filter": `function(doc) {
+              if (doc.type == "profile") {
+                return true;
+              }
+              return false;
+            }`
+          }
+        ]
+      }
+    }
+  }
+}
