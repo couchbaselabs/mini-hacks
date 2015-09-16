@@ -125,7 +125,7 @@ Great! The webhook is working. Next, you will add some code to import the JSON d
 $ npm install request rx --save
 ```
 
-Copy **requestRx.js** from this [GitHub repo](https://github.com/couchbaselabs/mini-hacks/tree/master/android-fast-iterations) to your project folder. We're simply wrapping the Request API in RxJS constructs (flatMap, filter, subscribe...). For example, instead of using `request.get`, you will use `requestRx.get`.
+Copy **requestRx.js** from this [GitHub repo](https://github.com/couchbaselabs/mini-hacks/tree/master/sync-gateway-resync-android) to your project folder. We're simply wrapping the Request API in RxJS constructs (flatMap, filter, subscribe...). For example, instead of using `request.get`, you will use `requestRx.get`.
 
 Open a new file called **sync.js**, require the **requestRx** and **Rx** modules and add the following code:
 
