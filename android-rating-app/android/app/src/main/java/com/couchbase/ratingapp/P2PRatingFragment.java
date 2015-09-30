@@ -14,9 +14,6 @@ import android.widget.TextView;
 
 import com.couchbase.lite.Database;
 
-/**
- * Created by jamesnocentini on 03/09/15.
- */
 public class P2PRatingFragment extends Fragment {
 
     EditText targetInput;
@@ -38,13 +35,14 @@ public class P2PRatingFragment extends Fragment {
         ipTextView = (TextView) rootView.findViewById(R.id.ipTextView);
         ipTextView.setText(((MainActivity) getActivity()).getLocalIpAddress());
 
+        /**
+         * Start a replication when the "Push and Pull" button is pressed.
+         */
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 String targetStringURL = targetInput.getText().toString();
                 ((MainActivity) getActivity()).storageManager.oneShotReplication(targetStringURL);
-
             }
         });
 

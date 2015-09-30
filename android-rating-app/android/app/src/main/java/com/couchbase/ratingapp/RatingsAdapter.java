@@ -9,30 +9,29 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.couchbase.lite.CouchbaseLiteException;
+import com.couchbase.lite.Database;
 import com.couchbase.lite.LiveQuery;
+import com.couchbase.lite.Query;
 import com.couchbase.lite.QueryEnumerator;
 import com.couchbase.lite.QueryRow;
 
-/**
- * Created by jamesnocentini on 03/09/15.
- */
 public class RatingsAdapter extends RecyclerView.Adapter<RatingsAdapter.ViewHolder> {
 
     Context context;
     LiveQuery query;
     private QueryEnumerator enumerator;
 
-
-    public RatingsAdapter(Context context, LiveQuery query) {
+    public RatingsAdapter(final LiveQuery query, Context context) {
         this.context = context;
         this.query = query;
-        query.addChangeListener(new LiveQuery.ChangeListener() {
+
+        this.query.addChangeListener(new LiveQuery.ChangeListener() {
             @Override
-            public void changed(final LiveQuery.ChangeEvent changeEvent) {
+            public void changed(LiveQuery.ChangeEvent event) {
                 ((Activity) RatingsAdapter.this.context).runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        enumerator = changeEvent.getRows();
+                        enumerator = query.getRows();
                         notifyDataSetChanged();
                     }
                 });
@@ -41,22 +40,75 @@ public class RatingsAdapter extends RecyclerView.Adapter<RatingsAdapter.ViewHold
         query.start();
     }
 
+    /**
+     * Initialize parameters and starts listening on the Live Query for updates from the database.
+     * @param context Android context in which the application is running
+     * @param query LiveQuery to use in the adapter to populate the Recycler View
+     */
+    public RatingsAdapter(Context context, final LiveQuery query, Database database) {
+        this.context = context;
+        this.query = query;
+
+        /** Use the database change listener instead of live query listener because we want
+         * to listen for conflicts as well
+         */
+        database.addChangeListener(new Database.ChangeListener() {
+            @Override
+            public void changed(final Database.ChangeEvent event) {
+                ((Activity) RatingsAdapter.this.context).runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        enumerator = query.getRows();
+                        notifyDataSetChanged();
+                    }
+                });
+            }
+        });
+        query.start();
+        ((Activity) RatingsAdapter.this.context).runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    enumerator = query.run();
+                } catch (CouchbaseLiteException e) {
+                    e.printStackTrace();
+                }
+                notifyDataSetChanged();
+            }
+        });
+    }
+
+    /**
+     * Inflate a new instance of the ViewHolder. The Recycler View handles reuses already
+     * instantiated ViewHolders when possible.
+     * @param parent
+     * @param viewType
+     * @return
+     */
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context).inflate(R.layout.row_rating, parent, false);
         return new ViewHolder(view);
     }
 
+    /**
+     * Use the position to get the corresponding query row and populate the ViewHolder that
+     * was created above.
+     * @param holder
+     * @param position
+     */
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
 
         final QueryRow row = (QueryRow) getItem(position);
 
+        /** TODO: This is a hack to populate the result of the ratings or conflicts view query,
+         ** have two different recycler view adapters instead. */
         holder.ratingValue.setText(String.valueOf(row.getKey()));
         if (row.getValue() == null) {
             try {
                 int conflicts = row.getDocument().getConflictingRevisions().size();
-                holder.totalRatings.setText(String.valueOf(conflicts));
+                holder.totalRatings.setText(String.valueOf(conflicts - 1));
             } catch (CouchbaseLiteException e) {
                 e.printStackTrace();
             }

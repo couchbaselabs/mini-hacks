@@ -22,24 +22,30 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-/**
- * Created by jamesnocentini on 03/09/15.
- */
+import Acme.Serve.Main;
+
 public class StorageManager {
-    static private String stringURL = "http://80.240.137.158:4984/ratingapp";
+    static private String stringURL = "http://178.62.162.87:4984/ratingapp";
     static public String UNIQUE_RATINGS_VIEW = "byUniqueRating";
     static public String USER_RATINGS_VIEW = "byUserRating";
-    int LISTENER_PORT = 5984;
+    int LISTENER_PORT = 55000;
 
     Manager manager;
     Database database;
+
+    Replication syncGatewayPull;
+    Replication syncGatewayPush;
+
+    Replication peerPull;
+    Replication peerPush;
 
     URL url;
 
     public StorageManager(Context context) {
 
         try {
-            manager.enableLogging("RatingApp", Log.VERBOSE);
+            /** Enable logging in the application for all tags */
+            Manager.enableLogging("RatingApp", Log.VERBOSE);
             manager = new Manager(new AndroidContext(context), Manager.DEFAULT_OPTIONS);
         } catch (IOException e) {
             e.printStackTrace();
@@ -57,6 +63,9 @@ public class StorageManager {
         startListener();
     }
 
+    /**
+     * Register the views when the database is fist opened.
+     */
     private void registerViews() {
         View ratingsView = database.getView(UNIQUE_RATINGS_VIEW);
         ratingsView.setMapReduce(new Mapper() {
@@ -84,6 +93,9 @@ public class StorageManager {
         }, "4");
     }
 
+    /**
+     * Start push/pull replications with Sync Gateway.
+     */
     private void continuousReplications() {
         try {
             url = new URL(stringURL);
@@ -91,15 +103,29 @@ public class StorageManager {
             e.printStackTrace();
         }
 
-        Replication push = database.createPushReplication(url);
-        push.setContinuous(true);
-        push.start();
+        syncGatewayPush = database.createPushReplication(url);
+        syncGatewayPush.setContinuous(true);
+        syncGatewayPush.start();
 
-        Replication pull = database.createPullReplication(url);
-        pull.setContinuous(true);
-        pull.start();
+        syncGatewayPull = database.createPullReplication(url);
+        syncGatewayPull.setContinuous(true);
+        syncGatewayPull.start();
     }
 
+    public void stopSyncGatewayReplications() {
+        syncGatewayPull.stop();
+        syncGatewayPush.stop();
+    }
+
+    public void startSyncGatewayReplications() {
+        syncGatewayPull.start();
+        syncGatewayPush.start();
+    }
+
+    /**
+     * Perform one shot pull and push replications.
+     * @param targetStringURL The string URL of the remote database
+     */
     public void oneShotReplication(String targetStringURL) {
         try {
             url = new URL(targetStringURL);
@@ -107,16 +133,15 @@ public class StorageManager {
             e.printStackTrace();
         }
 
-        Replication push = database.createPushReplication(url);
-        Replication pull = database.createPullReplication(url);
-        push.start();
-        pull.start();
+        peerPush = database.createPushReplication(url);
+        peerPull = database.createPullReplication(url);
+        peerPush.start();
+        peerPull.start();
     }
 
-    public interface AirportsListener {
-        void onChanged(List<Rating> airports);
-    }
-
+    /**
+     * Start the Couchbase Lite Listener without any credentials for this demo.
+     */
     private void startListener() {
         LiteListener listener = new LiteListener(manager, LISTENER_PORT, new Credentials("", ""));
         listener.start();

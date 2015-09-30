@@ -5,7 +5,7 @@ android {
         config {
             keyAlias 'MyAndroidKey'
             keyPassword 'coquillage'
-            storeFile file('/home/users/keystores/android.jks')
+            storeFile file('/Users/jamesnocentini/android/android.jks')
             storePassword 'coquillage'
         }
     }
@@ -16,8 +16,8 @@ android {
         applicationId "com.couchbase.ratingapp"
         minSdkVersion 15
         targetSdkVersion 22
-        versionCode 3
-        versionName "1.0.1"
+        versionCode 8
+        versionName "1.0.3"
     }
     buildTypes {
         release {

@@ -17,9 +17,6 @@ import com.couchbase.lite.Document;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * Created by jamesnocentini on 03/09/15.
- */
 public class NameRatingFragment extends Fragment {
 
     EditText nameInput;
@@ -41,29 +38,44 @@ public class NameRatingFragment extends Fragment {
 
         database = ((MainActivity) getActivity()).storageManager.database;
 
+        /** Read or update the document */
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 String name = nameInput.getText().toString();
 
+                Map<String, Object> formProperties = new HashMap<String, Object>();
+                formProperties.put("rating", ratingBar.getRating());
+
+
+                /** Check if the document already exists in the database */
                 Document document = database.getExistingDocument(name);
 
-                Map<String, Object> properties = new HashMap<String, Object>();
+                /** If the document already exists, update it with the properties of the previous
+                 *  revision and the new ones. If the document doesn't exist, create one. */
+                if (document != null) {
+                    Map<String, Object> updateProperties = new HashMap<String, Object>();
+                    updateProperties.putAll(document.getProperties());
+                    updateProperties.putAll(formProperties);
 
-                if (document == null) {
-                    document = database.getDocument(name);
+                    try {
+                        document.putProperties(updateProperties);
+                    } catch (CouchbaseLiteException e) {
+                        e.printStackTrace();
+                    }
+
                 } else {
-                    properties.putAll(document.getProperties());
-                }
+                    Map<String, Object> createProperties = new HashMap<String, Object>();
+                    createProperties.put("type", "conflict");
+                    createProperties.putAll(formProperties);
 
-                properties.put("rating", ratingBar.getRating());
-                properties.put("type", "conflict");
-
-                try {
-                    document.putProperties(properties);
-                } catch (CouchbaseLiteException e) {
-                    e.printStackTrace();
+                    Document newDocument = database.getDocument(name);
+                    try {
+                        newDocument.putProperties(createProperties);
+                    } catch (CouchbaseLiteException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         });
