@@ -1,1 +1,13 @@
-http://git.io/vG5Oi
+couchbaseserver:
+  image: 'jamiltz/mycbserver:v1'
+  ports:
+    - '8091:8091'
+ratingapp:
+  image: 'couchbase/sync-gateway:latest'
+  command: 'http://git.io/vG5Oi'
+  links:
+    - couchbaseserver
+  ports:
+    - '4984:4984'
+  tags:
+    - rating-app
