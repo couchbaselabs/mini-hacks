@@ -1,6 +1,6 @@
 # How to use Sync Gateway and Peer-to-Peer sync on Android
 
-This example is a simple Android application in which the user can save a review with a rating and name property to a Couchbase Lite database. It uses the TabLayout and ViewPager components to illustrate 3 different scenarios, each one being in a separate tab:
+This example is a [simple Android application](https://github.com/couchbaselabs/mini-hacks/tree/master/android-rating-app/android) in which the user can save a review with a rating and name property to a Couchbase Lite database. It uses the TabLayout and ViewPager components to illustrate 3 different scenarios, each one being in a separate tab:
 
 ![screenshots](assets/screenshots.png)
 
