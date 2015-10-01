@@ -31,12 +31,40 @@ This example is a simple Android application in which the user can save a review
 
 ![](assets/p2p-sync.png)
 
-Below the ViewPager, there is a **Switch** toggle button to start/stop the continuous pull/push replications to another remote database. This would usually be the URL of the Sync Gateway running on the cloud. You can change the remote URL in `StorageManager.java` to your own Sync Gateway instance (see section below to deploy Couchbase Server and Sync Gateway).
+Below the ViewPager, there is a **Switch** toggle button to start/stop the continuous pull/push replications to a remote database. This would usually be the URL of the Sync Gateway running on the cloud. You can change the remote URL in `StorageManager.java` to your own Sync Gateway instance (see section below to deploy Couchbase Server and Sync Gateway).
 
 Finally, there is a table on the bottom half of the screen that displays the following:
 
-- On the 1st tab, it shows the number of reviews for each possible value. Under the hood, it's using a query with a group level set to 1 to aggregate the document with the same rating and a reduce function to count them.
-- On the 2nd and 3rd tab, it displays the number of conflicting revisions of a document. It only shows the number of conflicting revisions but it would also be possible to resolve the conflicts by using the `database.getDocument({id}).getConflictingRevisions()` method.
+On the 1st tab, it shows the number of reviews for each possible value. It's using a query with a group level set to 1 to aggregate the documents with the same rating and a reduce function to count them.
+
+The code to register the view is in **StorageManager.java**:
+
+```java
+View ratingsView = database.getView(UNIQUE_RATINGS_VIEW);
+ratingsView.setMapReduce(new Mapper() {
+    @Override
+    public void map(Map<String, Object> document, Emitter emitter) {
+        if (document.get("type").equals("unique")) {
+            emitter.emit(document.get("rating").toString(), null);
+        }
+    }
+}, new Reducer() {
+    @Override
+    public Object reduce(List<Object> keys, List<Object> values, boolean rereduce) {
+        return new Integer(values.size());
+    }
+}, "16");
+```
+
+And a live query is instantiated in **MainActivity.java** to notify the Recycler View adapter when the view index has changed:
+
+```java
+LiveQuery liveQuery = storageManager.database.getView(StorageManager.UNIQUE_RATINGS_VIEW).createQuery().toLiveQuery();
+liveQuery.setGroupLevel(1);
+liveQuery.setDescending(true);
+```
+
+On the 2nd and 3rd tab, it displays the number of conflicting revisions of a document. It only shows the number of conflicting revisions but it would also be possible to resolve the conflicts by using the `database.getDocument({id}).getConflictingRevisions()` method.
 
 ## Deploying Sync Gateway and Couchbase Server
 
