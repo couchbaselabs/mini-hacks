@@ -1,0 +1,19 @@
+<div class="row">
+  <div class="col-sm-12 col-md-12">
+    <div class="thumbnail">
+      <img ng-src="{{question.link}}">
+      <div class="caption">
+        <form>
+          <div class="alert alert-success" role="alert" ng-hide="hideStatus">
+            Your answer was saved!
+          </div>
+          <div class="form-group">
+            <label for="answer">Where was this picture taken?</label>
+            <input type="text" class="form-control" id="answer" placeholder="Answer" ng-model="inputForm.answer">
+          </div>
+          <button type="button" class="btn btn-success btn-lg btn-block" ng-click="save(inputForm.answer)">Save</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
