@@ -67,7 +67,7 @@ angular.module("pouchapp", ["ui.router"])
           .then(function (res) {
             console.log(res);
             if ($stateParams.nickname == res.nickname) {
-              $state.go("home", {nickname: res.nickname, questionId: data.doc._id});
+              //$state.go("home", {nickname: res.nickname, questionId: data.doc._id});
             } else {
               $state.go("login", {});
             }
