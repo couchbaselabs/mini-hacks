@@ -2,7 +2,7 @@ angular.module("pouchapp", ["ui.router"])
 
   .run(function ($pouchDB) {
     $pouchDB.setDatabase("guesswhere");
-    $pouchDB.sync("http://188.226.151.146:4984/guesswhere/");
+    $pouchDB.sync("http://188.226.151.146:8000/guesswhere/");
   })
 
   .config(function ($stateProvider, $urlRouterProvider) {
