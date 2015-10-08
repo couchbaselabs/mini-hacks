@@ -96,7 +96,8 @@ angular.module("pouchapp", ["ui.router"])
           $scope.hideStatus = false;
           $timeout(function () {
             $scope.hideStatus = true;
-          }, 2000);
+          }, 1000);
+          $state.go("home", {nickname: $stateParams.nickname, questionId: "question-" + (parseInt($stateParams.questionId.split("-")[1]) + 1)});
         }, function (err) {
           console.log(err);
         });
