@@ -1,0 +1,18 @@
+{
+  "name": "SimpleLogin",
+  "version": "0.0.0",
+  "description": "Using OAuth APIs provided by 3rd party applications such as Google+ to login in your mobile app can provide a delightful first time experience to users. They can login with an account that they already know and trust and populate their profile with data that they entered on the Google+ profile. In this tutorial, you'll learn how to:",
+  "main": "app.js",
+  "dependencies": {
+    "body-parser": "~1.14.1",
+    "express": "~4.13.3",
+    "googleapis": "~2.1.5",
+    "request": "~2.64.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "James Nocentini | jamesn@couchbase.com",
+  "license": "ISC"
+}

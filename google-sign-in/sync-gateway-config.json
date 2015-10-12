@@ -1,0 +1,15 @@
+{
+  "log": ["*"],
+  "databases": {
+    "simple-login": {
+      "server": "walrus:",
+      "users": { "GUEST": { "disabled": true } },
+      "sync": `
+        function(doc, oldDoc) {
+          channel(doc._id);
+          access(doc.user_id, doc._id);
+        }
+      `
+    }
+  }
+}
