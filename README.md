@@ -5,7 +5,7 @@ Mini-hacks is a hands-on introduction to Couchbase Mobile. Each tutorial aims to
 APIs on a specific platform (iOS, Android, .NET, Web). In each folder, you will find the source code and a markdown 
 file accompanying the sample application to build it from scratch.
 
-![](https://cloud.githubusercontent.com/assets/2589337/10559653/36afb52e-74ee-11e5-9bde-c32613f4c2d6.jpg)
+![](https://cloud.githubusercontent.com/assets/2589337/10560112/b021a98a-74f8-11e5-963c-34e9a7a7b210.jpg)
 
 # What will it include
 
