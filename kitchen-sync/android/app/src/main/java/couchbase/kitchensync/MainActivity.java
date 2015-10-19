@@ -23,9 +23,8 @@ import com.couchbase.lite.Manager;
 import com.couchbase.lite.QueryRow;
 import com.couchbase.lite.replicator.Replication;
 import com.couchbase.lite.util.Log;
-//.
-//..
-//...
+import com.couchbase.lite.Mapper;
+import com.couchbase.lite.Emitter;
 
 import java.net.MalformedURLException;
 import java.text.SimpleDateFormat;
@@ -53,8 +52,8 @@ public class MainActivity extends Activity implements Replication.ChangeListener
     private ListView itemListView;
     private EditText addItemEditText;
 
-    //Deploy on device or Deploy on emulator
-    //..
+    //Step 13 - Deploy on device or Deploy on emulator
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -148,7 +147,6 @@ public class MainActivity extends Activity implements Replication.ChangeListener
 
         // Step 7 - Create document from text box's field entry.  code replaces this
         return null;
-        //
     }
 
     //Step 5 - Initialize 'DataAdapter' for our list view
