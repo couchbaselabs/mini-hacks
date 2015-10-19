@@ -294,13 +294,44 @@ and add data persistence along with offline support with Sync-ing abilities!
 	```
 
  17. Build and run! Shortly after launching, you should see lots of sync activity scrolling by
-     in ADB's logcat window for your device. Make sure that you have some list items for
-     Couchbase Lite to sync.
+     in ADB's logcat window for your device. Notice that the specified hostname isn't reachable, that's because you haven't started Sync Gateway yet. You will do in the next section.
+     
+### Introducing Sync Gateway
 
- 18. Let's go see the results of sync in the Sync Gateway Admin Console. Open your browser to
+Sync Gateway facilitates synchronizing Couchbase Lite databases running on mobile devices. It's a stateless server meaning that it doesn't store any data. Persistence on the cloud is achieved with Couchbase Server and you can read more about how each component fits into the overall architecture of a Couchbase Mobile application [here](http://developer.couchbase.com/documentation/mobile/1.1.0/get-started/sync-gateway-overview/index.html).
+
+ 1. Download Sync Gateway for the platform you're running on from here:
+
+ > http://www.couchbase.com/nosql-databases/downloads#Couchbase\_Mobile
+ 
+ 2. In your project directory, create a new file called `sync-gateway-config.json` and paste the following:
+
+	```javascript
+	{
+	     "log":["*"],
+	     "verbose": true,
+	     "databases": {
+	          "kitchen-sync": {
+	             "server":"walrus:",
+	             "users": {"GUEST": {"disabled": false, "all_channels": ["*"], "admin_channels": ["*"]}},
+	             "bucket":"kitchensync",
+	             "sync":`function(doc) {channel(doc.channels);}`
+	          }
+	     },
+	     "facebook" : { "register" : true }
+	}
+	```
+
+ 3. Start Sync Gateway with the config file you just created:
+	
+	```bash
+	$ ~/Downloads/couchbase-sync-gateway/bin/sync_gateway /path/to/project/sync-gateway-config.json
+	```
+ 
+ 4. Let's go see the results of sync in the Sync Gateway Admin Console. Open your browser to
      [http://localhost:4985/_admin/](http://localhost:4985/_admin/), and click on the
      [kitchen-sync](http://localhost:4985/_admin/db/kitchen-sync) link. You will land on the
      **Documents** page, which will list all documents found. Clicking on a document id will reveal
-     the contents of the document.
+     the contents of the document. Well done! You've successfully built your first offline-first Android app.
 
- 19. Finally, we'd love to hear from you. [Tell us what you think](https://docs.google.com/forms/d/1Qs9svNccKCC5iji6NXC35uCvdmtFzB0dopz57iApSnY/viewform)!
+ 5. Finally, we'd love to hear from you. [Tell us what you think](https://docs.google.com/forms/d/1Qs9svNccKCC5iji6NXC35uCvdmtFzB0dopz57iApSnY/viewform)!

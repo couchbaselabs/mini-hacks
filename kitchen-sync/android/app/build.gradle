@@ -170,7 +170,7 @@ task stopSyncGateway {
 
 if (platform == "mac") {
 
-    startSyncGateway.dependsOn stopSyncGateway
-    assembleDebug.dependsOn startSyncGateway
+//    startSyncGateway.dependsOn stopSyncGateway
+//    assembleDebug.dependsOn startSyncGateway
 
 }
