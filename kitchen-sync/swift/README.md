@@ -169,7 +169,7 @@ or in Swift 2.x:
 ```
 12. Now we need to handle the tableview row touches. Everytime that a row is touched, we toggle the check status of the item associated with the row.
 
- ```objective-c
+ ```swift
 	func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let row = _dataSource.rowAtIndex(UInt(indexPath.row))
 
@@ -186,7 +186,23 @@ or in Swift 2.x:
         }
     }
  ```
-
+or in Swift 2.x:
+```swift
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        let row = _dataSource.rowAtIndex(UInt(indexPath.row))
+        
+        do {
+            try row!.document!.update({ (rev: CBLUnsavedRevision!) -> Bool in
+                let wasChecked = (rev["check"] as? Bool) ?? false
+                rev.properties!["check"] = !wasChecked
+                return true
+            })
+        } catch {
+            let app = UIApplication.sharedApplication().delegate as! AppDelegate
+            app.showMessage("Failed to update item", title: "Error")
+        }
+    }
+```
 13. We have done the document display part but we also need the ability to create a new document from the text field. Add the following `UITextFieldDelegate` functions to the `ViewController.swift`.
 
  ```swift
