@@ -151,8 +151,8 @@ Build your first Couchbase Mobile app in just a few minutes! Take an existing iO
         }
     }
  ```
-or in Swift 2.x:
-```swift
+ or in Swift 2.x:
+ ```swift
     func couchTableSource(source: CBLUITableSource, willUseCell cell: UITableViewCell, forRow row: CBLQueryRow) {
         let properties = row.document!.properties
         cell.textLabel!.text = properties!["text"] as? String
@@ -186,8 +186,8 @@ or in Swift 2.x:
         }
     }
  ```
-or in Swift 2.x:
-```swift
+ or in Swift 2.x:
+ ```swift
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let row = _dataSource.rowAtIndex(UInt(indexPath.row))
         
@@ -233,6 +233,37 @@ or in Swift 2.x:
         }
     }
  ``` 
+  or in Swift 2.x:
+  ```swift
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return !textField.text!.isEmpty
+    }
+    
+    func textFieldDidEndEditing(textField: UITextField) {
+        if textField.text!.isEmpty {
+            return
+        }
+        
+        // Create the new document's properties:
+        let properties: Dictionary<String,AnyObject> = [
+            "text": textField.text!,
+            "check": false,
+            "created_at": CBLJSON.JSONObjectWithDate(NSDate(), timeZone: NSTimeZone.localTimeZone())
+        ]
+        
+        // Save the document:
+        let doc = _database.createDocument()
+        
+        do {
+            try doc.putProperties(properties)
+            textField.text = nil
+        } catch {
+                let app = UIApplication.sharedApplication().delegate as! AppDelegate
+                app.showMessage("Couldn't save new item", title: "Error")
+        }
+    }
+  ```
 
 14. What about deleting items? Add the following `couchTableSource(source: CBLUITableSource!, deleteRow row: CBLQueryRow!)` function to delete a document when sliding a row in the tableView.
 
