@@ -273,7 +273,17 @@ Build your first Couchbase Mobile app in just a few minutes! Take an existing iO
         return row.document.deleteDocument(&error)
     }
  ```
-
+ or in Swift 2.x:
+ ```swift
+     func couchTableSource(source: CBLUITableSource, deleteRow row: CBLQueryRow) -> Bool {
+        do {
+            try row.document!.deleteDocument()
+            return true;
+        } catch {
+            return false;
+        }
+    }
+ ```
 15. Now is a great time to build and run the application.
 
 16. Let's add sync! Go back to `AppDelegate.swift` and Define your sync url location above the implementation of the `AppDelegate` class.
