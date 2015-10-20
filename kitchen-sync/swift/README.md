@@ -59,7 +59,7 @@ Build your first Couchbase Mobile app in just a few minutes! Take an existing iO
  ```swift
 	private func setupDatabase() -> Bool {
         // Step 3: Setup 'kitchen-sync' database
-         do {
+        do {
             try self.database = CBLManager.sharedInstance().databaseNamed("kitchen-sync")
         }
         catch let error as NSError {
@@ -98,7 +98,7 @@ Build your first Couchbase Mobile app in just a few minutes! Take an existing iO
 6. We have done all necessary steps to setup the database. Now let's open the `ViewController.swift`. Inside the `viewDidLoad` function, get the database object from the AppDelegate as follows.
 
  ```swift
-	let app = UIApplication.sharedApplication().delegate as AppDelegate
+	let app = UIApplication.sharedApplication().delegate as! AppDelegate
 	_database = app.database
  ```
 
@@ -151,7 +151,22 @@ Build your first Couchbase Mobile app in just a few minutes! Take an existing iO
         }
     }
  ```
-
+or in Swift 2.x:
+```swift
+    func couchTableSource(source: CBLUITableSource, willUseCell cell: UITableViewCell, forRow row: CBLQueryRow) {
+        let properties = row.document!.properties
+        cell.textLabel!.text = properties!["text"] as? String
+        
+        let checked = (properties!["check"] as? Bool) ?? false
+        if checked {
+            cell.textLabel!.textColor = UIColor.grayColor()
+            cell.accessoryType = UITableViewCellAccessoryType.Checkmark
+        } else {
+            cell.textLabel!.textColor = UIColor.blackColor()
+            cell.accessoryType = UITableViewCellAccessoryType.None
+        }
+    }
+```
 12. Now we need to handle the tableview row touches. Everytime that a row is touched, we toggle the check status of the item associated with the row.
 
  ```objective-c
