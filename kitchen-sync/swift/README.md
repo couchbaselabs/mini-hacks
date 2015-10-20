@@ -55,6 +55,19 @@ Build your first Couchbase Mobile app in just a few minutes! Take an existing iO
         }
     }
  ```
+ or in Swift 2.x:
+ ```swift
+	private func setupDatabase() -> Bool {
+        // Step 3: Setup 'kitchen-sync' database
+         do {
+            try self.database = CBLManager.sharedInstance().databaseNamed("kitchen-sync")
+        }
+        catch let error as NSError {
+            NSLog("Cannot get kitchen-sync database with error: %@", error)
+            return false
+        }
+    }
+```
 
 4. Create a view named `viewItemsByDate` and setup a map block to index documents by date. Couchbase Lite uses MapReduce queries, which let us create our queries using functions. We can also do powerful transformations of documents, compute aggregates, etc. Add the following code to the end of the `setupDatabase` function.
 
