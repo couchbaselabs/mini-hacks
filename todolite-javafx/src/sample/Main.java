@@ -9,12 +9,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 import sample.model.List;
-import sample.util.StorageManager;
-import sample.view.ListEditDialogController;
-import sample.view.OverviewController;
+import sample.view.overview.OverviewController;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -48,8 +45,7 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception{
         this.primaryStage = primaryStage;
 
-        // set views and live query
-        StorageManager storageManager = new StorageManager();
+        StorageManager.getInstance().startReplications();
 
         LiveQuery liveQuery = StorageManager.getInstance().database.createAllDocumentsQuery().toLiveQuery();
         QueryEnumerator enumerator = liveQuery.run();
@@ -69,7 +65,7 @@ public class Main extends Application {
                         } catch (CouchbaseLiteException e) {
                             e.printStackTrace();
                         }
-                        listData.removeAll();
+                        listData.clear();
                         for(QueryRow row : enumerator) {
                             listData.add(new List((String) (row.getDocument().getProperty("title")), "123"));
                         }
@@ -82,6 +78,8 @@ public class Main extends Application {
         initRootLayout();
 
         showToDoOverview();
+
+        createUserProfile();
     }
 
     /**
@@ -104,51 +102,13 @@ public class Main extends Application {
     }
 
     /**
-     * Opens a dialog to edit details for the specified person. If the user
-     * clicks OK, the changes are saved into the provided person object and true
-     * is returned.
-     *
-     * @param list the person object to be edited
-     * @return true if the user clicked OK, false otherwise.
-     */
-    public boolean showPersonEditDialog(List list) {
-        try {
-            // Load the fxml file and create a new stage for the popup dialog.
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(Main.class.getResource("view/ListEditDialog.fxml"));
-            AnchorPane page = (AnchorPane) loader.load();
-
-            // Create the dialog Stage.
-            Stage dialogStage = new Stage();
-            dialogStage.setTitle("Edit List");
-            dialogStage.initModality(Modality.WINDOW_MODAL);
-            dialogStage.initOwner(primaryStage);
-            Scene scene = new Scene(page);
-            dialogStage.setScene(scene);
-
-            // Set the person into the controller.
-            ListEditDialogController controller = loader.getController();
-            controller.setDialogStage(dialogStage);
-            controller.setList(list);
-
-            // Show the dialog and wait until the user closes it
-            dialogStage.showAndWait();
-
-            return controller.isOkClicked();
-        } catch (IOException e) {
-            e.printStackTrace();
-            return false;
-        }
-    }
-
-    /**
      * Show the todo overview inside the root layout
      */
     public void showToDoOverview() {
         try {
             // Load ToDo overview.
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(Main.class.getResource("view/ToDoOVerview.fxml"));
+            loader.setLocation(Main.class.getResource("view/overview/ToDoOVerview.fxml"));
             AnchorPane toDoOverview = (AnchorPane) loader.load();
 
             // Set the todo overview into the center of root layout.
@@ -157,11 +117,34 @@ public class Main extends Application {
             // Give the controller access to the main app.
             OverviewController toDoOverviewController = loader.getController();
             toDoOverviewController.setMainApp(this);
+            toDoOverviewController.setData(getListData());
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
+    private void createUserProfile() {
+        Map<String, Object> properties = new HashMap<String, Object>();
+
+        properties.put("name", "Wayne Carter");
+        properties.put("type", "profile");
+        properties.put("user_id", "wayne");
+
+        Document document = StorageManager.getInstance().database.getDocument("p:wayne");
+        try {
+            document.putProperties(properties);
+        } catch (CouchbaseLiteException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public Stage getPrimaryStage() {
+        return primaryStage;
+    }
+
+    public void setPrimaryStage(Stage primaryStage) {
+        this.primaryStage = primaryStage;
+    }
 
     public static void main(String[] args) {
         launch(args);

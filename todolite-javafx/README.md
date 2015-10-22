@@ -32,7 +32,85 @@ Click **OK** and run the application by click the **Run** button in the top righ
 
 ## Building the UI
 
+## Adding Sync
 
+In this simple case, you'll use Basic Authentication and hard code the user's login credentials in the configuration file like so:
+
+```javascript
+...
+      "users": {
+        "GUEST": {"disabled": true},
+        "wayne": {"password": "letmein"}
+      },
+...
+```
+
+Download Sync Gateway for the platform you're running on from here:
+
+> http://www.couchbase.com/nosql-databases/downloads#Couchbase\_Mobile
+
+In your project directory, create a new file called sync-gateway-config.json and paste the following:
+
+```
+{
+  "log": ["CRUD", "REST+", "Access"],
+  "facebook": {"register": true},
+  "databases": {
+    "todos": {
+      "server": "walrus:",
+      "users": {
+        "GUEST": {"disabled": true},
+        "wayne": {"password": "letmein"}
+      },
+      "sync":`
+        function (doc, oldDoc) {
+            // NOTE this function is the same across the iOS, Android, and PhoneGap versions.
+            if (doc.type == "task") {
+                if (!doc.list_id) {
+                    throw({forbidden: "Items must have a list_id"})
+                }
+                channel("list-" + doc.list_id);
+            } else if (doc.type == "list") {
+                channel("list-" + doc._id);
+                if (!doc.owner) {
+                    throw({forbidden: "List must have an owner"})
+                }
+                if (oldDoc) {
+                    var oldOwnerName = oldDoc.owner.substring(oldDoc.owner.indexOf(":") + 1);
+                    requireUser(oldOwnerName)
+                }
+                var ownerName = doc.owner.substring(doc.owner.indexOf(":") + 1);
+                access(ownerName, "list-" + doc._id);
+                if (Array.isArray(doc.members)) {
+                    var memberNames = [];
+                    for (var i = doc.members.length - 1; i >= 0; i--) {
+                        memberNames.push(doc.members[i].substring(doc.members[i].indexOf(":") + 1))
+                    }
+                    ;
+                    access(memberNames, "list-" + doc._id);
+                }
+            } else if (doc.type == "profile") {
+                channel("profiles");
+                var user = doc._id.substring(doc._id.indexOf(":") + 1);
+
+                if (user !== doc.user_id) {
+                    throw({forbidden: "Profile user_id must match docid : " + user + " : " + doc.user_id})
+                }
+                requireUser(user);
+                access(user, "profiles"); // TODO this should use roles
+            }
+        }
+      `
+    }
+  }
+}
+```
+
+Start Sync Gateway with the config file you just created:
+
+```bash
+$ ~/Downloads/couchbase-sync-gateway/bin/sync_gateway /path/to/project/sync-gateway-config.json
+```
 
 ## Model classes
 

@@ -1,15 +1,19 @@
 package sample.view;
 
 import com.couchbase.lite.*;
+import com.fasterxml.jackson.databind.deser.Deserializers;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
+import sample.Main;
+import sample.StorageManager;
 import sample.model.List;
-import sample.util.StorageManager;
 
-import javax.jws.Oneway;
-import javax.xml.crypto.Data;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -17,7 +21,7 @@ import java.util.Map;
 /**
  * Dialog to add a new List.
  */
-public class ListEditDialogController {
+public class ListEditDialogController extends BaseController {
 
     @FXML
     private TextField titleField;
