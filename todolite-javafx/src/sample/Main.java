@@ -11,11 +11,14 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import sample.model.List;
+import sample.model.Task;
+import sample.util.ModelHelper;
 import sample.view.overview.OverviewController;
 
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Observable;
 
 public class Main extends Application {
 
@@ -23,7 +26,7 @@ public class Main extends Application {
     private BorderPane rootLayout;
 
     /**
-     * The data as an observable list of Persons.
+     * The data as an observable list of Lists.
      */
     private ObservableList<List> listData = FXCollections.observableArrayList();
 
@@ -34,7 +37,7 @@ public class Main extends Application {
     }
 
     /**
-     * Returns the data as an observable list of Persons.
+     * Returns the data as an observable list of Lists.
      * @return
      */
     public ObservableList<List> getListData() {
@@ -47,10 +50,12 @@ public class Main extends Application {
 
         StorageManager.getInstance().startReplications();
 
-        LiveQuery liveQuery = StorageManager.getInstance().database.createAllDocumentsQuery().toLiveQuery();
+        LiveQuery liveQuery = List.getQuery(StorageManager.getInstance().database).toLiveQuery();
         QueryEnumerator enumerator = liveQuery.run();
         for(QueryRow row : enumerator) {
-            listData.add(new List((String) (row.getDocument().getProperty("title")), "123"));
+            Document document = row.getDocument();
+            List list = ModelHelper.modelForDocument(document, List.class);
+            listData.add(list);
         }
         liveQuery.addChangeListener(new LiveQuery.ChangeListener() {
             @Override
@@ -67,7 +72,9 @@ public class Main extends Application {
                         }
                         listData.clear();
                         for(QueryRow row : enumerator) {
-                            listData.add(new List((String) (row.getDocument().getProperty("title")), "123"));
+                            Document document = row.getDocument();
+                            List list = ModelHelper.modelForDocument(document, List.class);
+                            listData.add(list);
                         }
                     }
                 });
@@ -80,6 +87,8 @@ public class Main extends Application {
         showToDoOverview();
 
         createUserProfile();
+
+
     }
 
     /**
@@ -94,6 +103,9 @@ public class Main extends Application {
 
             // Show the scene containing the root layout
             Scene scene = new Scene(rootLayout);
+
+            scene.getStylesheets().add("styles.css");
+
             primaryStage.setScene(scene);
             primaryStage.show();
         } catch (IOException e) {

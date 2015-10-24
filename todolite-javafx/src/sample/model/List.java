@@ -1,53 +1,39 @@
 package sample.model;
 
 import com.couchbase.lite.*;
+import com.couchbase.lite.support.LazyJsonObject;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
+import java.lang.reflect.Array;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
  * Model class for List.
  */
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class List {
 
-    private final StringProperty documentId;
-    private final StringProperty type;
-    private final StringProperty title;
-    private final StringProperty owner;
+    @JsonProperty(value = "_id")
+    private String documentId;
+
+    private String type;
+    private String title;
+    private String owner;
+    private ArrayList<String> members;
 
     private static final String VIEW_NAME = "lists";
     private static final String DOC_TYPE = "list";
-
-    /**
-     * Default constructor
-     */
-    public List() {
-        this(null, null);
-    }
-
-    /**
-     * Constructor with some initial data.
-     *
-     * @param title
-     * @param owner
-     */
-    public List(String title, String owner) {
-        this.title = new SimpleStringProperty(title);
-        this.owner = new SimpleStringProperty(owner);
-
-        // some initial dummy data
-        this.documentId = new SimpleStringProperty("123");
-        this.type = new SimpleStringProperty("list");
-    }
 
     public static Query getQuery(Database database) {
         com.couchbase.lite.View view = database.getView(VIEW_NAME);
         if (view.getMap() == null) {
             Mapper mapper = new Mapper() {
                 public void map(Map<String, Object> document, Emitter emitter) {
-                    String type = (String)document.get("type");
+                    String type = (String) document.get("type");
                     if (DOC_TYPE.equals(type)) {
                         emitter.emit(document.get("title"), document);
                     }
@@ -130,50 +116,43 @@ public class List {
     }
 
     public String getDocumentId() {
-        return documentId.get();
-    }
-
-    public StringProperty documentIdProperty() {
         return documentId;
     }
 
     public void setDocumentId(String documentId) {
-        this.documentId.set(documentId);
+        this.documentId = documentId;
     }
 
     public String getType() {
-        return type.get();
-    }
-
-    public StringProperty typeProperty() {
         return type;
     }
 
     public void setType(String type) {
-        this.type.set(type);
+        this.type = type;
     }
 
     public String getTitle() {
-        return title.get();
-    }
-
-    public StringProperty titleProperty() {
         return title;
     }
 
     public void setTitle(String title) {
-        this.title.set(title);
+        this.title = title;
     }
 
     public String getOwner() {
-        return owner.get();
-    }
-
-    public StringProperty ownerProperty() {
         return owner;
     }
 
     public void setOwner(String owner) {
-        this.owner.set(owner);
+        this.owner = owner;
     }
+
+    public ArrayList<String> getMembers() {
+        return members;
+    }
+
+    public void setMembers(ArrayList<String> members) {
+        this.members = members;
+    }
+
 }

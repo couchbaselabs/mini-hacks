@@ -1,0 +1,21 @@
+<component name="libraryTable">
+  <library name="com.couchbase.lite:couchbase-lite-java:1.1.0" type="repository">
+    <properties maven-id="com.couchbase.lite:couchbase-lite-java:1.1.0" />
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/com/couchbase/lite/couchbase-lite-java/1.1.0/couchbase-lite-java-1.1.0.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/com/couchbase/lite/couchbase-lite-java-core/1.1.0/couchbase-lite-java-core-1.1.0.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/com/fasterxml/jackson/core/jackson-databind/2.5.0/jackson-databind-2.5.0.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/com/fasterxml/jackson/core/jackson-annotations/2.5.0/jackson-annotations-2.5.0.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/com/fasterxml/jackson/core/jackson-core/2.5.0/jackson-core-2.5.0.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/com/github/oxo42/stateless4j/2.4.0/stateless4j-2.4.0.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/json/json/20090211/json-20090211.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/apache/httpcomponents/httpclient/4.0-beta1/httpclient-4.0-beta1.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/apache/httpcomponents/httpcore/4.0-beta2/httpcore-4.0-beta2.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/commons-logging/commons-logging/1.1.3/commons-logging-1.1.3.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/commons-codec/commons-codec/1.3/commons-codec-1.3.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/com/couchbase/lite/couchbase-lite-java-native/1.1.0/couchbase-lite-java-native-1.1.0.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

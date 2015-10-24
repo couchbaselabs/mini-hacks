@@ -2,6 +2,7 @@ package sample.view;
 
 import com.couchbase.lite.*;
 import com.fasterxml.jackson.databind.deser.Deserializers;
+import com.sun.tools.internal.ws.processor.model.Model;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -13,8 +14,10 @@ import javafx.stage.Stage;
 import sample.Main;
 import sample.StorageManager;
 import sample.model.List;
+import sample.util.ModelHelper;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -72,16 +75,13 @@ public class ListEditDialogController extends BaseController {
     @FXML private void handleOk() {
         System.out.println("create a new list");
 
-        Map<String, Object> properties = new HashMap<>();
-        properties.put("title", titleField.getText());
+        List newList = new List();
+        newList.setTitle(titleField.getText());
+        newList.setMembers(new ArrayList<>());
+        newList.setOwner("p:wayne");
+        newList.setType("list");
 
-        Document newDoc = StorageManager.getInstance().database.createDocument();
-        try {
-            newDoc.putProperties(properties);
-        } catch (CouchbaseLiteException e) {
-            e.printStackTrace();
-        }
-
+        ModelHelper.save(StorageManager.getInstance().database, newList);
     }
 
     /**

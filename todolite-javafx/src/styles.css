@@ -1,0 +1,8 @@
+.root {
+    -fx-background-color: #383838;
+    -fx-font-size: 11pt;
+}
+
+.strikethrough {
+    -fx-strikethrough: true;
+}
