@@ -1,13 +1,13 @@
 apply plugin: 'android'
 
 android {
-    compileSdkVersion 19
+    compileSdkVersion 23
     buildToolsVersion "19.1.0"
 
     defaultConfig {
         applicationId "couchbase.kitchensync"
         minSdkVersion 15
-        targetSdkVersion 19
+        targetSdkVersion 23
         versionCode 1
         versionName "1.0"
     }

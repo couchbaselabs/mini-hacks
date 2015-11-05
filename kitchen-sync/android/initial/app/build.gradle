@@ -1,0 +1,176 @@
+apply plugin: 'android'
+
+android {
+    compileSdkVersion 23
+    buildToolsVersion "19.1.0"
+
+    defaultConfig {
+        applicationId "couchbase.kitchensync"
+        minSdkVersion 15
+        targetSdkVersion 23
+        versionCode 1
+        versionName "1.0"
+    }
+    buildTypes {
+        release {
+            apply plugin: 'announce'
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    // workaround for "duplicate files during packaging of APK" issue
+    // see https://groups.google.com/d/msg/adt-dev/bl5Rc4Szpzg/wC8cylTWuIEJ
+    packagingOptions {
+        exclude 'META-INF/ASL2.0'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/NOTICE'
+    }
+}
+
+dependencies {
+    compile 'com.android.support:support-v4:19.0.+'
+    compile 'com.couchbase.lite:couchbase-lite-android:1.0.4'
+}
+
+def platform = "mac"
+//def platform = "windows"
+//def platform = "redhat"
+//def platform = "ubuntu"
+
+task startSyncGateway {
+
+    final TGZ = ".tar.gz"
+    final DEB = ".deb"
+    final RPM = ".rpm"
+    final EXE = ".exe"
+
+    final sg_download_url_base = "http://packages.couchbase.com/releases/couchbase-sync-gateway/1.0.3/couchbase-sync-gateway-community_1.0.3_x86_64"
+    final pathFormat = "${projectDir}/build/couchbase-sync-gateway/bin/sync_gateway"
+
+    String file_path = ""
+    String sg_download_url = ""
+
+    String bundlePathFormat = "${projectDir}/build/sync_gateway"
+
+    switch (platform) {
+
+        case "mac":
+            sg_download_url = sg_download_url_base + TGZ
+            bundlePathFormat += TGZ
+            break
+        case "ubuntu":
+            sg_download_url = sg_download_url_base + DEB
+            bundlePathFormat += TGZ
+            break
+        case "redhat":
+            sg_download_url = sg_download_url_base + RPM
+            bundlePathFormat += TGZ
+            break
+        case "windows":
+            sg_download_url = sg_download_url_base + EXE
+            bundlePathFormat += TGZ
+            break
+    }
+
+    File executableFile = file(new File(pathFormat), PathValidation.NONE)
+    file_path = executableFile.absolutePath
+
+    ext {
+        sg_path = file_path
+    }
+
+    doFirst {
+
+        if (platform != "mac") {
+            return
+        }
+
+        // Download Sync Gateway, if it's missing.
+        if (!executableFile.exists()) {
+
+            File bundle_file = file(new File(bundlePathFormat), PathValidation.NONE)
+            String bundle_file_path = bundle_file.absolutePath
+
+            println '\t --> Downloading Sync Gateway from ' + sg_download_url
+
+            exec {
+                executable "curl"
+                workingDir "/usr/bin"
+                args "-s", "-o", bundle_file_path, sg_download_url
+            }
+
+            println '\t --> Extracting Sync Gateway from ' + bundle_file_path
+
+            exec {
+                executable "/usr/bin/tar"
+                workingDir "${projectDir}/build"
+                args "xvfz", bundle_file_path
+            }
+        }
+
+        println "\t --> Sync Gateway executable found at " + file_path
+    }
+
+    doLast {
+
+        println '\t --> Launching sync gateway from ' + file_path
+
+        String config_path = file(new File("${projectDir}/sync-gateway-config.json")).absolutePath
+
+        // Need to fork the process, so using Groovy's execute() instead.
+        ext.process = [file_path, "-pretty", "-verbose=true", config_path].execute()
+
+        def pid_path = file_path + ".pid"
+        def pid_process = ["/usr/bin/pgrep", "-f", "sync_gateway"].execute()
+        def pid = pid_process.in.readLines().first()
+
+        pid_process.in.close()
+        pid_process.out.close()
+        pid_process.err.close()
+
+        File pid_file = file(new File(pid_path), PathValidation.NONE)
+
+        if (pid_file.exists()) {
+            pid_file.delete()
+        }
+
+        pid_file.write(pid)
+
+        println '\t --> Stored pid ' + pid + ' to proc to ' + pid_path
+    }
+}
+
+task stopSyncGateway {
+
+    doFirst {
+
+        def pid_path = startSyncGateway.sg_path + ".pid"
+        File pid_file = file(new File(pid_path))
+
+        if (pid_file.exists()) {
+            String pid_val = pid_file.readLines().first()
+
+            sprintf ('\t --> Stopping Sync Gateway (pid: %1$s)', pid_val)
+
+            try {
+                exec {
+                    executable "/bin/kill"
+                    args pid_val
+                }
+            } catch (Exception) {
+                println "\t --> Sync Gateway has already been stopped."
+            } finally {
+                pid_file.delete()
+            }
+        } else {
+            println "\r\nSync Gateway was already stopped."
+        }
+    }
+}
+
+if (platform == "mac") {
+
+//    startSyncGateway.dependsOn stopSyncGateway
+//    assembleDebug.dependsOn startSyncGateway
+
+}
