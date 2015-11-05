@@ -1,0 +1,471 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		93A928FC1A48C26900706E8C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 93A928FB1A48C26900706E8C /* main.m */; };
+		93A928FF1A48C26900706E8C /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 93A928FE1A48C26900706E8C /* AppDelegate.m */; };
+		93A929021A48C26900706E8C /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 93A929011A48C26900706E8C /* ViewController.m */; };
+		93A929051A48C26900706E8C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 93A929031A48C26900706E8C /* Main.storyboard */; };
+		93A929071A48C26900706E8C /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 93A929061A48C26900706E8C /* Images.xcassets */; };
+		93A9290A1A48C26900706E8C /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 93A929081A48C26900706E8C /* LaunchScreen.xib */; };
+		93A929161A48C26900706E8C /* KitchenSyncTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 93A929151A48C26900706E8C /* KitchenSyncTests.m */; };
+		93F767831A48C9A500BE69D8 /* CouchbaseLite.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 93F767821A48C9A500BE69D8 /* CouchbaseLite.framework */; };
+		93F767891A48CA2C00BE69D8 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 93F767841A48CA2C00BE69D8 /* CFNetwork.framework */; };
+		93F7678A1A48CA2C00BE69D8 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 93F767851A48CA2C00BE69D8 /* libsqlite3.dylib */; };
+		93F7678B1A48CA2C00BE69D8 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 93F767861A48CA2C00BE69D8 /* libz.dylib */; };
+		93F7678C1A48CA2C00BE69D8 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 93F767871A48CA2C00BE69D8 /* Security.framework */; };
+		93F7678D1A48CA2C00BE69D8 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 93F767881A48CA2C00BE69D8 /* SystemConfiguration.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		93A929101A48C26900706E8C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 93A928EE1A48C26900706E8C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 93A928F51A48C26900706E8C;
+			remoteInfo = KitchenSync;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		93A928F61A48C26900706E8C /* KitchenSync.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KitchenSync.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		93A928FA1A48C26900706E8C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		93A928FB1A48C26900706E8C /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		93A928FD1A48C26900706E8C /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		93A928FE1A48C26900706E8C /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		93A929001A48C26900706E8C /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		93A929011A48C26900706E8C /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		93A929041A48C26900706E8C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		93A929061A48C26900706E8C /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		93A929091A48C26900706E8C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
+		93A9290F1A48C26900706E8C /* KitchenSyncTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = KitchenSyncTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		93A929141A48C26900706E8C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		93A929151A48C26900706E8C /* KitchenSyncTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KitchenSyncTests.m; sourceTree = "<group>"; };
+		93F767821A48C9A500BE69D8 /* CouchbaseLite.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = CouchbaseLite.framework; sourceTree = "<group>"; };
+		93F767841A48CA2C00BE69D8 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		93F767851A48CA2C00BE69D8 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
+		93F767861A48CA2C00BE69D8 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
+		93F767871A48CA2C00BE69D8 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		93F767881A48CA2C00BE69D8 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		93A928F31A48C26900706E8C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				93F767891A48CA2C00BE69D8 /* CFNetwork.framework in Frameworks */,
+				93F7678A1A48CA2C00BE69D8 /* libsqlite3.dylib in Frameworks */,
+				93F7678B1A48CA2C00BE69D8 /* libz.dylib in Frameworks */,
+				93F7678C1A48CA2C00BE69D8 /* Security.framework in Frameworks */,
+				93F7678D1A48CA2C00BE69D8 /* SystemConfiguration.framework in Frameworks */,
+				93F767831A48C9A500BE69D8 /* CouchbaseLite.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		93A9290C1A48C26900706E8C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		93A928ED1A48C26900706E8C = {
+			isa = PBXGroup;
+			children = (
+				93A928F81A48C26900706E8C /* KitchenSync */,
+				93A929121A48C26900706E8C /* KitchenSyncTests */,
+				93A928F71A48C26900706E8C /* Products */,
+				93F767811A48C9A500BE69D8 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		93A928F71A48C26900706E8C /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				93A928F61A48C26900706E8C /* KitchenSync.app */,
+				93A9290F1A48C26900706E8C /* KitchenSyncTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		93A928F81A48C26900706E8C /* KitchenSync */ = {
+			isa = PBXGroup;
+			children = (
+				93A928FD1A48C26900706E8C /* AppDelegate.h */,
+				93A928FE1A48C26900706E8C /* AppDelegate.m */,
+				93A929001A48C26900706E8C /* ViewController.h */,
+				93A929011A48C26900706E8C /* ViewController.m */,
+				93A929031A48C26900706E8C /* Main.storyboard */,
+				93A929061A48C26900706E8C /* Images.xcassets */,
+				93A929081A48C26900706E8C /* LaunchScreen.xib */,
+				93A928F91A48C26900706E8C /* Supporting Files */,
+			);
+			path = KitchenSync;
+			sourceTree = "<group>";
+		};
+		93A928F91A48C26900706E8C /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				93A928FA1A48C26900706E8C /* Info.plist */,
+				93A928FB1A48C26900706E8C /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		93A929121A48C26900706E8C /* KitchenSyncTests */ = {
+			isa = PBXGroup;
+			children = (
+				93A929151A48C26900706E8C /* KitchenSyncTests.m */,
+				93A929131A48C26900706E8C /* Supporting Files */,
+			);
+			path = KitchenSyncTests;
+			sourceTree = "<group>";
+		};
+		93A929131A48C26900706E8C /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				93A929141A48C26900706E8C /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		93F767811A48C9A500BE69D8 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				93F767821A48C9A500BE69D8 /* CouchbaseLite.framework */,
+				93F767841A48CA2C00BE69D8 /* CFNetwork.framework */,
+				93F767851A48CA2C00BE69D8 /* libsqlite3.dylib */,
+				93F767861A48CA2C00BE69D8 /* libz.dylib */,
+				93F767871A48CA2C00BE69D8 /* Security.framework */,
+				93F767881A48CA2C00BE69D8 /* SystemConfiguration.framework */,
+			);
+			path = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		93A928F51A48C26900706E8C /* KitchenSync */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 93A929191A48C26900706E8C /* Build configuration list for PBXNativeTarget "KitchenSync" */;
+			buildPhases = (
+				93A928F21A48C26900706E8C /* Sources */,
+				93A928F31A48C26900706E8C /* Frameworks */,
+				93A928F41A48C26900706E8C /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = KitchenSync;
+			productName = KitchenSync;
+			productReference = 93A928F61A48C26900706E8C /* KitchenSync.app */;
+			productType = "com.apple.product-type.application";
+		};
+		93A9290E1A48C26900706E8C /* KitchenSyncTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 93A9291C1A48C26900706E8C /* Build configuration list for PBXNativeTarget "KitchenSyncTests" */;
+			buildPhases = (
+				93A9290B1A48C26900706E8C /* Sources */,
+				93A9290C1A48C26900706E8C /* Frameworks */,
+				93A9290D1A48C26900706E8C /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				93A929111A48C26900706E8C /* PBXTargetDependency */,
+			);
+			name = KitchenSyncTests;
+			productName = KitchenSyncTests;
+			productReference = 93A9290F1A48C26900706E8C /* KitchenSyncTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		93A928EE1A48C26900706E8C /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0610;
+				ORGANIZATIONNAME = Couchbase;
+				TargetAttributes = {
+					93A928F51A48C26900706E8C = {
+						CreatedOnToolsVersion = 6.1.1;
+					};
+					93A9290E1A48C26900706E8C = {
+						CreatedOnToolsVersion = 6.1.1;
+						TestTargetID = 93A928F51A48C26900706E8C;
+					};
+				};
+			};
+			buildConfigurationList = 93A928F11A48C26900706E8C /* Build configuration list for PBXProject "KitchenSync" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 93A928ED1A48C26900706E8C;
+			productRefGroup = 93A928F71A48C26900706E8C /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				93A928F51A48C26900706E8C /* KitchenSync */,
+				93A9290E1A48C26900706E8C /* KitchenSyncTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		93A928F41A48C26900706E8C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				93A929051A48C26900706E8C /* Main.storyboard in Resources */,
+				93A9290A1A48C26900706E8C /* LaunchScreen.xib in Resources */,
+				93A929071A48C26900706E8C /* Images.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		93A9290D1A48C26900706E8C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		93A928F21A48C26900706E8C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				93A929021A48C26900706E8C /* ViewController.m in Sources */,
+				93A928FF1A48C26900706E8C /* AppDelegate.m in Sources */,
+				93A928FC1A48C26900706E8C /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		93A9290B1A48C26900706E8C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				93A929161A48C26900706E8C /* KitchenSyncTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		93A929111A48C26900706E8C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 93A928F51A48C26900706E8C /* KitchenSync */;
+			targetProxy = 93A929101A48C26900706E8C /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		93A929031A48C26900706E8C /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				93A929041A48C26900706E8C /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		93A929081A48C26900706E8C /* LaunchScreen.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				93A929091A48C26900706E8C /* Base */,
+			);
+			name = LaunchScreen.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		93A929171A48C26900706E8C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		93A929181A48C26900706E8C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		93A9291A1A48C26900706E8C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Frameworks",
+				);
+				INFOPLIST_FILE = KitchenSync/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		93A9291B1A48C26900706E8C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Frameworks",
+				);
+				INFOPLIST_FILE = KitchenSync/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		93A9291D1A48C26900706E8C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = KitchenSyncTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/KitchenSync.app/KitchenSync";
+			};
+			name = Debug;
+		};
+		93A9291E1A48C26900706E8C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = KitchenSyncTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/KitchenSync.app/KitchenSync";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		93A928F11A48C26900706E8C /* Build configuration list for PBXProject "KitchenSync" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				93A929171A48C26900706E8C /* Debug */,
+				93A929181A48C26900706E8C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		93A929191A48C26900706E8C /* Build configuration list for PBXNativeTarget "KitchenSync" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				93A9291A1A48C26900706E8C /* Debug */,
+				93A9291B1A48C26900706E8C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		93A9291C1A48C26900706E8C /* Build configuration list for PBXNativeTarget "KitchenSyncTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				93A9291D1A48C26900706E8C /* Debug */,
+				93A9291E1A48C26900706E8C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 93A928EE1A48C26900706E8C /* Project object */;
+}

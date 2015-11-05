@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 
 // Step: 2 Add #import <CouchbaseLite/CouchbaseLite.h>
-//#import <CouchbaseLite/CouchbaseLite.h>
+#import <CouchbaseLite/CouchbaseLite.h>
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
