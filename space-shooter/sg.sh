@@ -8,7 +8,7 @@ function usage
 
 PROJECT_DIR="$(pwd)"
 SG_DIR="${PROJECT_DIR}/tmp"
-SG_URL="http://packages.couchbase.com/builds/mobile/sync_gateway/1.0.4/1.0.4-34/couchbase-sync-gateway-community_1.0.4-34_x86_64.tar.gz"
+SG_URL="http://packages.couchbase.com/builds/mobile/sync_gateway/1.1.0/1.1.0-16/couchbase-sync-gateway-community_1.1.0-16_x86_64.tar.gz"
 SG_PKG="${SG_DIR}/sync_gateway.tar.gz"
 SG_TAR="${SG_DIR}/couchbase-sync-gateway"
 SG_BIN="${SG_TAR}/bin/sync_gateway"
