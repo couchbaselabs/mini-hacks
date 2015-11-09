@@ -70,71 +70,71 @@ Unity 3Dの経験があるなら見たことある可能性が高いスペース
 	});
 	```
 
-6. Now you have all the logic prepared to save (i.e. write) your high score.  But what about to retrieve (i.e. read) a high score on another machine.  Let's move up to the `Start()` method.  Notice that it's been changed to return an `IEnumerator`.  This means that Unity will call it as a `Coroutine`.  Let's now set up a one-shot pull replication to get the latest data from the remote endpoint.  Add this below the `score = 0` line in `Start()`:
+6. ここまでやるとハイスコアの保存のロジックが整ったわけです。しかし、他の端末での取得は？　`Start()`関数に移りましょう。リターン値が`IEnumerator`になっていることを注意してください。これによってUnityはこの関数を`Coroutine`として呼び出します。リモートの最新データを読み込むために一発プル同期を入れましょう。`Start()`に`score = 0`が書いてある行の直下に以下を追加しましょう：
 	```c#
 	var db = Manager.SharedInstance.GetDatabase("spaceshooter");
 	var pull = db.CreatePullReplication (SYNC_URL);
 	pull.Start ();
 	
-	//The more Unity-style way of waiting asynchronously.  We want the latest game data before the game starts, if possible.  pull will only be "Active" while it is receiving data (i.e. If it finishes or fails, it is not active)
+	//Unity風に非同期の動作を待つ。ゲームが始まる前に最新データが欲しいです。同期操作がデータを読み込んでいる間にだけ「Active」ステータスを持つ（つまり、終わるか失敗するとActiveじゃなくなる）
 	while (pull.Status == ReplicationStatus.Active) {
 		yield return new WaitForSeconds(0.5f);
 	}
 	```
 
-7. At this point, we possibly have new data to examine.  So let's have a look.  Add these lines below the lines you just wrote:
+7. ここで、サーバーから新しいデータをもらっている可能性があります。見てみましょう。書いたばかりの上の行の下に以下を追加しましょう：
 	```c#
-	//In this case we don't want to create a new document if it doesn't exist
+	//ドキュメントが存在しない場合は今回新しく作りたくない
 	var doc = db.GetExistingDocument ("player_data");
 	if (doc != null && doc.UserProperties.ContainsKey("high_score")) {
 		highScore = Convert.ToInt32(doc.UserProperties["high_score"]);
 	}
 	```
 
-8. Alright, now let's get a little more complex.  The high score system is finished, and now it's time to get into something more interesting.  We are going to replace the mesh of the player ship while the game is running (that's right, not only do you not need to reinstall, you don't even need to pause).  This is the entire purpose of the `AssetChangeListener` class, so we are going to move over to the `AssetChangeListener.cs` file.  First let's add a couple variables that we need.  Add the following into the `#region Member Variables` area
+8. さて、ここからはもうちょっと複雑になります。ハイスコア制度は終わり、もうちょっとおもしろいところに入りましょう。ゲームが実行しながらプレーヤーの宇宙船のメッシュを切り替えます（再インストールするどころか、ポースする必要すら必要ありません）。これが`AssetChangeListener`クラスの目的ですので、これから`AssetChangeListener.cs`で作業します。`#region Member Variables`の中にこれを追加しましょう：
 	```c#
-	private Replication _pull, _push;	//The sync objects
-	private Database _db;				//The database object
+	private Replication _pull, _push;	//同期オブジェクト
+	private Database _db;				//データベースオブジェクト
 	```
 
-9. In almost the exact same way as `GameController` we are going to once again pull new data and wait.  The difference is that this time we are going to set `Continuous` to `true` so that any changes to the remote endpoint are immediately synced.  Add the following into `Start()`:
+9. `GameController`とほぼ同様にデータを読み込んで待ちます。ただし、今回はサーバーのデータが更新される祭にダウンロードするされるために`Continuous`を`true`にします。`Start()`に以下を追加しましょう：
 	```c#
 	_db = Manager.SharedInstance.GetDatabase ("spaceshooter");
 	_pull = _db.CreatePullReplication (GameController.SYNC_URL);
-	_pull.Continuous = true; //This time we want real-time
+	_pull.Continuous = true; //今回はリアルタイムに行いたい
 	_pull.Start ();
 	while (_pull != null && _pull.Status == ReplicationStatus.Active) {
 		yield return new WaitForSeconds(0.5f);
 	}
 	```
 
-10. Now that the pull replication is finished, let's check to see if there is an entry indicating which ship to use, and if not add a default one.  Add this next:
+10. これでプル同期が終わりましたので、どの宇宙船を使うかという情報が入っているプロパティが入っているか調べましょう（ない場合はデフォルト）。次にこれを追加しましょう：
 	```c#
 	var doc = _db.GetExistingDocument ("player_data");
 	if (doc != null) {
-		//We have a record!  Get the ship data, if possible.
+		//ドキュメントが存在する！宇宙船データを読み込む（できれば）
 		string assetName = String.Empty;
 		if(doc.UserProperties.ContainsKey("ship_data")) {
 			assetName = doc.UserProperties ["ship_data"] as String;
 		}
 		StartCoroutine(LoadAsset (assetName));
 	} else {
-		//Create a new record
+		//新しいドキュメントを作成
 		doc = _db.GetDocument("player_data");
 		doc.PutProperties(new Dictionary<string, object> { { "ship_data", String.Empty } });
 	}
 	```
 
-11. The database is set up to get remote updates as they happen, but we still need to register to listen and react to them.  We do this through the `Changed` event.  It is available on various objects in Couchbase Lite, but for this one we will watch the `Changed` event on the player data document.  Also, since we may have created a new document in the code above we'll fire off a one-shot push.  Add this below the code in step 10:
+11. データベースはリモートが更新される祭にダウンロードするように設定してありますが、まだ変わる祭に通知ロジックを登録する必要があります。`Changed`イベントを使用します。様々なオブジェクトがこのイベントを持ちますが、今回はプレーヤーのデータドキュメントの`Changed`イベントに登録します。それに、新しいドキュメントが作られた可能性がありますので一発プッシュ同期を行います。10番のソースのしたにこれを追加しましょう：
 	```c#
 	doc.Change += DocumentChanged;
 	_push = _db.CreatePushReplication (GameController.SYNC_URL);
 	_push.Start();
 	```
 
-12. Now that the `Changed` event is hooked up it is time to put in the logic for handling a change event.  Move to the `DocumentChanged()` function and put in this code:
+12. これで`Changed`イベントの登録が終わりましたので、通知が来る時の処理を入れましょう。`DocumentChanged()`関数にこれを追加しましょう：
 	```c#
-	//Only continue if the revision is current
+	//リビジョンが最新でないと続けない
 	if (!e.Change.IsCurrentRevision) {
 		return;
 	}
@@ -150,22 +150,22 @@ Unity 3Dの経験があるなら見たことある可能性が高いスペース
 	});
 	```
 
-13. Finally, it is time for the really interesting part.  Let's move to `LoadAsset()`.  In the following code, we check that we have gotten a valid piece of data in three ways.  First we ensure that the document specified in the player data object actually exists.  Then we check that it is the correct type and that it has an attachment.   Add the following fairly long chunk into the `LoadAsset()` function below the existing code.
+13. ようやく一番おもしろいところに着きました。`LoadAsset()`関数に移りましょう。以下のソースでは有効のデータをもらったか確認するために3つの操作を行います。まず、指定されたドキュメントの存在を確認します。そして、タイプを確認し、添付ファイルが入っていることを確認します。少し長いですが、`LoadAsset()`関数の下の方に以下を追加しましょう。
 	```c#
-	//Sanity check:  does document exist?
+	//確認：ドキュメントは存在するか
 	var doc = _db.GetExistingDocument (assetName);
 	if (doc == null) {
 		Debug.LogErrorFormat ("Document {0} does not exist", assetName);
 		yield break;
 	}
 	
-	//Is document the correct type?
+	//ドキュメントのタイプが正しいか
 	if (!doc.UserProperties.ContainsKey ("type") || !"ship_model".Equals (doc.UserProperties ["type"] as string)) {
 		Debug.LogErrorFormat ("Document {0} has incorrect type", assetName);
 		yield break;
 	}
 	
-	//Does it have an attachment?
+	//添付ファイルファイルが存在するか
 	var attachment = Enumerable.FirstOrDefault(doc.CurrentRevision.Attachments);
 	if (attachment == null) {
 		Debug.LogErrorFormat ("Document {0} is corrupt", assetName);
@@ -173,9 +173,9 @@ Unity 3Dの経験があるなら見たことある可能性が高いスペース
 	}
 	```
 
-14. As an extension of the checks in 13, we perform one more check. We check that the attachment is actually a valid object for use as an asset in Unity (anecdote:  This was failing for me when I accidentally uploaded the attachment in ASCII mode instead of binary mode because the data would be truncated).  If all of the checks in 13 and 14 pass, then we load the asset into the game.  Add the following code below the code you added in 13:
+14. 13番の確認の拡張をして、もう1つの確認を行います。有効なUnityのアセットであることを確認します。（逸話：間違えてASCIIモードを使ってサーバーにアップロードした時にデータが切り捨てられたためにこの確認が失敗していました）。13番と14番の全ての確認がとれましたらゲームにアセットをロードします。13番のソースのしてにこれを追加しましょう：
 	```c#
-	//Does the attachment asset bundle have an object of the correct type?
+	//添付ファイルに有効なデータが入っているか
 	var token = AssetBundle.CreateFromMemory (attachment.Content.ToArray ());
 	yield return token;
 	var assetBundle = token.assetBundle;
@@ -189,12 +189,12 @@ Unity 3Dの経験があるなら見たことある可能性が高いスペース
 	assetBundle.Unload (false);
 	```
 
-15. All of these things are going on constantly during gameplay, so we want to stop them once the game has finished.  The game is already set up to send a GameOver message to `GameController` when the game is over.  Let's have `GameController` also inform `AssetChangeListener` of this.  Add the following to the bottom of the `GameOver()` method in `GameController`:
+15. ゲームをプレイ中にいつも上のことが動いていますので、ゲームが終わったら止めた方がいいです。このゲームはすでにゲームが終わった時に`GameController`に`GameOver`メッセージを送るようになっています。`GameController`に`AssetChangeListener`に通知してもらいましょう。`GameController`の`GameOver()`の下の方に以下を追加しましょう：
 	```c#
 	GameObject.FindObjectOfType<AssetChangeListener> ().GameOver ();
 	```
 
-16. Now let's do some housekeeping back in the `AssetChangeListener`.  In particular, we need to stop the pull replication and unregister the change listener.  Add the following as the body of `GameOver()` in `AssetChangeListener`:
+16. 最後に`AssetChangeListener`の掃除をしましょう。特に、プル同期を止めることと変更非登録を行う必要があります。`AssetChangeListener`の`GameOver()`にこれを追加しましょう：
 	```c#
 	var doc = _db.GetExistingDocument ("player_data");
 	if (doc != null) {
@@ -207,23 +207,23 @@ Unity 3Dの経験があるなら見たことある可能性が高いスペース
 	}
 	```
 
-Great!  Everything is finished now.  I've included some scripts to help visualize the power of this process.  You can utilize them as follows:
+お疲れ様でした！  終わりました。結果を簡単に見れるために数個にスクリプトを作っておきました。以下のように使ってください：
 
-1. Start up Couchbase Sync Gateway<br>
+1. Couchbase Sync Gatewayを起動<br>
     ```
     ./sg.sh start #OS X
     sg.bat #Windows
     ```
 
-2. Upload a Unity Asset Bundle to the gateway<br>
+2. GatewayにUnityアセットバンドルをアップロード<br>
     ```
     cd scripts
     ./initialize_data.sh #OS X
     initialize_data.bat #Windows
     ```
-3. Start playing the game
-4. Dynamically change the ship model without interrupting gameplay.  The script is on a three second timer so that you have a chance to get back to the game before the change happens. 
+3. ゲームを始める
+4. ゲームが止まらずに宇宙船のモデルを切り替えます。スクリプトに３秒のタイムがありますので、３秒以内にUnityに戻りましょう。
     `python set_ship.py "alternateship"`
 
-5. (optional) Change back to the default ship<br>
-    `python set_ship.py "" #the empty string is required`
+5. (任意) 宇宙船をデフォルトに戻す<br>
+    `python set_ship.py "" #空白文字列は必須`
