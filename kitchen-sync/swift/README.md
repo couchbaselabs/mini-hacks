@@ -300,8 +300,8 @@ Build your first Couchbase Mobile app in just a few minutes! Take an existing iO
             return
         }
 
-        _pull = database.createPullReplication(kSyncUrl)
-        _push = database.createPushReplication(kSyncUrl)
+        _pull = database.createPullReplication(kSyncUrl!)
+        _push = database.createPushReplication(kSyncUrl!)
 
         _pull.continuous = true
         _push.continuous = true
