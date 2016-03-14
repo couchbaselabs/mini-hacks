@@ -25,6 +25,8 @@ import com.couchbase.lite.replicator.Replication;
 import com.couchbase.lite.util.Log;
 import com.couchbase.lite.Mapper;
 import com.couchbase.lite.Emitter;
+import com.couchbase.lite.android.AndroidContext;
+import com.couchbase.lite.CouchbaseLiteException;
 
 import java.net.MalformedURLException;
 import java.text.SimpleDateFormat;
@@ -36,6 +38,7 @@ import java.util.Map;
 import java.util.UUID;
 import java.util.ArrayList;
 import java.net.URL;
+import java.io.IOException;
 
 
 public class MainActivity extends Activity implements Replication.ChangeListener,
@@ -86,7 +89,7 @@ public class MainActivity extends Activity implements Replication.ChangeListener
 
     //Step 1 - created 'startCBLite' method
     {
-        
+
         //Step 2 - Get reference to database object
 
         //Step 3 - Create Index to allow for Fast Queries

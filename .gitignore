@@ -25,3 +25,5 @@ Library/
 # WebStorm #
 # =======  #
 .idea/
+
+.DS_Store*
