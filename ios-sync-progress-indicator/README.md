@@ -80,7 +80,7 @@ Create a new file called **sync.js**, require the `requestRx` and `Rx` modules. 
 
 Next, use the `requestRx` method to follow the chain of requests describe in the diagram.
 
-If you are wondering how to use Reactive Extensions, I stronly encourage you to follow [this tutorial](http://reactive-extensions.github.io/learnrx/). It will take a couple hours to complete but you will come out of it with a very clear understanding of Reactive Extensions:
+If you are wondering how to use Reactive Extensions, I strongly encourage you to follow [this tutorial](http://reactive-extensions.github.io/learnrx/). It will take a couple hours to complete but you will come out of it with a very clear understanding of Reactive Extensions:
 
 	http://reactive-extensions.github.io/learnrx/
 
