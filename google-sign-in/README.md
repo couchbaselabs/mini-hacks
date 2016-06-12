@@ -70,7 +70,7 @@ Create a new file called **server.js** and add the following:
 // 1
 var express = require('express')
   , bodyParser = require('body-parser')
-  , request = request('request').defaults({json: true});
+  , request = require('request').defaults({json: true});
 
 // 2
 var app = express();
