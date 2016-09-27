@@ -32,6 +32,11 @@ The tutorial will create the shared logic, as well as the iOS and Android specif
 
 From within Xamarin Studio:
 
+- (0B) iOS needs a manual registration for any storage engine, as opposed to purely JIT platforms which can detect on demand.  Add the following to the `Main.cs` file in the iOS project:
+```c#
+Couchbase.Lite.Storage.SystemSQLite.Plugin.Register();
+```
+
 - (1) We need to get a reference to our database object. To do that, add the below to the `TaskManager` constructor in the 'TaskManager.cs' file:
 ```c#
 _db = Manager.SharedInstance.GetDatabase("kitchen-sync");
