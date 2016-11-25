@@ -1,17 +1,14 @@
 ## Background Sync on Android with FCM
 
-When users open your app they expect the data to already be there regardless of whether the connection is up or down. Running replications when the app is in the foreground will ensure that the user receives the latest data after the user opened your app. However it's also possible to schedule one-shot replications while the app is in the background. Background tasks can be scheduled in response to receiving a (silent) push notification for example. This will ensure that your app is always in sync with the server side to provide a great UX regardless of the network connection status. Running a task in the background is largely specific on the OS; in this post, you'll learn how to use Google's push notifications service (FCM) with Couchbase Mobile.
+When users open your app they expect the data to already be there regardless of whether the connection is up or down. To implement this behaviour, it's possible to schedule one-shot replications while the app is in the background. Background tasks can be scheduled in response to receiving a (silent) push notification for example. This will ensure that your app is always in sync with the server side to provide a great UX regardless of the network connection status. Running a task in the background is largely specific on the OS though; in this post, you'll learn how to use Google's push notifications service called Firebase Cloud Messaging (FCM) with Couchbase Mobile.
 
-You can check out the accompanying project. You will learn how to send a remote notification from the command line. Upon receiving a remote message, the app starts one-shot push/pull replications as shown below.
+You can check out the accompanying project in the root of this folder. You will learn how to send a remote notification from the command line. Upon receiving a remote message, the app starts one-shot push/pull replications as shown below.
 
 ![](assets/background.gif)
 
 ### Configure FCM
 
-To use FCM you must register your app to receive notification. You'll need to create a new FCM project (even for the sample project in this post).
-
-1. Create a new Android project.
-2. Follow the steps in [this guide](https://firebase.google.com/docs/cloud-messaging/android/client).
+To use FCM you must register your app to receive notification. You'll need to create a new FCM project (even for the sample project in this post). The accompanying project already contains the dependencies but you must create your own FCM project. Follow the steps in [this guide](https://firebase.google.com/docs/android/setup) to create a new Firebase project and add **google-services.json** to the sample project.
 
 **Note:** The app identifier of the sample project is `com.couchbase.gcmexample`.
 
@@ -26,7 +23,7 @@ String token = FirebaseInstanceId.getInstance().getToken();
 Log.d(Application.TAG, "Refreshed token: " + token);
 ```
 
-> **Note:** FCM only works on devices and emulator that have Google Play Services installed.
+> **Note:** FCM only works on devices and emulators that have Google Play Services installed.
 
 In a real app, you may store the device token on the user profile document. Each user may be logged into more than one device at a time so we should store each one of them. The user document may have the following structure.
 
@@ -58,7 +55,7 @@ You can retrieve your `AUTH_KEY` from the [Cloud Messaging](https://console.fire
 The `DEVICE_TOKEN` can be found by running the code in the previous section and coying it from LogCat. The way the notification is handled will depend on the state of the application:
 
 - **Foreground:** In this case, the user is already in your application and expects the latest data as soon as available. The simplest way to do that is by running a continuous replication when the app is in the foreground. Hence, when the app is in the foreground, you can dismiss the notification since a continuous replication is already running.
-- **Background:** In this case, the app is in the background and so you should have stopped the continuous replication upon entering the background mode. Hence, we'll start a one-shot pull replication to fetch the new data from Sync Gateway.
+- **Background:** Here, the app is in the background and so you should have stopped the continuous replication upon entering the background mode. Therefor, we'll start a one-shot pull replication to fetch the new data from Sync Gateway.
 
 Let's break down those two different paths of execution into different sections. You can refer to the class diagram below throughout those sections.
 
@@ -66,7 +63,7 @@ Let's break down those two different paths of execution into different sections.
 
 ### Foreground
 
-When the app enters the foreground you can start a push and pull replication in continous mode. To determine whether the app is in the background we used a utility class called **Foreground** taken from this [open-source gist](https://gist.github.com/steveliles/11116937). This class is used in the `onCreate` method of **Application.java**.
+When the app enters the foreground you can start a push and pull replication in continuous mode. To determine whether the app is in the background we use a utility class called **Foreground.java** taken from this [open-source gist](https://gist.github.com/steveliles/11116937). This class is used in the `onCreate` method of **Application.java**.
 
 ```java
 @Override
@@ -93,13 +90,13 @@ public void onCreate() {
 }
 ```
 
-Then you can display the document count on the UI using a Live Query. The `setupViewAndQuery` method in **MainActivity.java** updates the document count label on the UI. The count increments as documents are added to Sync Gateway through the REST API.
+Next, you can display the document count on the UI using a Live Query. The `setupViewAndQuery` method in **MainActivity.java** updates the document count label on the UI. The count increments as documents are added to Sync Gateway through the REST API.
 
 ![](assets/foreground-medium.gif)
 
 ### Notification in the Background
 
-The code below handles the notification and starts an async task (`BackgroundSync`) only when the app is in the background.
+The code below handles the notification and starts an async task (**BackgroundSync.java**) only when the app is in the background.
 
 ```java
 public class ExampleMessagingService extends FirebaseMessagingService {
@@ -124,7 +121,19 @@ public class ExampleMessagingService extends FirebaseMessagingService {
 }
 ```
 
-The **BackgroundSync** class is a subclass of **AsyncTask** which starts a one-shot pull replication. The code to initialize the Couchbase Lite Manager, Database and Replications is located in **SyncManager.java**.
+The **BackgroundSync.java** class is a subclass of **AsyncTask** which starts a one-shot pull replication. The code to initialize the Couchbase Lite Manager, Database and Replications is located in **SyncManager.java**.
+
+```java
+public class BackgroundSync extends AsyncTask {
+
+    @Override
+    protected Object doInBackground(Object[] params) {
+        SyncManager.get().startPull(false);
+        return null;
+    }
+
+}
+```
 
 When the app comes back to the foreground the `onResume` method in **MainActivity.java** gets called which restarts the Live Query in order to update the UI. You can see on the image below that the count is updated accordingly. The network is disabled to show that it doesn't matter anymore if the device is disconnected when coming into the foreground because the documents were already pulled.
 
@@ -132,7 +141,7 @@ When the app comes back to the foreground the `onResume` method in **MainActivit
 
 ### App Server for Notifications
 
-To send the notification when a certain event happens you could either use the Changes Feed API or Webhooks. Refer to [the documentation](http://developer.couchbase.com/documentation/mobile/current/guides/sync-gateway/server-integration/index.html) to learn how to use each one.
+To send the notification when a certain event happens you could either use the Sync Gateway Changes Feed API or Webhooks. Refer to [the documentation](http://developer.couchbase.com/documentation/mobile/current/guides/sync-gateway/server-integration/index.html) to learn how to use each one.
 
 ### Wrap up
 
