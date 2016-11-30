@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">DBDownloadExample</string>
+    <string name="documents">documents</string>
+</resources>
