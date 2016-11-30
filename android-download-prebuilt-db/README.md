@@ -1,12 +1,12 @@
 ## Downloading Database
 
-This example shows you how to download a Couchbase Lite database and then display the total number of documents it contains on the screen.
+This example shows you how to download a Couchbase Lite database and then display the total number of documents it contains on the screen. You can run the accompanying project in the root of this folder. Once you open it in Android Studio and run the project you should see the following.
 
 <img src="assets/home.png" width="25%">
 
 ### File Download
 
-You will use `AsyncTask` class on Android to download the database file. The snippet below downloads the database to a file named **todo.cblite2.zip** in the files directory. Then the Couchbase Lite `ZipUtils.unzip` class method unzips the file in the same directory.
+You will use the `AsyncTask` class on Android to download the database file. The snippet below downloads the database to a file named **todo.cblite2.zip** in the files directory. Then the Couchbase Lite `ZipUtils.unzip` class method unzips the file in the same directory.
 
 ```java
 public class DatabaseDownloader extends AsyncTask {
